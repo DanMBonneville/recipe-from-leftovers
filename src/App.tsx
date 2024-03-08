@@ -1,12 +1,26 @@
-import React from 'react';
+import { Component } from 'react';
 import './App.css';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import asyncComponent from './hoc/asyncComponent';
 
-function App(): JSX.Element {
-  return (
-    <div className="App">
-      <header className="App-header">"Select foods"</header>
-    </div>
-  );
+const asyncSearchPage = asyncComponent(() => {
+  return import('./containers/SearchPage');
+});
+
+const asyncSearchResults = asyncComponent(() => {
+  return import('./containers/SearchResultsPage');
+});
+
+class App extends Component {
+  render() {
+    return (
+      <Routes>
+        <Route path="/searchPage" Component={asyncSearchPage} />
+        <Route path="/searchResults" Component={asyncSearchResults} />
+        <Route path="*" element={<Navigate to="/searchPage" replace />} />
+      </Routes>
+    );
+  }
 }
 
 export default App;
