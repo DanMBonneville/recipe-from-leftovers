@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './App.css';
+import './scss/index.scss';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import asyncComponent from './hoc/asyncComponent';
 
