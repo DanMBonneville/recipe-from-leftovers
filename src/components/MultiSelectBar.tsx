@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MultiSelect } from 'react-multi-select-component';
 
 // Todo: use an api to load options?
@@ -12,9 +12,9 @@ const MultiSelectBar = () => {
   const [selected, setSelected] = useState([]);
 
   return (
-    <div>
-      <pre>{JSON.stringify(selected)}</pre>
+    <div className="multi-select-wrapper">
       <MultiSelect
+        className="multi-ingredient-select"
         options={options}
         value={selected}
         onChange={setSelected}
