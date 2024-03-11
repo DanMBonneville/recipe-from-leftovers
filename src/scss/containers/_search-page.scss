@@ -3,7 +3,22 @@
   background-color: $fridge-blue;
 }
 
-.ingredient-select-wrapper {
+.search-page-inner {
   width: 75%;
   margin: auto;
+}
+
+.select-submit-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.multi-ingredient-select {
+  width: 100%;
+}
+
+.recipe-search-button {
+  max-width: 25rem;
+  margin-right: 0px;
+  margin-left: auto;
 }

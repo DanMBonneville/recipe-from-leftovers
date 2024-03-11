@@ -13,14 +13,14 @@ export const searchForReceipesSuccess = (recipes: any) => {
 };
 
 export const searchRecepiesByIngredients = (
-  ingredients: any,
-  token: string
+  ingredients: any
+  // token: string
 ) => {
   // TODO dynamically contruct the URL with the orderData
   console.log(
     'These are the ingredients... do we need the token? ',
-    ingredients,
-    token
+    ingredients
+    // token
   );
   return (dispatch: (arg0: any) => void) => {
     // TODO: Add a loading bar
