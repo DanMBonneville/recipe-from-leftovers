@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
+import { getRecipes } from '../actions/actions';
 
 export interface RecipeState {
   recipes: {};
@@ -10,16 +10,6 @@ const initialState = {
   recipes: {},
   isFecthingRecipes: false,
 } satisfies RecipeState as RecipeState;
-
-//differentfile
-export const getRecipes = createAsyncThunk('getRecipes', async () => {
-  const url =
-    'https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,+flour,+sugar';
-  axios.get(url).then((recipes) => {
-    console.log('Recipes: ', recipes);
-    console.log('Got recipes, if you see this, commit and push');
-  });
-});
 
 const recipeSlice = createSlice({
   name: 'recipes',

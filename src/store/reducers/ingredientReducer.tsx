@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface IngredientState {
-  ingredients: Array<String>;
+  ingredients: String[];
 }
 
 const initialState = {

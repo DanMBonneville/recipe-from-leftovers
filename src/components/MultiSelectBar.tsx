@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MultiSelect } from 'react-multi-select-component';
 import { useDispatch } from 'react-redux';
 import { setIngredients } from '../store/reducers/ingredientReducer';
@@ -20,6 +20,10 @@ const MultiSelectBar = () => {
   const initialSelection: Option[] = [];
   const [selected, setSelected] = useState(initialSelection);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setSelected([]);
+  }, []);
 
   const handleSelectionChange = (ingredientOptions: Option[]) => {
     const selectionArray = ingredientOptions.map(

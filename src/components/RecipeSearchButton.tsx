@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { AppState, store } from '../store';
-import { getRecipes } from '../store/reducers/recipeReducer';
+import { getRecipes } from '../store/actions/actions';
 
 // TODO: clean this up
 // css info: https://www.npmjs.com/package/@material/button#contained-button
@@ -11,11 +11,12 @@ import { getRecipes } from '../store/reducers/recipeReducer';
 // };
 
 const RecipeSearchButton = () => {
-  const ingredients = useSelector((state: AppState) => state.ingredients);
+  const ingredients = useSelector(
+    (state: AppState) => state.ingredientState.ingredients
+  );
 
   const handleSearchForRecipes = () => {
-    console.log('The ingredients');
-    store.dispatch(getRecipes());
+    store.dispatch(getRecipes(ingredients));
   };
 
   return (
