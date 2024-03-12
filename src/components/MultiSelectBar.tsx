@@ -1,26 +1,42 @@
 import { useState } from 'react';
 import { MultiSelect } from 'react-multi-select-component';
+import { useDispatch } from 'react-redux';
+import { setIngredients } from '../store/reducers/ingredientReducer';
 
-// Todo: use an api to load options?
-const options = [
+interface Option {
+  label: string;
+  value: string;
+  disabled: boolean;
+}
+
+// TODO: get options in a different way
+const ingredientsToSelect = [
   { label: 'Grapes 🍇', value: 'grapes' },
   { label: 'Mango 🥭', value: 'mango' },
-  { label: 'Strawberry 🍓', value: 'strawberry', disabled: true },
+  { label: 'Strawberry 🍓', value: 'strawberry' },
 ];
 
 const MultiSelectBar = () => {
-  const [selected, setSelected] = useState([]);
+  const initialSelection: Option[] = [];
+  const [selected, setSelected] = useState(initialSelection);
+  const dispatch = useDispatch();
+
+  const handleSelectionChange = (ingredientOptions: Option[]) => {
+    const selectionArray = ingredientOptions.map(
+      (ingredient) => ingredient.value
+    );
+    setSelected(ingredientOptions);
+    dispatch(setIngredients(selectionArray));
+  };
 
   return (
-    <div className="multi-select-wrapper">
-      <MultiSelect
-        className="multi-ingredient-select"
-        options={options}
-        value={selected}
-        onChange={setSelected}
-        labelledBy="Select"
-      />
-    </div>
+    <MultiSelect
+      className="multi-ingredient-select"
+      options={ingredientsToSelect}
+      value={selected}
+      onChange={handleSelectionChange}
+      labelledBy="Select"
+    />
   );
 };
 
