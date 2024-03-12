@@ -1,8 +1,6 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { AppState } from '../store';
-import * as actions from '../store/actions';
+import { AppState, store } from '../store';
+import { getRecipes } from '../store/reducers/recipeReducer';
 
 // TODO: clean this up
 // css info: https://www.npmjs.com/package/@material/button#contained-button
@@ -12,17 +10,17 @@ import * as actions from '../store/actions';
 //   onSearch: (ingredients: Array<string>) => any;
 // };
 
-const handleClick = (ingredients: Array<String>, dispatch: any) => {
-  console.log('Is it clicking?');
-  dispatch(actions.searchRecepiesByIngredients(ingredients));
-};
-
 const RecipeSearchButton = () => {
   const ingredients = useSelector((state: AppState) => state.ingredients);
-  const dispatch = useDispatch();
+
+  const handleSearchForRecipes = () => {
+    console.log('The ingredients');
+    store.dispatch(getRecipes());
+  };
+
   return (
     <button
-      onClick={() => handleClick(ingredients, dispatch)}
+      onClick={handleSearchForRecipes}
       className="recipe-search-button mdc-button mdc-button--raised"
     >
       <span className="mdc-button__ripple"></span>

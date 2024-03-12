@@ -3,15 +3,14 @@ import { MultiSelect } from 'react-multi-select-component';
 import { useDispatch } from 'react-redux';
 import { setIngredients } from '../store/reducers/ingredientReducer';
 
-// TODO: get options in a different way
-
 interface Option {
   label: string;
   value: string;
   disabled: boolean;
 }
 
-const options = [
+// TODO: get options in a different way
+const ingredientsToSelect = [
   { label: 'Grapes 🍇', value: 'grapes' },
   { label: 'Mango 🥭', value: 'mango' },
   { label: 'Strawberry 🍓', value: 'strawberry' },
@@ -23,18 +22,17 @@ const MultiSelectBar = () => {
   const dispatch = useDispatch();
 
   const handleSelectionChange = (ingredientOptions: Option[]) => {
-    setSelected(ingredientOptions);
-    let selectionArray = ingredientOptions.map(
+    const selectionArray = ingredientOptions.map(
       (ingredient) => ingredient.value
     );
-    console.log('the selected array ', selectionArray);
+    setSelected(ingredientOptions);
     dispatch(setIngredients(selectionArray));
   };
 
   return (
     <MultiSelect
       className="multi-ingredient-select"
-      options={options}
+      options={ingredientsToSelect}
       value={selected}
       onChange={handleSelectionChange}
       labelledBy="Select"

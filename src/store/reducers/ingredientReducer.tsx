@@ -13,7 +13,6 @@ const ingredientSlice = createSlice({
   initialState,
   reducers: {
     setIngredients: (state, action) => {
-      console.log('In the reducer biiiitch');
       state.ingredients = action.payload;
     },
   },
