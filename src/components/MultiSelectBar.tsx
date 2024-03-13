@@ -17,19 +17,15 @@ const ingredientsToSelect = [
 ];
 
 const MultiSelectBar = () => {
-  const initialSelection: Option[] = [];
-  const [selected, setSelected] = useState(initialSelection);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setSelected([]);
-  }, []);
+  const [selected, setSelected] = useState<Option[]>([]);
 
   const handleSelectionChange = (ingredientOptions: Option[]) => {
+    setSelected(ingredientOptions);
     const selectionArray = ingredientOptions.map(
       (ingredient) => ingredient.value
     );
-    setSelected(ingredientOptions);
     dispatch(setIngredients(selectionArray));
   };
 
