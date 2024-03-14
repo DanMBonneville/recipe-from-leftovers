@@ -1,41 +1,37 @@
-import { useEffect, useState } from 'react';
-import { MultiSelect } from 'react-multi-select-component';
-import { useDispatch } from 'react-redux';
-import { setIngredients } from '../store/reducers/ingredientReducer';
-
-interface Option {
-  label: string;
-  value: string;
-  disabled: boolean;
-}
+import Select, { MultiValue } from 'react-select';
 
 // TODO: get options in a different way
-const ingredientsToSelect = [
-  { label: 'Grapes 🍇', value: 'grapes' },
-  { label: 'Mango 🥭', value: 'mango' },
-  { label: 'Strawberry 🍓', value: 'strawberry' },
+const ingredientsToSelect: ingredientType[] = [
+  { label: 'Grapes', value: 'grapes' },
+  { label: 'Mango', value: 'mango' },
+  { label: 'Strawberry', value: 'strawberry' },
 ];
 
-const MultiSelectBar = () => {
-  const dispatch = useDispatch();
+export interface MultiSelectBarProps {
+  selectedIngredients: MultiValue<ingredientType>;
+  handleSelectionChange: (newIngredients: MultiValue<ingredientType>) => void;
+}
 
-  const [selected, setSelected] = useState<Option[]>([]);
+export type ingredientType = {
+  label: string;
+  value: string;
+};
 
-  const handleSelectionChange = (ingredientOptions: Option[]) => {
-    setSelected(ingredientOptions);
-    const selectionArray = ingredientOptions.map(
-      (ingredient) => ingredient.value
-    );
-    dispatch(setIngredients(selectionArray));
-  };
+export interface MultiSelectBarProps {
+  selectedIngredients: MultiValue<ingredientType>;
+  handleSelectionChange: (newIngredients: MultiValue<ingredientType>) => void;
+}
+
+const MultiSelectBar = (props: MultiSelectBarProps) => {
+  const { selectedIngredients, handleSelectionChange } = props;
 
   return (
-    <MultiSelect
+    <Select
       className="multi-ingredient-select"
       options={ingredientsToSelect}
-      value={selected}
+      isMulti
+      value={selectedIngredients}
       onChange={handleSelectionChange}
-      labelledBy="Select"
     />
   );
 };
