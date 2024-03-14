@@ -1,17 +1,12 @@
-import { useSelector } from 'react-redux';
-import { AppState, store } from '../store';
-import { getRecipes } from '../store/actions/actions';
+interface RecipeSearchButtonProps {
+  handleSearchForRecipes: Function;
+}
 
-const RecipeSearchButton = () => {
-  const ingredients = useSelector((state: AppState) => state.ingredients);
-
-  const handleSearchForRecipes = () => {
-    store.dispatch(getRecipes(ingredients));
-  };
-
+const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
+  const { handleSearchForRecipes } = props;
   return (
     <button
-      onClick={handleSearchForRecipes}
+      onClick={handleSearchForRecipes()}
       className="recipe-search-button mdc-button mdc-button--raised"
     >
       <span className="mdc-button__ripple"></span>

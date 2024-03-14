@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface IngredientState {
-  ingredients: String[];
+  ingredients: String;
 }
 
 const initialState = {
-  ingredients: [],
+  ingredients: '',
 } satisfies IngredientState as IngredientState;
 
 const ingredientSlice = createSlice({
