@@ -7,6 +7,7 @@ import { AppState, store } from '../store';
 import { getRecipes } from '../store/actions/actions';
 import { MultiValue } from 'react-select';
 import { useSelector } from 'react-redux';
+import { createIngredientsString } from '../shared/util';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,7 @@ const SearchPage = () => {
     newIngredients: MultiValue<ingredientType>
   ) => {
     setSelectedIngredients(newIngredients);
-    const selectionValues = newIngredients
-      .map((ingredient: ingredientType) => ingredient.value)
-      .join();
-    dispatch(setIngredients(selectionValues));
+    dispatch(setIngredients(createIngredientsString(newIngredients)));
   };
 
   const ingredientsString = useSelector((state: AppState) => state.ingredients);
