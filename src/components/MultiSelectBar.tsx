@@ -27,6 +27,7 @@ const MultiSelectBar = (props: MultiSelectBarProps) => {
 
   return (
     <Select
+      aria-label="Select Ingredients"
       className="multi-ingredient-select"
       options={ingredientsToSelect}
       isMulti

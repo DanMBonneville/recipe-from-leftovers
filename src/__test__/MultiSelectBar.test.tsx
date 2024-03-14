@@ -1,16 +1,19 @@
-import { render, fireEvent, screen, getByTestId } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import MultiSelectBar from '../components/MultiSelectBar';
 
 describe('<MultiSelectBar />', () => {
-  test('Initial State is empty', () => {
+  it('Select Bar is initially empty', () => {
     const handleSelectionChange = jest.fn();
     render(
       <MultiSelectBar
-        selected={[]}
+        selectedIngredients={[]}
         handleSelectionChange={handleSelectionChange}
       />
     );
-    expect(screen.getByLabelText('Select')).toHaveValue([]);
+    expect(screen.getByLabelText('Select Ingredients')).toHaveAttribute(
+      'value',
+      ''
+    );
   });
 
   //   test('somethin else', () => {
