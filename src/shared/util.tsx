@@ -1,5 +1,5 @@
-import { ingredientType } from '../components/MultiSelectBar';
 import { MultiValue } from 'react-select';
+import { ingredientType } from '../components/MultiSelectBar';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
   return {
