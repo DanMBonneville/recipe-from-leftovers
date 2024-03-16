@@ -11,9 +11,12 @@ import { createIngredientsString } from '../shared/util';
 import ErrorMessage from '../components/ErrorMessage';
 import { addIngredientsMessage } from '../constants/errorConstants';
 import { setShowAddIngredientsMessage } from '../store/reducers/errorReducer';
+import { useNavigate } from 'react-router-dom';
 
 const SearchPage = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const ingredientsString = useSelector(
     (state: AppState) => state.ingredient.ingredients
   );
@@ -38,6 +41,7 @@ const SearchPage = () => {
       dispatch(setShowAddIngredientsMessage(true));
     } else {
       store.dispatch(getRecipes(ingredientsString));
+      navigate('/searchResults');
     }
   };
 
