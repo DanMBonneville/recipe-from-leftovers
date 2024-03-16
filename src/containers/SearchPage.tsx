@@ -1,17 +1,16 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { MultiValue } from 'react-select';
+import ErrorMessage from '../components/ErrorMessage';
 import MultiSelectBar, { ingredientType } from '../components/MultiSelectBar';
 import RecipeSearchButton from '../components/RecipeSearchButton';
-import { setIngredients } from '../store/reducers/ingredientReducer';
-import { useDispatch } from 'react-redux';
+import { addIngredientsMessage } from '../constants/errorConstants';
+import { createIngredientsString } from '../shared/util';
 import { AppState, store } from '../store';
 import { getRecipes } from '../store/actions/actions';
-import { MultiValue } from 'react-select';
-import { useSelector } from 'react-redux';
-import { createIngredientsString } from '../shared/util';
-import ErrorMessage from '../components/ErrorMessage';
-import { addIngredientsMessage } from '../constants/errorConstants';
 import { setShowAddIngredientsMessage } from '../store/reducers/errorReducer';
-import { useNavigate } from 'react-router-dom';
+import { setIngredients } from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();

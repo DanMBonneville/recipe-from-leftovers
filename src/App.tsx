@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import './scss/index.scss';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import asyncComponent from './hoc/asyncComponent';
+import './scss/index.scss';
 
 const asyncSearchPage = asyncComponent(() => {
   return import('./containers/SearchPage');
