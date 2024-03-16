@@ -7,7 +7,7 @@ const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
   return (
     <button
       data-testid="recipe-search-button"
-      onClick={handleSearchForRecipes()}
+      onClick={() => handleSearchForRecipes()}
       className="recipe-search-button mdc-button mdc-button--raised"
     >
       <span className="mdc-button__ripple"></span>
