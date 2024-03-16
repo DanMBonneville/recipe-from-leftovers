@@ -69,6 +69,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@types/testing-library__cypress": "^5.0.13",
     "cypress": "^13.7.0",
+    "cypress-wait-for-stable-dom": "^0.1.0",
     "sass": "^1.71.1",
     "ts-node": "^10.9.2"
   },

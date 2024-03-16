@@ -8,9 +8,18 @@ import { getRecipes } from '../store/actions/actions';
 import { MultiValue } from 'react-select';
 import { useSelector } from 'react-redux';
 import { createIngredientsString } from '../shared/util';
+import ErrorMessage from '../components/ErrorMessage';
+import { addIngredientsMessage } from '../constants/errorConstants';
+import { setShowAddIngredientsMessage } from '../store/reducers/errorReducer';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
+  const ingredientsString = useSelector(
+    (state: AppState) => state.ingredient.ingredients
+  );
+  const showAddIngredientMessage = useSelector(
+    (state: AppState) => state.error.showAddIngredientMessage
+  );
 
   const [selectedIngredients, setSelectedIngredients] = useState<
     MultiValue<ingredientType>
@@ -20,13 +29,16 @@ const SearchPage = () => {
     newIngredients: MultiValue<ingredientType>
   ) => {
     setSelectedIngredients(newIngredients);
+    dispatch(setShowAddIngredientsMessage(false));
     dispatch(setIngredients(createIngredientsString(newIngredients)));
   };
 
-  const ingredientsString = useSelector((state: AppState) => state.ingredients);
-
   const handleSearchForRecipes = () => {
-    store.dispatch(getRecipes(ingredientsString));
+    if ('' === ingredientsString) {
+      dispatch(setShowAddIngredientsMessage(true));
+    } else {
+      store.dispatch(getRecipes(ingredientsString));
+    }
   };
 
   return (
@@ -40,6 +52,11 @@ const SearchPage = () => {
           />
           <RecipeSearchButton handleSearchForRecipes={handleSearchForRecipes} />
         </div>
+        {showAddIngredientMessage ? (
+          <ErrorMessage message={addIngredientsMessage} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
