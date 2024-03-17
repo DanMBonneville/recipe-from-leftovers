@@ -1,5 +1,5 @@
 import { MultiValue } from 'react-select';
-import { ingredientType } from '../components/MultiSelectBar';
+import { OptionType } from '../components/MultiSelectBar';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
   return {
@@ -9,9 +9,9 @@ export const updateObject = (oldObject: object, updatedProperties: object) => {
 };
 
 export const createIngredientsString = (
-  ingedients: MultiValue<ingredientType>
+  ingredients: MultiValue<OptionType>
 ) => {
-  return ingedients
-    .map((ingredient: ingredientType) => ingredient.value)
-    .join();
+  const ingredientArr: string[] = [];
+  ingredients.forEach((ingredient) => ingredientArr.push(ingredient.value));
+  return ingredientArr.join();
 };

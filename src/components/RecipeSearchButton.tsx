@@ -1,12 +1,14 @@
 interface RecipeSearchButtonProps {
+  isEnabled: boolean;
   handleSearchForRecipes: Function;
 }
 
 const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
-  const { handleSearchForRecipes } = props;
+  const { isEnabled, handleSearchForRecipes } = props;
   return (
     <button
       data-testid="recipe-search-button"
+      disabled={!isEnabled}
       onClick={() => handleSearchForRecipes()}
       className="recipe-search-button mdc-button mdc-button--raised"
     >

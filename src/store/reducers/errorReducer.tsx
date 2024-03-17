@@ -13,7 +13,6 @@ const errorSlice = createSlice({
   initialState,
   reducers: {
     setShowAddIngredientsMessage: (state, action) => {
-      console.log('This is the action.payload: ', action.payload);
       state.showAddIngredientMessage = action.payload;
     },
   },
