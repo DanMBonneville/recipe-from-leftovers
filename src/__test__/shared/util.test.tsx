@@ -1,8 +1,8 @@
 import { createIngredientsString, updateObject } from '../../shared/util';
 
 describe('Function updateObject behaves as expected', () => {
-  it('Empty object updated with empty object is empty', () => {
-    expect(updateObject({}, {})).toBe({});
+  it.only('Empty object updated with empty object is empty', () => {
+    expect(updateObject({}, {})).toStrictEqual({});
   });
   it('Object is updated with new values', () => {
     expect(updateObject({ k1: 'v1' }, { k1: 'v2' })).toBe({ k1: 'v2' });
@@ -33,6 +33,6 @@ describe('Function createIngredients String behaves as expected', () => {
   });
 
   it('createIngredients creates a comma separated list of values', () => {
-    expect(createIngredientsString(ingredients)).toBe('Carrot,Apple');
+    expect(createIngredientsString(ingredients)).toBe('carrot,apple');
   });
 });

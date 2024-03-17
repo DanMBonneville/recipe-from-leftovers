@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MultiValue } from 'react-select';
 import MultiSelectBar, { OptionType } from '../components/MultiSelectBar';
 import RecipeSearchButton from '../components/RecipeSearchButton';
 import { convertMultiValueIngredientsToOptionTypeIngredients } from '../shared/convert';
 import { createIngredientsString } from '../shared/util';
-import { store } from '../store';
+import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
 import { setSelectedIngredients } from '../store/reducers/ingredientReducer';
 
@@ -14,9 +14,16 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [recipeButtonEnabled, setRecipeButtonEnabled] = useState(false);
+  const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
   const [multiValueSelectedIngredients, setMultiValueSelectedIngredients] =
     useState<MultiValue<OptionType>>([]);
+
+  let isFecthingIngredientOptions = useSelector(
+    (state: AppState) => state.ingredient.isFecthingIngredientOptions
+  );
+  let ingredientOptions = useSelector(
+    (state: AppState) => state.ingredient.ingredientOptions
+  );
 
   useEffect(() => {
     store.dispatch(getIngredientOptions());
@@ -24,9 +31,9 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (0 === multiValueSelectedIngredients.length) {
-      setRecipeButtonEnabled(false);
+      setRecipeButtonDisabled(true);
     } else {
-      setRecipeButtonEnabled(true);
+      setRecipeButtonDisabled(false);
     }
   }, [multiValueSelectedIngredients]);
 
@@ -52,11 +59,13 @@ const SearchPage = () => {
         <h1>Select Leftover Ingredients</h1>
         <div className="select-submit-wrapper">
           <MultiSelectBar
+            isDisabled={isFecthingIngredientOptions}
+            options={ingredientOptions}
             selectedIngredients={multiValueSelectedIngredients}
             handleSelectionChange={handleSelectionChange}
           />
           <RecipeSearchButton
-            isEnabled={recipeButtonEnabled}
+            isDisabled={recipeButtonDisabled}
             handleSearchForRecipes={handleSearchForRecipes}
           />
         </div>

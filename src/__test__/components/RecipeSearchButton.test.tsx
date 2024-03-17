@@ -6,7 +6,7 @@ describe('<RecipeSearchButton />', () => {
     const handleSearchForRecipes = jest.fn();
     render(
       <RecipeSearchButton
-        isEnabled={true}
+        isDisabled={false}
         handleSearchForRecipes={handleSearchForRecipes}
       />
     );
