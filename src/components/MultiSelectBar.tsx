@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import Select, { MultiValue } from 'react-select';
-import { AppState } from '../store';
 
 export type OptionType = {
   label: string;
@@ -8,27 +6,24 @@ export type OptionType = {
 };
 
 export interface MultiSelectBarProps {
+  isDisabled: boolean;
+  options: MultiValue<OptionType>;
   selectedIngredients: MultiValue<OptionType>;
   handleSelectionChange: (newIngredients: MultiValue<OptionType>) => void;
 }
 
 const MultiSelectBar = (props: MultiSelectBarProps) => {
-  const { selectedIngredients, handleSelectionChange } = props;
-  let isFecthingIngredientOptions = useSelector(
-    (state: AppState) => state.ingredient.isFecthingIngredientOptions
-  );
-  let ingredientOptions = useSelector(
-    (state: AppState) => state.ingredient.ingredientOptions
-  );
+  const { isDisabled, options, selectedIngredients, handleSelectionChange } =
+    props;
 
   return (
     <Select
       aria-label="Select Ingredients"
       className="multi-ingredient-select"
       isMulti
-      isDisabled={isFecthingIngredientOptions}
+      isDisabled={isDisabled}
       value={selectedIngredients}
-      options={ingredientOptions}
+      options={options}
       onChange={handleSelectionChange}
     />
   );
