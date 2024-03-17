@@ -1,47 +1,49 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MultiValue } from 'react-select';
-import ErrorMessage from '../components/ErrorMessage';
-import MultiSelectBar, { ingredientType } from '../components/MultiSelectBar';
+import MultiSelectBar, { OptionType } from '../components/MultiSelectBar';
 import RecipeSearchButton from '../components/RecipeSearchButton';
-import { addIngredientsMessage } from '../constants/errorConstants';
+import { convertMultiValueIngredientsToOptionTypeIngredients } from '../shared/convert';
 import { createIngredientsString } from '../shared/util';
-import { AppState, store } from '../store';
-import { getRecipes } from '../store/actions/actions';
-import { setShowAddIngredientsMessage } from '../store/reducers/errorReducer';
-import { setIngredients } from '../store/reducers/ingredientReducer';
+import { store } from '../store';
+import { getIngredientOptions, getRecipes } from '../store/actions/actions';
+import { setSelectedIngredients } from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const ingredientsString = useSelector(
-    (state: AppState) => state.ingredient.ingredients
-  );
-  const showAddIngredientMessage = useSelector(
-    (state: AppState) => state.error.showAddIngredientMessage
-  );
+  const [recipeButtonEnabled, setRecipeButtonEnabled] = useState(false);
+  const [multiValueSelectedIngredients, setMultiValueSelectedIngredients] =
+    useState<MultiValue<OptionType>>([]);
 
-  const [selectedIngredients, setSelectedIngredients] = useState<
-    MultiValue<ingredientType>
-  >([]);
+  useEffect(() => {
+    store.dispatch(getIngredientOptions());
+  }, []);
 
-  const handleSelectionChange = (
-    newIngredients: MultiValue<ingredientType>
-  ) => {
-    setSelectedIngredients(newIngredients);
-    dispatch(setShowAddIngredientsMessage(false));
-    dispatch(setIngredients(createIngredientsString(newIngredients)));
+  useEffect(() => {
+    if (0 === multiValueSelectedIngredients.length) {
+      setRecipeButtonEnabled(false);
+    } else {
+      setRecipeButtonEnabled(true);
+    }
+  }, [multiValueSelectedIngredients]);
+
+  const handleSelectionChange = (newIngredients: MultiValue<OptionType>) => {
+    setMultiValueSelectedIngredients(newIngredients);
+    dispatch(
+      setSelectedIngredients(
+        convertMultiValueIngredientsToOptionTypeIngredients(newIngredients)
+      )
+    );
   };
 
   const handleSearchForRecipes = () => {
-    if ('' === ingredientsString) {
-      dispatch(setShowAddIngredientsMessage(true));
-    } else {
-      store.dispatch(getRecipes(ingredientsString));
-      navigate('/searchResults');
-    }
+    store.dispatch(
+      getRecipes(createIngredientsString(multiValueSelectedIngredients))
+    );
+    navigate('/searchResults');
   };
 
   return (
@@ -50,16 +52,14 @@ const SearchPage = () => {
         <h1>Select Leftover Ingredients</h1>
         <div className="select-submit-wrapper">
           <MultiSelectBar
-            selectedIngredients={selectedIngredients}
+            selectedIngredients={multiValueSelectedIngredients}
             handleSelectionChange={handleSelectionChange}
           />
-          <RecipeSearchButton handleSearchForRecipes={handleSearchForRecipes} />
+          <RecipeSearchButton
+            isEnabled={recipeButtonEnabled}
+            handleSearchForRecipes={handleSearchForRecipes}
+          />
         </div>
-        {showAddIngredientMessage ? (
-          <ErrorMessage message={addIngredientsMessage} />
-        ) : (
-          <></>
-        )}
       </div>
     </div>
   );

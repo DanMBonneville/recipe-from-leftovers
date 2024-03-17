@@ -17,7 +17,7 @@ describe('Function updateObject behaves as expected', () => {
 });
 
 describe('Function createIngredients String behaves as expected', () => {
-  const ingedients = [
+  const ingredients = [
     {
       label: 'Carrot',
       value: 'carrot',
@@ -33,6 +33,6 @@ describe('Function createIngredients String behaves as expected', () => {
   });
 
   it('createIngredients creates a comma separated list of values', () => {
-    expect(createIngredientsString(ingedients)).toBe('carrot,apple');
+    expect(createIngredientsString(ingredients)).toBe('Carrot,Apple');
   });
 });

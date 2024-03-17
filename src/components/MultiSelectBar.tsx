@@ -1,37 +1,34 @@
+import { useSelector } from 'react-redux';
 import Select, { MultiValue } from 'react-select';
+import { AppState } from '../store';
 
-// TODO: get options in a different way
-const ingredientsToSelect: ingredientType[] = [
-  { label: 'Grapes', value: 'grapes' },
-  { label: 'Mango', value: 'mango' },
-  { label: 'Strawberry', value: 'strawberry' },
-];
-
-export interface MultiSelectBarProps {
-  selectedIngredients: MultiValue<ingredientType>;
-  handleSelectionChange: (newIngredients: MultiValue<ingredientType>) => void;
-}
-
-export type ingredientType = {
+export type OptionType = {
   label: string;
   value: string;
 };
 
 export interface MultiSelectBarProps {
-  selectedIngredients: MultiValue<ingredientType>;
-  handleSelectionChange: (newIngredients: MultiValue<ingredientType>) => void;
+  selectedIngredients: MultiValue<OptionType>;
+  handleSelectionChange: (newIngredients: MultiValue<OptionType>) => void;
 }
 
 const MultiSelectBar = (props: MultiSelectBarProps) => {
   const { selectedIngredients, handleSelectionChange } = props;
+  let isFecthingIngredientOptions = useSelector(
+    (state: AppState) => state.ingredient.isFecthingIngredientOptions
+  );
+  let ingredientOptions = useSelector(
+    (state: AppState) => state.ingredient.ingredientOptions
+  );
 
   return (
     <Select
       aria-label="Select Ingredients"
       className="multi-ingredient-select"
-      options={ingredientsToSelect}
       isMulti
+      isDisabled={isFecthingIngredientOptions}
       value={selectedIngredients}
+      options={ingredientOptions}
       onChange={handleSelectionChange}
     />
   );
