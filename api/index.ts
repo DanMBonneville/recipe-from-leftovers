@@ -6,15 +6,22 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors());
-export const createUrl = (ingredients: string) => {
+const createUrl = (ingredients: string) => {
   const apiKey = process.env.SPOON_API_KEY;
-  return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&apiKey=${apiKey}&ranking=2`;
+  ingredients.toLowerCase();
+  return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=2&apiKey=${apiKey}`;
 };
 app.get('/getRecipesFromIngredients', (req: any, res: any) => {
   let url = createUrl(req.query.ingredients);
-  axios.get(url).then((recipes: any) => {
-    res.json(recipes.data);
-  });
+  axios
+    .get(url)
+    .then((recipes: any) => {
+      console.log('The response: ', recipes);
+      res.json(recipes.data);
+    })
+    .catch((error: any) => {
+      res.json(error);
+    });
 });
 
 app.listen(8000, () => console.log(`Server is running on port ${PORT}`));

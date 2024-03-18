@@ -1,14 +1,18 @@
 import { createIngredientsString, updateObject } from '../../shared/util';
 
 describe('Function updateObject behaves as expected', () => {
-  it.only('Empty object updated with empty object is empty', () => {
+  it('Empty object updated with empty object is empty', () => {
     expect(updateObject({}, {})).toStrictEqual({});
   });
   it('Object is updated with new values', () => {
-    expect(updateObject({ k1: 'v1' }, { k1: 'v2' })).toBe({ k1: 'v2' });
+    expect(updateObject({ k1: 'v1' }, { k1: 'v2' })).toStrictEqual({
+      k1: 'v2',
+    });
   });
   it('Object is updated with existing and new values', () => {
-    expect(updateObject({ k1: 'v1', k2: 'v2' }, { k1: 'v3', k3: 'v1' })).toBe({
+    expect(
+      updateObject({ k1: 'v1', k2: 'v2' }, { k1: 'v3', k3: 'v1' })
+    ).toStrictEqual({
       k1: 'v3',
       k2: 'v2',
       k3: 'v1',

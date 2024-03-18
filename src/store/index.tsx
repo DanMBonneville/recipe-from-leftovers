@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import errorSlice from './reducers/errorReducer';
 import ingredientSlice from './reducers/ingredientReducer';
 import recipeSlice from './reducers/recipeReducer';
-import errorSlice from './reducers/errorReducer';
 
 const rootReducer = combineReducers({
   ingredient: ingredientSlice,
@@ -14,5 +14,3 @@ export const store = configureStore({
 });
 
 export type AppState = ReturnType<typeof store.getState>;
-
-// export type AppDispatch = typeof store.dispatch;

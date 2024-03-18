@@ -5,7 +5,8 @@ import { ingredientOptionsRef } from '../../firebase';
 
 const createGetRecipesURL = (ingredients: String) => {
   let url = 'http://localhost:8000/getRecipesFromIngredients';
-  return (url += `?ingredients=${ingredients}`);
+  let ingredientString = ingredients.toLowerCase();
+  return (url += `?ingredients=${ingredientString}`);
 };
 
 export const getRecipes = createAsyncThunk(
