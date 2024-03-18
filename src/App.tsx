@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './hoc/Layout';
 import asyncComponent from './hoc/asyncComponent';
 import './scss/index.scss';
 
@@ -18,12 +19,14 @@ const asyncRecipeDetails = asyncComponent(() => {
 class App extends Component {
   render() {
     return (
-      <Routes>
-        <Route path="/searchPage" Component={asyncSearchPage} />
-        <Route path="/searchResults" Component={asyncSearchResults} />
-        <Route path="/recipe/details" Component={asyncRecipeDetails} />
-        <Route path="*" element={<Navigate to="/searchPage" replace />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/searchPage" Component={asyncSearchPage} />
+          <Route path="/searchResults" Component={asyncSearchResults} />
+          <Route path="/recipe/details" Component={asyncRecipeDetails} />
+          <Route path="*" element={<Navigate to="/searchPage" replace />} />
+        </Routes>
+      </Layout>
     );
   }
 }

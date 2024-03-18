@@ -3,7 +3,39 @@
 @import 'components/multi-ingredient-select';
 @import 'containers/search-page';
 
+html {
+  background-color: #404040;
+}
+
 html,
 body {
   height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.layout-background {
+  background-color: #404040;
+  height: 100%;
+}
+
+.layout-foreground {
+  background-color: white;
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
 }
