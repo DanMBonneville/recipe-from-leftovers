@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface ErrorState {
-  showAddIngredientMessage: boolean;
-}
+import { ErrorState } from '../../common/types';
 
 const initialState = {
   showAddIngredientMessage: false,
@@ -19,5 +16,4 @@ const errorSlice = createSlice({
 });
 
 export const { setShowAddIngredientsMessage } = errorSlice.actions;
-
 export default errorSlice.reducer;

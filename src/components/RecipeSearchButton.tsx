@@ -1,7 +1,4 @@
-interface RecipeSearchButtonProps {
-  isDisabled: boolean;
-  handleSearchForRecipes: Function;
-}
+import { RecipeSearchButtonProps } from '../common/types';
 
 const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
   const { isDisabled, handleSearchForRecipes } = props;

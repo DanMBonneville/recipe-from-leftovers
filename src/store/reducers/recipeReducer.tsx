@@ -1,24 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RecipeState } from '../../common/types';
 import { getRecipes } from '../actions/actions';
-
-export interface RecipeState {
-  recipes: Recipe[];
-  recipeToView: Recipe | null;
-  isFecthingRecipes: boolean;
-}
-
-export type Recipe = {
-  id: string;
-  image: string;
-  imageType: string;
-  likes: 1;
-  missedIngredientCount: number;
-  missedIngredients: Array<any>;
-  title: string;
-  unusedIngredients: Array<any>;
-  usedIngredientCount: number;
-  usedIngredients: Array<any>;
-};
 
 const initialState = {
   recipes: [],
@@ -50,5 +32,4 @@ const recipeSlice = createSlice({
 });
 
 export const { setRecipeToView } = recipeSlice.actions;
-
 export default recipeSlice.reducer;

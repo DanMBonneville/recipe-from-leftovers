@@ -1,16 +1,5 @@
-import Select, { MultiValue } from 'react-select';
-
-export type OptionType = {
-  label: string;
-  value: string;
-};
-
-export interface MultiSelectBarProps {
-  isDisabled: boolean;
-  options: MultiValue<OptionType>;
-  selectedIngredients: MultiValue<OptionType>;
-  handleSelectionChange: (newIngredients: MultiValue<OptionType>) => void;
-}
+import Select from 'react-select';
+import { MultiSelectBarProps } from '../common/types';
 
 const MultiSelectBar = (props: MultiSelectBarProps) => {
   const { isDisabled, options, selectedIngredients, handleSelectionChange } =

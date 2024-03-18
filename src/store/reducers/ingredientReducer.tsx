@@ -1,13 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { OptionType } from '../../components/MultiSelectBar';
-import { convertStringArrToOptionTypeArr } from '../../shared/convert';
+import { IngredientState, IngredientTypes } from '../../common/types';
+import { convertStringArrToIngredientTypesArr } from '../../common/util';
 import { getIngredientOptions } from '../actions/actions';
-
-export interface IngredientState {
-  ingredients: OptionType[];
-  ingredientOptions: Array<OptionType>;
-  isFecthingIngredientOptions: boolean;
-}
 
 const initialState = {
   ingredients: [],
@@ -22,7 +16,10 @@ const ingredientSlice = createSlice({
     setIngredientOptions: (state, action) => {
       state.ingredientOptions = action.payload;
     },
-    setSelectedIngredients: (state, action: PayloadAction<OptionType[]>) => {
+    setSelectedIngredients: (
+      state,
+      action: PayloadAction<IngredientTypes[]>
+    ) => {
       state.ingredients = action.payload;
     },
   },
@@ -33,7 +30,7 @@ const ingredientSlice = createSlice({
     builder.addCase(
       getIngredientOptions.fulfilled,
       (state: IngredientState, action: any) => {
-        state.ingredientOptions = convertStringArrToOptionTypeArr(
+        state.ingredientOptions = convertStringArrToIngredientTypesArr(
           action.payload.optionArray
         );
         state.isFecthingIngredientOptions = false;

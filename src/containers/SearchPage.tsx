@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MultiValue } from 'react-select';
-import MultiSelectBar, { OptionType } from '../components/MultiSelectBar';
+import { IngredientTypes } from '../common/types';
+import {
+  convertMultiValueIngredientsToIngredientTypesArr,
+  convertMultipValueIngredientsToStringArr,
+} from '../common/util';
+import MultiSelectBar from '../components/MultiSelectBar';
 import RecipeSearchButton from '../components/RecipeSearchButton';
-import { convertMultiValueIngredientsToOptionTypeIngredients } from '../shared/convert';
-import { createIngredientsString } from '../shared/util';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
 import { setSelectedIngredients } from '../store/reducers/ingredientReducer';
@@ -16,7 +19,7 @@ const SearchPage = () => {
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
   const [multiValueSelectedIngredients, setMultiValueSelectedIngredients] =
-    useState<MultiValue<OptionType>>([]);
+    useState<MultiValue<IngredientTypes>>([]);
 
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
@@ -37,18 +40,22 @@ const SearchPage = () => {
     }
   }, [multiValueSelectedIngredients]);
 
-  const handleSelectionChange = (newIngredients: MultiValue<OptionType>) => {
+  const handleSelectionChange = (
+    newIngredients: MultiValue<IngredientTypes>
+  ) => {
     setMultiValueSelectedIngredients(newIngredients);
     dispatch(
       setSelectedIngredients(
-        convertMultiValueIngredientsToOptionTypeIngredients(newIngredients)
+        convertMultiValueIngredientsToIngredientTypesArr(newIngredients)
       )
     );
   };
 
   const handleSearchForRecipes = () => {
     store.dispatch(
-      getRecipes(createIngredientsString(multiValueSelectedIngredients))
+      getRecipes(
+        convertMultipValueIngredientsToStringArr(multiValueSelectedIngredients)
+      )
     );
     navigate('/searchResults');
   };
