@@ -1,4 +1,7 @@
-import { createIngredientsString, updateObject } from '../../shared/util';
+import {
+  convertMultipValueIngredientsToStringArr,
+  updateObject,
+} from '../../common/util';
 
 describe('Function updateObject behaves as expected', () => {
   it('Empty object updated with empty object is empty', () => {
@@ -33,10 +36,12 @@ describe('Function createIngredients String behaves as expected', () => {
   ];
 
   it('createIngredients creates an empty string with no ingredients passed in', () => {
-    expect(createIngredientsString([])).toBe('');
+    expect(convertMultipValueIngredientsToStringArr([])).toBe('');
   });
 
   it('createIngredients creates a comma separated list of values', () => {
-    expect(createIngredientsString(ingredients)).toBe('carrot,apple');
+    expect(convertMultipValueIngredientsToStringArr(ingredients)).toBe(
+      'carrot,apple'
+    );
   });
 });
