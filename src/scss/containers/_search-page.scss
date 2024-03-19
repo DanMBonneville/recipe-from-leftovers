@@ -1,23 +1,48 @@
 .search-page {
   height: 100%;
-}
+  background-image: url('../images/fridge-vector-icon.jpeg');
+  background-repeat: no-repeat;
+  background-size: 110%;
+  background-position: top;
+  margin-top: -32px;
+  margin-right: 1px;
 
-.search-page-inner {
-  width: 75%;
-  margin: auto;
-}
+  & .search-page-inner {
+    padding-top: 20%;
+    padding-left: 25%;
+    padding-right: 20%;
+    margin: auto;
 
-.select-submit-wrapper {
-  display: flex;
-  gap: 1rem;
-}
+    & .select-prompt {
+      width: 100%;
+      margin-right: -30px;
 
-.multi-ingredient-select {
-  width: 100%;
-}
+      & > * {
+        font-family: 'Sanchez', serif;
+        font-weight: 1000;
+        font-size: 50px;
+        text-align: center;
+      }
+    }
 
-.recipe-search-button {
-  max-width: 25rem;
-  margin-right: 0px;
-  margin-left: auto;
+    & .select-submit-wrapper {
+      display: flex;
+      gap: 1rem;
+
+      & > * {
+        height: 100%;
+        font-size: x-large;
+      }
+
+      & .multi-ingredient-select {
+        width: 100%;
+      }
+
+      & .recipe-search-button {
+        margin-right: 0px;
+        margin-left: auto;
+        justify-content: center;
+      }
+    }
+  }
 }
