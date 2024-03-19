@@ -1,18 +1,19 @@
+import Button from '@mui/material/Button';
+import Icon from '@mui/material/Icon';
 import { RecipeSearchButtonProps } from '../common/types';
 
 const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
   const { isDisabled, handleSearchForRecipes } = props;
   return (
-    <button
+    <Button
       data-testid="recipe-search-button"
       disabled={isDisabled}
       onClick={() => handleSearchForRecipes()}
-      className="recipe-search-button mdc-button mdc-button--raised"
+      size="large"
+      variant="contained"
     >
-      <span className="mdc-button__ripple"></span>
-      <span className="mdc-button__focus-ring"></span>
-      <span className="mdc-button__label">Search For Recipe!</span>
-    </button>
+      <Icon>search</Icon>
+    </Button>
   );
 };
 

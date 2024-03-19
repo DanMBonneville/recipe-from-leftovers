@@ -3,10 +3,6 @@
 @import 'components/multi-ingredient-select';
 @import 'containers/search-page';
 
-html {
-  background-color: #404040;
-}
-
 html,
 body {
   height: 100%;
@@ -29,12 +25,10 @@ code {
 }
 
 .layout-background {
-  background-color: #404040;
   height: 100%;
 }
 
 .layout-foreground {
-  background-color: white;
   height: 100%;
   width: 80%;
   margin: 0 auto;

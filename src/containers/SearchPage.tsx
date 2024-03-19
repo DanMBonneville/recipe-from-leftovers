@@ -63,7 +63,10 @@ const SearchPage = () => {
   return (
     <div className="search-page">
       <div className="search-page-inner">
-        <h1>Select Leftover Ingredients</h1>
+        <div className="select-prompt">
+          <h1>Leftovers?</h1>
+          <h1>Let's find a Recipe!</h1>
+        </div>
         <div className="select-submit-wrapper">
           <MultiSelectBar
             isDisabled={isFecthingIngredientOptions}
@@ -76,6 +79,7 @@ const SearchPage = () => {
             handleSearchForRecipes={handleSearchForRecipes}
           />
         </div>
+        <div className="display-selection"></div>
       </div>
     </div>
   );
