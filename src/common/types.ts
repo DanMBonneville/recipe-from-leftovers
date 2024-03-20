@@ -14,7 +14,7 @@ export type RecipeType = {
   id: string;
   image: string;
   imageType: string;
-  likes: 1;
+  likes: number;
   missedIngredientCount: number;
   missedIngredients: Array<any>;
   title: string;
@@ -30,7 +30,7 @@ export type AppState = ReturnType<typeof store.getState>;
 
 export interface RecipeState {
   recipes: RecipeType[];
-  recipeToView: RecipeType | null;
+  recipeToView: RecipeType;
   isFecthingRecipes: boolean;
 }
 

@@ -1,12 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RecipeState } from '../../common/types';
+import { RecipeState, RecipeType } from '../../common/types';
 import { getRecipes } from '../actions/actions';
+
+const emptyRecipe: RecipeType = {
+  id: '',
+  image: '',
+  imageType: '',
+  likes: 0,
+  missedIngredientCount: 0,
+  missedIngredients: [],
+  title: '',
+  unusedIngredients: [],
+  usedIngredientCount: 0,
+  usedIngredients: [],
+};
 
 const initialState = {
   recipes: [],
-  recipeToView: null,
+  recipeToView: emptyRecipe,
   isFecthingRecipes: false,
-} satisfies RecipeState as RecipeState;
+} satisfies RecipeState as unknown as RecipeState;
 
 const recipeSlice = createSlice({
   name: 'recipes',

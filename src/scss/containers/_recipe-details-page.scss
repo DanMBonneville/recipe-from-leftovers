@@ -1,0 +1,32 @@
+.recipe-details-page {
+  height: 100%;
+  background-image: url('../images/dinner_table.jpg');
+  background-repeat: no-repeat;
+  background-size: 110%;
+  background-position: top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .recipe-details-page-inner {
+    height: 85%;
+    width: 85%;
+    border-radius: 25px;
+    border: 5px solid black;
+    // background: #73ad21;
+    background-color: white;
+
+    & > * {
+      color: black;
+      background-color: #73ad21;
+      width: 100%;
+    }
+
+    & .recipe-title {
+      height: 10%;
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+      font-size: xx-large;
+    }
+  }
+}
