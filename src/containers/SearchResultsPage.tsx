@@ -20,7 +20,11 @@ const SearchResultsPage = () => {
   let recipePreviewList: JSX.Element[] = [];
   recipes.forEach((recipe: RecipeType) => {
     recipePreviewList.push(
-      <RecipePreview recipe={recipe} openRecipe={openRecipe} />
+      <RecipePreview
+        key={recipe.title}
+        recipe={recipe}
+        openRecipe={openRecipe}
+      />
     );
   });
 

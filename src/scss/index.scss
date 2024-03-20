@@ -1,15 +1,15 @@
 @use '@material/button/styles';
 @import 'abstracts/variables';
-@import 'components/multi-ingredient-select';
 @import 'containers/search-page';
+@import 'containers/recipe-details-page';
+@import 'components/multi-ingredient-select';
+@import 'components/ingredient-list';
 
 html,
 body {
   height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Sanchez', serif;
   -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
 }

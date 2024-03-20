@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { MultiValue } from 'react-select';
-import { IngredientTypes } from '../common/types';
+import { IngredientOptionType } from '../common/types';
 import {
-  convertMultiValueIngredientsToIngredientTypesArr,
+  convertMultiValueIngredientsToIngredientOptionTypeArr,
   convertMultipValueIngredientsToStringArr,
 } from '../common/util';
 import MultiSelectBar from '../components/MultiSelectBar';
@@ -19,7 +19,7 @@ const SearchPage = () => {
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
   const [multiValueSelectedIngredients, setMultiValueSelectedIngredients] =
-    useState<MultiValue<IngredientTypes>>([]);
+    useState<MultiValue<IngredientOptionType>>([]);
 
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
@@ -41,12 +41,12 @@ const SearchPage = () => {
   }, [multiValueSelectedIngredients]);
 
   const handleSelectionChange = (
-    newIngredients: MultiValue<IngredientTypes>
+    newIngredients: MultiValue<IngredientOptionType>
   ) => {
     setMultiValueSelectedIngredients(newIngredients);
     dispatch(
       setSelectedIngredients(
-        convertMultiValueIngredientsToIngredientTypesArr(newIngredients)
+        convertMultiValueIngredientsToIngredientOptionTypeArr(newIngredients)
       )
     );
   };
