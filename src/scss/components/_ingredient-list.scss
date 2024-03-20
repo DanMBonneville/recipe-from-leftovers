@@ -1,0 +1,25 @@
+.used-ingredients {
+  border: 5px solid green;
+}
+
+.missed-ingredients {
+  border: 5px solid red;
+}
+
+.used-ingredients,
+.missed-ingredients {
+  border-radius: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 5px;
+
+  & .title-of-list {
+    text-decoration-line: underline;
+  }
+
+  & > li {
+    margin-left: 15px;
+    text-align: left;
+  }
+}

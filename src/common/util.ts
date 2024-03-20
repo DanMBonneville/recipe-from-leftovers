@@ -1,5 +1,5 @@
 import { MultiValue } from 'react-select';
-import { IngredientTypes } from './types';
+import { IngredientOptionType } from './types';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
   return {
@@ -8,8 +8,8 @@ export const updateObject = (oldObject: object, updatedProperties: object) => {
   };
 };
 
-export const convertStringArrToIngredientTypesArr = (props: string[]) => {
-  var optionArr: IngredientTypes[] = [];
+export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
+  var optionArr: IngredientOptionType[] = [];
   props.map((opt) => {
     return optionArr.push({
       label: opt,
@@ -19,11 +19,11 @@ export const convertStringArrToIngredientTypesArr = (props: string[]) => {
   return optionArr;
 };
 
-export const convertMultiValueIngredientsToIngredientTypesArr = (
-  newIngredients: MultiValue<IngredientTypes>
+export const convertMultiValueIngredientsToIngredientOptionTypeArr = (
+  newIngredients: MultiValue<IngredientOptionType>
 ) => {
-  const convertedIngredients: IngredientTypes[] = [];
-  newIngredients.forEach((ingredient: IngredientTypes) => {
+  const convertedIngredients: IngredientOptionType[] = [];
+  newIngredients.forEach((ingredient: IngredientOptionType) => {
     convertedIngredients.push({
       label: ingredient.label,
       value: ingredient.value,
@@ -33,7 +33,7 @@ export const convertMultiValueIngredientsToIngredientTypesArr = (
 };
 
 export const convertMultipValueIngredientsToStringArr = (
-  ingredients: MultiValue<IngredientTypes>
+  ingredients: MultiValue<IngredientOptionType>
 ) => {
   const ingredientArr: string[] = [];
   ingredients.forEach((ingredient) => ingredientArr.push(ingredient.value));

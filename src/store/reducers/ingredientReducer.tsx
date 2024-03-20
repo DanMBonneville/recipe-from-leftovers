@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IngredientState, IngredientTypes } from '../../common/types';
-import { convertStringArrToIngredientTypesArr } from '../../common/util';
+import { IngredientOptionType, IngredientState } from '../../common/types';
+import { convertStringArrToIngredientOptionTypeArr } from '../../common/util';
 import { getIngredientOptions } from '../actions/actions';
 
 const initialState = {
@@ -18,7 +18,7 @@ const ingredientSlice = createSlice({
     },
     setSelectedIngredients: (
       state,
-      action: PayloadAction<IngredientTypes[]>
+      action: PayloadAction<IngredientOptionType[]>
     ) => {
       state.ingredients = action.payload;
     },
@@ -30,7 +30,7 @@ const ingredientSlice = createSlice({
     builder.addCase(
       getIngredientOptions.fulfilled,
       (state: IngredientState, action: any) => {
-        state.ingredientOptions = convertStringArrToIngredientTypesArr(
+        state.ingredientOptions = convertStringArrToIngredientOptionTypeArr(
           action.payload.optionArray
         );
         state.isFecthingIngredientOptions = false;
