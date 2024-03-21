@@ -1,8 +1,8 @@
 import Select from 'react-select';
-import { SelectBarProps } from '../common/types';
+import { SelectBarProps } from '../../common/types';
 
 const SelectBar = (props: SelectBarProps) => {
-  const { isDisabled, options, handleSelectionChange } = props;
+  const { isSelectDisabled, options, handleSelectionChange } = props;
 
   const customStyles = {
     option: (provided: any, state: any) => ({
@@ -19,7 +19,7 @@ const SelectBar = (props: SelectBarProps) => {
       options={options}
       value={null}
       placeholder={"What's in your fridge?"}
-      isDisabled={isDisabled}
+      isDisabled={isSelectDisabled}
       styles={customStyles}
       isClearable={true}
       onChange={handleSelectionChange}

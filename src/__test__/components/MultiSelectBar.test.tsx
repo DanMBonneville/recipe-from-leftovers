@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { IngredientOptionType } from '../../common/types';
-import SelectBar from '../../components/SelectBar';
+import SelectBar from '../../components/SelectSubmitWrapper/SelectBar';
 
 describe('<MultiSelectBar />', () => {
   it('Select Bar is initially empty', () => {
@@ -13,7 +13,7 @@ describe('<MultiSelectBar />', () => {
     ];
     render(
       <SelectBar
-        isDisabled={false}
+        isSelectDisabled={false}
         options={options}
         handleSelectionChange={handleSelectionChange}
       />

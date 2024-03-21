@@ -1,13 +1,13 @@
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
-import { RecipeSearchButtonProps } from '../common/types';
+import { RecipeSearchButtonProps } from '../../common/types';
 
 const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
-  const { isDisabled, handleSearchForRecipes } = props;
+  const { isButtonDisabled, handleSearchForRecipes } = props;
   return (
     <Button
       data-testid="recipe-search-button"
-      disabled={isDisabled}
+      disabled={isButtonDisabled}
       onClick={() => handleSearchForRecipes()}
       size="large"
       variant="contained"

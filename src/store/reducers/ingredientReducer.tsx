@@ -14,13 +14,14 @@ const initialState = {
   isFecthingIngredientOptions: false,
 } satisfies IngredientState as IngredientState;
 
-// TODO add payload action to all reducers
-
 const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    setIngredientOptions: (state, action) => {
+    setIngredientOptions: (
+      state,
+      action: PayloadAction<IngredientOptionType[]>
+    ) => {
       state.ingredientOptions = action.payload;
     },
     setSelectedIngredients: (

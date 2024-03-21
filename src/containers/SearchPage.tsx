@@ -7,8 +7,7 @@ import {
   convertIngredientOptionArrToStringArr,
   convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
-import RecipeSearchButton from '../components/RecipeSearchButton';
-import SelectBar from '../components/SelectBar';
+import SelectSubmitWrapper from '../components/SelectSubmitWrapper/SelectSubmitWrapper';
 import SelectedIngredientList from '../components/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
@@ -73,17 +72,13 @@ const SearchPage = () => {
           <h1>Leftovers?</h1>
           <h1>Let's find a Recipe!</h1>
         </div>
-        <div className="select-submit-wrapper">
-          <SelectBar
-            isDisabled={isFecthingIngredientOptions}
-            options={ingredientOptions}
-            handleSelectionChange={handleSelectionChange}
-          />
-          <RecipeSearchButton
-            isDisabled={recipeButtonDisabled}
-            handleSearchForRecipes={handleSearchForRecipes}
-          />
-        </div>
+        <SelectSubmitWrapper
+          isSelectDisabled={isFecthingIngredientOptions}
+          isButtonDisabled={recipeButtonDisabled}
+          options={ingredientOptions}
+          handleSelectionChange={handleSelectionChange}
+          handleSearchForRecipes={handleSearchForRecipes}
+        />
         <SelectedIngredientList
           selectedIngredients={selectedIngredients}
           removeIngredient={handleIngredientRemoval}

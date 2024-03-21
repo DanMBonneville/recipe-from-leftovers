@@ -12,7 +12,7 @@ export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
   var optionArr: IngredientOptionType[] = [];
   props.map((opt) => {
     return optionArr.push({
-      label: opt,
+      label: opt.charAt(0).toUpperCase() + opt.slice(1).toLowerCase(),
       value: opt,
     });
   });

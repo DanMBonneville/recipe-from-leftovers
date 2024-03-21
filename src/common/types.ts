@@ -56,7 +56,7 @@ export type ErrorState = {
  */
 
 export type SelectBarProps = {
-  isDisabled: boolean;
+  isSelectDisabled: boolean;
   options: IngredientOptionType[];
   handleSelectionChange: (
     newIngredient: SingleValue<IngredientOptionType>
@@ -64,7 +64,7 @@ export type SelectBarProps = {
 };
 
 export type RecipeSearchButtonProps = {
-  isDisabled: boolean;
+  isButtonDisabled: boolean;
   handleSearchForRecipes: Function;
 };
 

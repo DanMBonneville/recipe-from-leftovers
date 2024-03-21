@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import RecipeSearchButton from '../../components/RecipeSearchButton';
+import RecipeSearchButton from '../../components/SelectSubmitWrapper/RecipeSearchButton';
 
 describe('<RecipeSearchButton />', () => {
   it('Verify function in props is called once on click', () => {
     const handleSearchForRecipes = jest.fn();
     render(
       <RecipeSearchButton
-        isDisabled={false}
+        isButtonDisabled={false}
         handleSearchForRecipes={handleSearchForRecipes}
       />
     );

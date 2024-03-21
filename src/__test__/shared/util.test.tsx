@@ -1,5 +1,8 @@
+import { SingleValue } from 'react-select';
+import { IngredientOptionType } from '../../common/types';
 import {
-  convertIngredientOptionArrToStringArr,
+  convertSingleValueIngredientToIngredientOption,
+  convertStringArrToIngredientOptionTypeArr,
   updateObject,
 } from '../../common/util';
 
@@ -23,8 +26,10 @@ describe('Function updateObject behaves as expected', () => {
   });
 });
 
-describe('Function createIngredients String behaves as expected', () => {
-  const ingredients = [
+describe('Function convertStringArrToIngredientOptionTypeArr behaves as expected', () => {
+  const stringArrayInput = ['carrot', 'apple'];
+
+  const expectedResult = [
     {
       label: 'Carrot',
       value: 'carrot',
@@ -35,13 +40,34 @@ describe('Function createIngredients String behaves as expected', () => {
     },
   ];
 
-  it('createIngredients creates an empty string with no ingredients passed in', () => {
-    expect(convertIngredientOptionArrToStringArr([])).toBe('');
+  it('creates an empty string array', () => {
+    expect(convertStringArrToIngredientOptionTypeArr([])).toStrictEqual([]);
   });
 
   it('createIngredients creates a comma separated list of values', () => {
-    expect(convertIngredientOptionArrToStringArr(ingredients)).toBe(
-      'carrot,apple'
-    );
+    expect(
+      convertStringArrToIngredientOptionTypeArr(stringArrayInput)
+    ).toStrictEqual(expectedResult);
+  });
+});
+
+describe('Function convertSingleValueIngredientToIngredientOption behaves as expected', () => {
+  it('Function can handle a null value', () => {
+    const emptyIngredientOption =
+      convertSingleValueIngredientToIngredientOption(null);
+    expect(emptyIngredientOption.label).toStrictEqual('');
+    expect(emptyIngredientOption.value).toStrictEqual('');
+  });
+
+  it('Function converts value correctly', () => {
+    const singleValueIngredient: SingleValue<IngredientOptionType> = {
+      label: 'test label',
+      value: 'test value',
+    };
+
+    const nonEmptyIngredientOption =
+      convertSingleValueIngredientToIngredientOption(singleValueIngredient);
+    expect(nonEmptyIngredientOption.label).toStrictEqual('test label');
+    expect(nonEmptyIngredientOption.value).toStrictEqual('test value');
   });
 });

@@ -20,5 +20,3 @@ root.render(
 );
 
 // reference app: https://github.com/MRFolio/recipes-app
-
-// Put main todos here
