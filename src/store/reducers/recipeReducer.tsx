@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RecipeState, RecipeType } from '../../common/types';
 import { getRecipes } from '../actions/actions';
 
@@ -25,7 +25,7 @@ const recipeSlice = createSlice({
   name: 'recipes',
   initialState,
   reducers: {
-    setRecipeToView: (state, action) => {
+    setRecipeToView: (state, action: PayloadAction<RecipeType>) => {
       state.recipeToView = action.payload;
     },
   },
