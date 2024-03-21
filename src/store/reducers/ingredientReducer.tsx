@@ -4,10 +4,17 @@ import { convertStringArrToIngredientOptionTypeArr } from '../../common/util';
 import { getIngredientOptions } from '../actions/actions';
 
 const initialState = {
-  ingredients: [],
-  ingredientOptions: [],
+  selectedIngredients: [],
+  ingredientOptions: [
+    {
+      label: '',
+      value: '',
+    },
+  ],
   isFecthingIngredientOptions: false,
 } satisfies IngredientState as IngredientState;
+
+// TODO add payload action to all reducers
 
 const ingredientSlice = createSlice({
   name: 'ingredients',
@@ -20,7 +27,22 @@ const ingredientSlice = createSlice({
       state,
       action: PayloadAction<IngredientOptionType[]>
     ) => {
-      state.ingredients = action.payload;
+      state.selectedIngredients = action.payload;
+    },
+    addSelectedIngredients: (
+      state,
+      action: PayloadAction<IngredientOptionType>
+    ) => {
+      state.selectedIngredients.push(action.payload);
+    },
+    removeSelectedIngredients: (
+      state,
+      action: PayloadAction<IngredientOptionType>
+    ) => {
+      const labelOnRemovedIngredient = action.payload.label;
+      state.selectedIngredients = state.selectedIngredients.filter(
+        (ingredient) => ingredient.label !== labelOnRemovedIngredient
+      );
     },
   },
   extraReducers: (builder) => {
@@ -43,6 +65,10 @@ const ingredientSlice = createSlice({
   },
 });
 
-export const { setSelectedIngredients } = ingredientSlice.actions;
+export const {
+  setSelectedIngredients,
+  addSelectedIngredients,
+  removeSelectedIngredients,
+} = ingredientSlice.actions;
 
 export default ingredientSlice.reducer;

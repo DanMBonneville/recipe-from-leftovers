@@ -1,12 +1,16 @@
 import { render, screen } from '@testing-library/react';
-import { MultiValue } from 'react-select';
+import { SingleValue } from 'react-select';
 import { IngredientOptionType } from '../../common/types';
-import MultiSelectBar from '../../components/MultiSelectBar';
+import MultiSelectBar from '../../components/SelectBar';
 
 describe('<MultiSelectBar />', () => {
   it('Select Bar is initially empty', () => {
     const handleSelectionChange = jest.fn();
-    const options: MultiValue<IngredientOptionType> = [
+    const option: SingleValue<IngredientOptionType> = {
+      label: 'testLabel',
+      value: 'testValue',
+    };
+    const options: SingleValue<IngredientOptionType>[] = [
       {
         label: 'testLabel',
         value: 'testValue',
@@ -16,7 +20,7 @@ describe('<MultiSelectBar />', () => {
       <MultiSelectBar
         isDisabled={false}
         options={options}
-        selectedIngredients={[]}
+        selectedIngredient={option}
         handleSelectionChange={handleSelectionChange}
       />
     );

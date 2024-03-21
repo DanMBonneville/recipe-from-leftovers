@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { MultiValue } from 'react-select';
+import { SingleValue } from 'react-select';
 import { IngredientOptionType } from '../common/types';
 import {
-  convertMultiValueIngredientsToIngredientOptionTypeArr,
   convertMultipValueIngredientsToStringArr,
+  convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
-import MultiSelectBar from '../components/MultiSelectBar';
 import RecipeSearchButton from '../components/RecipeSearchButton';
+import SelectBar from '../components/SelectBar';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
-import { setSelectedIngredients } from '../store/reducers/ingredientReducer';
+import { addSelectedIngredients } from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
-  const [multiValueSelectedIngredients, setMultiValueSelectedIngredients] =
-    useState<MultiValue<IngredientOptionType>>([]);
+  useEffect(() => {
+    store.dispatch(getIngredientOptions());
+  }, []);
 
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
@@ -27,35 +27,39 @@ const SearchPage = () => {
   let ingredientOptions = useSelector(
     (state: AppState) => state.ingredient.ingredientOptions
   );
+  let selectedIngredients = useSelector(
+    (state: AppState) => state.ingredient.selectedIngredients
+  );
+
+  const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
+  const [singleValueSelectedIngredient, setSingleValueSelectedIngredient] =
+    useState<SingleValue<IngredientOptionType>>({
+      label: '',
+      value: '',
+    });
 
   useEffect(() => {
-    store.dispatch(getIngredientOptions());
-  }, []);
-
-  useEffect(() => {
-    if (0 === multiValueSelectedIngredients.length) {
+    if (0 === ingredientOptions.length) {
       setRecipeButtonDisabled(true);
     } else {
       setRecipeButtonDisabled(false);
     }
-  }, [multiValueSelectedIngredients]);
+  }, [ingredientOptions]);
 
   const handleSelectionChange = (
-    newIngredients: MultiValue<IngredientOptionType>
+    newIngredient: SingleValue<IngredientOptionType>
   ) => {
-    setMultiValueSelectedIngredients(newIngredients);
+    setSingleValueSelectedIngredient(newIngredient);
     dispatch(
-      setSelectedIngredients(
-        convertMultiValueIngredientsToIngredientOptionTypeArr(newIngredients)
+      addSelectedIngredients(
+        convertSingleValueIngredientToIngredientOption(newIngredient)
       )
     );
   };
 
   const handleSearchForRecipes = () => {
     store.dispatch(
-      getRecipes(
-        convertMultipValueIngredientsToStringArr(multiValueSelectedIngredients)
-      )
+      getRecipes(convertMultipValueIngredientsToStringArr(selectedIngredients))
     );
     navigate('/searchResults');
   };
@@ -68,10 +72,10 @@ const SearchPage = () => {
           <h1>Let's find a Recipe!</h1>
         </div>
         <div className="select-submit-wrapper">
-          <MultiSelectBar
+          <SelectBar
             isDisabled={isFecthingIngredientOptions}
             options={ingredientOptions}
-            selectedIngredients={multiValueSelectedIngredients}
+            selectedIngredient={singleValueSelectedIngredient}
             handleSelectionChange={handleSelectionChange}
           />
           <RecipeSearchButton
@@ -79,7 +83,6 @@ const SearchPage = () => {
             handleSearchForRecipes={handleSearchForRecipes}
           />
         </div>
-        <div className="display-selection"></div>
       </div>
     </div>
   );

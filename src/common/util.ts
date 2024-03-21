@@ -1,4 +1,4 @@
-import { MultiValue } from 'react-select';
+import { MultiValue, SingleValue } from 'react-select';
 import { IngredientOptionType } from './types';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
@@ -19,6 +19,7 @@ export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
   return optionArr;
 };
 
+// TODO: remove???
 export const convertMultiValueIngredientsToIngredientOptionTypeArr = (
   newIngredients: MultiValue<IngredientOptionType>
 ) => {
@@ -29,6 +30,16 @@ export const convertMultiValueIngredientsToIngredientOptionTypeArr = (
       value: ingredient.value,
     });
   });
+  return convertedIngredients;
+};
+
+export const convertSingleValueIngredientToIngredientOption = (
+  newIngredient: SingleValue<IngredientOptionType>
+) => {
+  const convertedIngredients: IngredientOptionType = {
+    label: newIngredient ? newIngredient.label : '',
+    value: newIngredient ? newIngredient.value : '',
+  };
   return convertedIngredients;
 };
 
