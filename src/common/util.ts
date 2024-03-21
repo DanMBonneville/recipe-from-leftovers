@@ -1,4 +1,4 @@
-import { MultiValue, SingleValue } from 'react-select';
+import { SingleValue } from 'react-select';
 import { IngredientOptionType } from './types';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
@@ -19,20 +19,6 @@ export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
   return optionArr;
 };
 
-// TODO: remove???
-export const convertMultiValueIngredientsToIngredientOptionTypeArr = (
-  newIngredients: MultiValue<IngredientOptionType>
-) => {
-  const convertedIngredients: IngredientOptionType[] = [];
-  newIngredients.forEach((ingredient: IngredientOptionType) => {
-    convertedIngredients.push({
-      label: ingredient.label,
-      value: ingredient.value,
-    });
-  });
-  return convertedIngredients;
-};
-
 export const convertSingleValueIngredientToIngredientOption = (
   newIngredient: SingleValue<IngredientOptionType>
 ) => {
@@ -43,8 +29,8 @@ export const convertSingleValueIngredientToIngredientOption = (
   return convertedIngredients;
 };
 
-export const convertMultipValueIngredientsToStringArr = (
-  ingredients: MultiValue<IngredientOptionType>
+export const convertIngredientOptionArrToStringArr = (
+  ingredients: IngredientOptionType[]
 ) => {
   const ingredientArr: string[] = [];
   ingredients.forEach((ingredient) => ingredientArr.push(ingredient.value));

@@ -16,7 +16,6 @@ app.get('/getRecipesFromIngredients', (req: any, res: any) => {
   axios
     .get(url)
     .then((recipes: any) => {
-      console.log('The response: ', recipes);
       res.json(recipes.data);
     })
     .catch((error: any) => {

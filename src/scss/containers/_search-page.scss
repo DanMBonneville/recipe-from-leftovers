@@ -10,7 +10,6 @@
   & .search-page-inner {
     padding-top: 20%;
     padding-left: 25%;
-    margin: auto;
 
     & .select-prompt {
       width: 100%;
@@ -31,11 +30,10 @@
 
       // all descendants of select-submit-wrapper
       & * {
-        // height: 100%;
         font-size: 30px;
-        // display: flex;
         align-items: center;
 
+        // move to the react-select-bar?
         & [class*='control'] {
           height: 100%;
         }

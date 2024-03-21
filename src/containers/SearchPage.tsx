@@ -4,14 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { SingleValue } from 'react-select';
 import { IngredientOptionType } from '../common/types';
 import {
-  convertMultipValueIngredientsToStringArr,
+  convertIngredientOptionArrToStringArr,
   convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
 import RecipeSearchButton from '../components/RecipeSearchButton';
 import SelectBar from '../components/SelectBar';
+import SelectedIngredientList from '../components/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
-import { addSelectedIngredients } from '../store/reducers/ingredientReducer';
+import {
+  addSelectedIngredients,
+  removeSelectedIngredients,
+} from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -32,11 +36,6 @@ const SearchPage = () => {
   );
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
-  const [singleValueSelectedIngredient, setSingleValueSelectedIngredient] =
-    useState<SingleValue<IngredientOptionType>>({
-      label: '',
-      value: '',
-    });
 
   useEffect(() => {
     if (0 === ingredientOptions.length) {
@@ -49,7 +48,6 @@ const SearchPage = () => {
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
   ) => {
-    setSingleValueSelectedIngredient(newIngredient);
     dispatch(
       addSelectedIngredients(
         convertSingleValueIngredientToIngredientOption(newIngredient)
@@ -59,9 +57,13 @@ const SearchPage = () => {
 
   const handleSearchForRecipes = () => {
     store.dispatch(
-      getRecipes(convertMultipValueIngredientsToStringArr(selectedIngredients))
+      getRecipes(convertIngredientOptionArrToStringArr(selectedIngredients))
     );
     navigate('/searchResults');
+  };
+
+  const handleIngredientRemoval = (ingredient: IngredientOptionType) => {
+    dispatch(removeSelectedIngredients(ingredient));
   };
 
   return (
@@ -75,7 +77,6 @@ const SearchPage = () => {
           <SelectBar
             isDisabled={isFecthingIngredientOptions}
             options={ingredientOptions}
-            selectedIngredient={singleValueSelectedIngredient}
             handleSelectionChange={handleSelectionChange}
           />
           <RecipeSearchButton
@@ -83,6 +84,10 @@ const SearchPage = () => {
             handleSearchForRecipes={handleSearchForRecipes}
           />
         </div>
+        <SelectedIngredientList
+          selectedIngredients={selectedIngredients}
+          removeIngredient={handleIngredientRemoval}
+        />
       </div>
     </div>
   );

@@ -57,8 +57,7 @@ export type ErrorState = {
 
 export type SelectBarProps = {
   isDisabled: boolean;
-  options: SingleValue<IngredientOptionType>[];
-  selectedIngredient: SingleValue<IngredientOptionType>;
+  options: IngredientOptionType[];
   handleSelectionChange: (
     newIngredient: SingleValue<IngredientOptionType>
   ) => void;
@@ -67,6 +66,11 @@ export type SelectBarProps = {
 export type RecipeSearchButtonProps = {
   isDisabled: boolean;
   handleSearchForRecipes: Function;
+};
+
+export type SelectedIngredientListProps = {
+  selectedIngredients: IngredientOptionType[];
+  removeIngredient: Function;
 };
 
 export type IngredientListProps = {

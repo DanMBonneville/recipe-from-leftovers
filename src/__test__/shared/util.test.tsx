@@ -1,5 +1,5 @@
 import {
-  convertMultipValueIngredientsToStringArr,
+  convertIngredientOptionArrToStringArr,
   updateObject,
 } from '../../common/util';
 
@@ -36,11 +36,11 @@ describe('Function createIngredients String behaves as expected', () => {
   ];
 
   it('createIngredients creates an empty string with no ingredients passed in', () => {
-    expect(convertMultipValueIngredientsToStringArr([])).toBe('');
+    expect(convertIngredientOptionArrToStringArr([])).toBe('');
   });
 
   it('createIngredients creates a comma separated list of values', () => {
-    expect(convertMultipValueIngredientsToStringArr(ingredients)).toBe(
+    expect(convertIngredientOptionArrToStringArr(ingredients)).toBe(
       'carrot,apple'
     );
   });
