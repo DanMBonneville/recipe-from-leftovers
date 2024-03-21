@@ -1,0 +1,31 @@
+.nav-bar {
+  height: 4%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: darkslateblue;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+
+  & .home-button {
+    margin-left: 10px;
+    height: 75%;
+  }
+
+  & .back-page-btn {
+    // background-color: #1976d2;
+    // color: white;
+    margin-right: 20px;
+    margin-left: auto;
+    height: 75%;
+  }
+
+  & .forward-page-btn {
+    // background-color: #1976d2;
+    // color: white;
+    margin-right: 20px;
+    height: 75%;
+  }
+}
