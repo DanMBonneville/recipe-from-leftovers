@@ -10,31 +10,52 @@
   & .search-page-inner {
     padding-top: 20%;
     padding-left: 25%;
-    padding-right: 20%;
-    margin: auto;
 
     & .select-prompt {
       width: 100%;
-      margin-right: -30px;
 
       & > * {
         font-weight: 1000;
-        font-size: 50px;
-        text-align: center;
+        font-size: 60px;
+        text-align: left;
       }
     }
 
     & .select-submit-wrapper {
+      margin-top: 55%;
       display: flex;
       gap: 1rem;
+      padding-right: 20%;
+      height: 80px;
 
-      & > * {
-        height: 100%;
-        font-size: x-large;
+      // all descendants of select-submit-wrapper
+      & * {
+        font-size: 30px;
+        align-items: center;
+
+        // move to the react-select-bar?
+        & [class*='control'] {
+          height: 100%;
+        }
+
+        & [class*='placeholder'] {
+          height: 100%;
+          font-size: 30px;
+          display: flex;
+          align-items: center;
+        }
+
+        & [class*='option'] {
+          height: 100%;
+          font-size: 40px;
+          margin-bottom: 5px;
+        }
       }
 
-      & .multi-ingredient-select {
-        width: 100%;
+      // react-select bar
+      & > div {
+        width: 80%;
+        align-items: center;
       }
 
       & .recipe-search-button {

@@ -1,4 +1,4 @@
-import { MultiValue } from 'react-select';
+import { SingleValue } from 'react-select';
 import { store } from '../store';
 
 /***
@@ -42,7 +42,7 @@ export interface RecipeState {
 }
 
 export type IngredientState = {
-  ingredients: IngredientOptionType[];
+  selectedIngredients: IngredientOptionType[];
   ingredientOptions: Array<IngredientOptionType>;
   isFecthingIngredientOptions: boolean;
 };
@@ -55,18 +55,22 @@ export type ErrorState = {
  * Prop Types
  */
 
-export type MultiSelectBarProps = {
+export type SelectBarProps = {
   isDisabled: boolean;
-  options: MultiValue<IngredientOptionType>;
-  selectedIngredients: MultiValue<IngredientOptionType>;
+  options: IngredientOptionType[];
   handleSelectionChange: (
-    newIngredients: MultiValue<IngredientOptionType>
+    newIngredient: SingleValue<IngredientOptionType>
   ) => void;
 };
 
 export type RecipeSearchButtonProps = {
   isDisabled: boolean;
   handleSearchForRecipes: Function;
+};
+
+export type SelectedIngredientListProps = {
+  selectedIngredients: IngredientOptionType[];
+  removeIngredient: Function;
 };
 
 export type IngredientListProps = {
