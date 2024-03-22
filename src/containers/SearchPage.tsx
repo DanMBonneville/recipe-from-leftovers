@@ -37,12 +37,12 @@ const SearchPage = () => {
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (0 === ingredientOptions.length) {
+    if (0 === selectedIngredients.length) {
       setRecipeButtonDisabled(true);
     } else {
       setRecipeButtonDisabled(false);
     }
-  }, [ingredientOptions]);
+  }, [selectedIngredients]);
 
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
@@ -68,7 +68,7 @@ const SearchPage = () => {
   return (
     <div className="search-page">
       <div className="search-page-inner">
-        <div className="select-prompt">
+        <div data-testid="select-prompt" className="select-prompt">
           <h1>Leftovers?</h1>
           <h1>Let's find a Recipe!</h1>
         </div>

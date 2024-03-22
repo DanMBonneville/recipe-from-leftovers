@@ -1,3 +1,4 @@
+import Icon from '@mui/material/Icon';
 import {
   IngredientOptionType,
   SelectedIngredientListProps,
@@ -14,7 +15,8 @@ const SelectedIngredientList = (props: SelectedIngredientListProps) => {
       ingredientsArray.push(
         <li onClick={() => removeIngredient(ingredient)}>
           {' '}
-          {ingredient.label}
+          {ingredient.label + ' '}
+          <Icon className={'remove-ingredient-icon'}>clear</Icon>
           {separator}
         </li>
       );

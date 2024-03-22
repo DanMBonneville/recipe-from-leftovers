@@ -7,8 +7,16 @@
   margin-bottom: 5px;
 
   & > li {
-    margin-left: 15px;
+    // border: 1px solid grey;
+    padding: 5px;
+    margin-top: 15px;
+    margin-bottom: -20px;
     text-align: left;
     font-size: 30px;
+  }
+
+  & .remove-ingredient-icon {
+    vertical-align: middle;
+    color: grey;
   }
 }
