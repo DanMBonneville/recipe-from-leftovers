@@ -1,5 +1,3 @@
-// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
 import { useNavigate } from 'react-router-dom';
