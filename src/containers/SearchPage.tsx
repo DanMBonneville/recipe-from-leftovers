@@ -20,10 +20,6 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    store.dispatch(getIngredientOptions());
-  }, []);
-
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
   );
@@ -33,6 +29,12 @@ const SearchPage = () => {
   let selectedIngredients = useSelector(
     (state: AppState) => state.ingredient.selectedIngredients
   );
+
+  useEffect(() => {
+    if (ingredientOptions.length === 0) {
+      store.dispatch(getIngredientOptions());
+    }
+  }, [ingredientOptions]);
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
 

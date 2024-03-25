@@ -10,10 +10,16 @@ const RecipePreview = (props: any) => {
   const title = recipe.title;
   const image = recipe.image;
   return (
-    <Grid item>
-      <Card sx={{ maxWidth: 345 }}>
+    <Grid
+      item
+      xs={12}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Card>
         <CardActionArea onClick={() => openRecipe(recipe)}>
-          <CardMedia component="img" alt="recipe" height="231" image={image} />
+          <CardMedia component="img" alt="recipe" image={image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {title}

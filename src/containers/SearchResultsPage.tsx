@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
@@ -11,6 +12,12 @@ const SearchResultsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let recipes = useSelector((state: AppState) => state.recipe.recipes);
+
+  useEffect(() => {
+    if (recipes.length === 0) {
+      navigate('/searchPage');
+    }
+  });
 
   const openRecipe = (recipe: RecipeType) => {
     dispatch(setRecipeToView(recipe));
@@ -29,8 +36,8 @@ const SearchResultsPage = () => {
   });
 
   return (
-    <div>
-      <h1>Search Results</h1>
+    <div className={'search-results-page'}>
+      <div className={'search-results-title'}>Search Results</div>
       <Grid container spacing={2}>
         {recipePreviewList}
       </Grid>
