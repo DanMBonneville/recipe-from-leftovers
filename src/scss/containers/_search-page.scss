@@ -67,13 +67,13 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 768px) {
   .search-page {
     background-image: url('../images/fridge-vector-icon.jpeg');
     background-repeat: no-repeat;
     background-position: inherit;
-    background-size: 30%;
-    margin-top: 80px;
+    background-size: 25%;
+    margin-top: 65px;
     margin-right: 1px;
 
     & .search-page-inner {
@@ -96,11 +96,11 @@
         display: flex;
         gap: 1rem;
         padding-right: 20%;
-        height: 80px;
+        height: 60px;
 
         // all descendants of select-submit-wrapper
         & * {
-          font-size: 30px;
+          font-size: 20px;
           align-items: center;
 
           // move to the react-select-bar?
@@ -117,7 +117,7 @@
 
           & [class*='option'] {
             height: 100%;
-            font-size: 40px;
+            font-size: 200px;
             margin-bottom: 5px;
           }
         }
