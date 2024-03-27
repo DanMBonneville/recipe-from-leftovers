@@ -31,7 +31,7 @@ const SearchPage = () => {
   );
 
   useEffect(() => {
-    if (ingredientOptions.length === 0) {
+    if (ingredientOptions.length <= 1) {
       store.dispatch(getIngredientOptions());
     }
   }, [ingredientOptions]);

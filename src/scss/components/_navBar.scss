@@ -16,17 +16,19 @@
   }
 
   & .back-page-btn {
-    // background-color: #1976d2;
-    // color: white;
     margin-right: 20px;
     margin-left: auto;
     height: 75%;
   }
 
   & .forward-page-btn {
-    // background-color: #1976d2;
-    // color: white;
     margin-right: 20px;
     height: 75%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-bar {
+    height: 8%;
   }
 }
