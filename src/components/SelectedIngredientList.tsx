@@ -13,7 +13,7 @@ const SelectedIngredientList = (props: SelectedIngredientListProps) => {
       const separator =
         index === selectedIngredients.length - 1 ? <></> : <hr />;
       ingredientsArray.push(
-        <li onClick={() => removeIngredient(ingredient)}>
+        <li key={ingredient.label} onClick={() => removeIngredient(ingredient)}>
           {' '}
           {ingredient.label + ' '}
           <Icon className={'remove-ingredient-icon'}>clear</Icon>
