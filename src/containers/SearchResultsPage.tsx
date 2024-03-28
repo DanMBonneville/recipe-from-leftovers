@@ -11,10 +11,13 @@ import { setRecipeToView } from '../store/reducers/recipeReducer';
 const SearchResultsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let isFetchingRecipes = useSelector(
+    (state: AppState) => state.recipe.isFecthingRecipes
+  );
   let recipes = useSelector((state: AppState) => state.recipe.recipes);
 
   useEffect(() => {
-    if (recipes.length === 0) {
+    if (!isFetchingRecipes && recipes.length === 0) {
       navigate('/searchPage');
     }
   });

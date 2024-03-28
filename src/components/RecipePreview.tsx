@@ -10,12 +10,15 @@ const RecipePreview = (props: any) => {
   const title = recipe.title;
   const image = recipe.image;
   const isMobileScreen = useMediaQuery('min-width: 768px');
-  const xsForRecipePreview = isMobileScreen ? 4 : 12;
+  // const xsForRecipePreview = isMobileScreen ? 4 : 12;
+  const missedIngredientCount = recipe.missedIngredientCount;
+  const usedIngredientCount = recipe.usedIngredientCount;
+  const totalIngredientCount = missedIngredientCount + usedIngredientCount;
 
   return (
     <Grid
       item
-      xs={xsForRecipePreview}
+      // xs={xsForRecipePreview}
       display="flex"
       justifyContent="center"
       alignItems="center"
@@ -24,11 +27,12 @@ const RecipePreview = (props: any) => {
         <CardActionArea onClick={() => openRecipe(recipe)}>
           <CardMedia component="img" alt="recipe" image={image} />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h6" component="div">
               {title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              This is maybe where a description could go
+              You have {usedIngredientCount} out of {totalIngredientCount}{' '}
+              ingredients needed for this recipe
             </Typography>
           </CardContent>
         </CardActionArea>

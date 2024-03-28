@@ -12,7 +12,7 @@ const createGetRecipesURL = (ingredients: String) => {
 export const getRecipes = createAsyncThunk(
   'getRecipesFromIngredients',
   async (ingredients: String) => {
-    return await axios.get(createGetRecipesURL(ingredients));
+    return (await axios.get(createGetRecipesURL(ingredients))).data;
   }
 );
 
