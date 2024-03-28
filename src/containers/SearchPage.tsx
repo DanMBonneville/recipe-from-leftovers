@@ -30,13 +30,13 @@ const SearchPage = () => {
     (state: AppState) => state.ingredient.selectedIngredients
   );
 
+  const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
+
   useEffect(() => {
     if (ingredientOptions.length <= 1) {
       store.dispatch(getIngredientOptions());
     }
   }, [ingredientOptions]);
-
-  const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
 
   useEffect(() => {
     if (0 === selectedIngredients.length) {

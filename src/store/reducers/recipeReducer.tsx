@@ -34,12 +34,13 @@ const recipeSlice = createSlice({
       state.isFecthingRecipes = true;
     });
     builder.addCase(getRecipes.fulfilled, (state: RecipeState, action: any) => {
-      state.recipes = action.payload.data;
+      state.recipes = action.payload;
       state.isFecthingRecipes = false;
     });
     builder.addCase(getRecipes.rejected, (state: RecipeState) => {
       state.recipes = [];
       state.isFecthingRecipes = false;
+      console.log('failed??');
     });
   },
 });

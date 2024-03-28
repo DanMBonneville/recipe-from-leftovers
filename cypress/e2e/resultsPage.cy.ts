@@ -8,7 +8,7 @@ describe('resultsPage e2e tests', () => {
 
   it('Verify search button on search page nagiates use to results page', () => {
     cy.findByLabelText('Select Ingredients').type('grapes');
-    cy.findByText('Grapes').click();
+    cy.findByText('Green grapes').click();
     cy.findByTestId('recipe-search-button').click();
     cy.url().should('contains', '/searchResults');
   });
