@@ -3,9 +3,9 @@
 @import 'containers/search-page';
 @import 'containers/search-results-page';
 @import 'containers/recipe-details-page';
-@import 'components/multi-ingredient-select';
 @import 'components/ingredient-list';
 @import 'components/selected-ingredient-list';
+@import 'components/select-submit-wrapper';
 @import 'components/navBar';
 
 html,
@@ -14,7 +14,6 @@ body {
   margin: 0;
   font-family: 'Sanchez', serif;
   -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

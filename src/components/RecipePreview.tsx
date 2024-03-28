@@ -1,4 +1,4 @@
-import { CardActionArea } from '@mui/material';
+import { CardActionArea, useMediaQuery } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,10 +9,13 @@ const RecipePreview = (props: any) => {
   const { recipe, openRecipe } = props;
   const title = recipe.title;
   const image = recipe.image;
+  const isMobileScreen = useMediaQuery('min-width: 768px');
+  const xsForRecipePreview = isMobileScreen ? 4 : 12;
+
   return (
     <Grid
       item
-      xs={12}
+      xs={xsForRecipePreview}
       display="flex"
       justifyContent="center"
       alignItems="center"

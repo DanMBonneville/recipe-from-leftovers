@@ -9,7 +9,6 @@ const RecipeSearchButton = (props: RecipeSearchButtonProps) => {
       data-testid="recipe-search-button"
       disabled={isButtonDisabled}
       onClick={() => handleSearchForRecipes()}
-      size="large"
       variant="contained"
     >
       <Icon>search</Icon>
