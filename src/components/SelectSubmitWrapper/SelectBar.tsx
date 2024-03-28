@@ -4,15 +4,6 @@ import { SelectBarProps } from '../../common/types';
 const SelectBar = (props: SelectBarProps) => {
   const { isSelectDisabled, options, handleSelectionChange } = props;
 
-  const customStyles = {
-    option: (provided: any, state: any) => ({
-      ...provided,
-      borderBottom: '1px solid #ccc',
-      display: 'flex',
-      label: 'asdfasdfasdf',
-    }),
-  };
-
   return (
     <Select
       aria-label="Select Ingredients"
@@ -20,9 +11,9 @@ const SelectBar = (props: SelectBarProps) => {
       value={null}
       placeholder={"What's in your fridge?"}
       isDisabled={isSelectDisabled}
-      styles={customStyles}
       isClearable={true}
       onChange={handleSelectionChange}
+      // menuIsOpen
     />
   );
 };

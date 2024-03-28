@@ -5,30 +5,33 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: darkslateblue;
+  // overflow: hidden;
   display: flex;
+  // vertical centering
   align-items: center;
-  box-sizing: border-box;
+  background-color: grey;
+  border-bottom: 1px solid black;
+
+  & > * {
+    height: 75%;
+  }
 
   & .home-button {
     margin-left: 10px;
-    height: 75%;
   }
 
   & .back-page-btn {
     margin-right: 20px;
     margin-left: auto;
-    height: 75%;
   }
 
   & .forward-page-btn {
-    margin-right: 20px;
-    height: 75%;
+    margin-right: 10px;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .nav-bar {
-    height: 8%;
+    height: 55px;
   }
 }

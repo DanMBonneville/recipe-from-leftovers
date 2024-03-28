@@ -4,11 +4,11 @@
   background-repeat: no-repeat;
   background-size: 110%;
   background-position: top;
-  margin-top: 50px;
+  margin-top: 30px;
   margin-right: 1px;
 
   & .search-page-inner {
-    padding-top: 20%;
+    padding-top: 15%;
     padding-left: 25%;
 
     & .select-prompt {
@@ -16,52 +16,8 @@
 
       & > * {
         font-weight: 1000;
-        font-size: 60px;
+        font-size: 25px;
         text-align: left;
-      }
-    }
-
-    & .select-submit-wrapper {
-      margin-top: 55%;
-      display: flex;
-      gap: 1rem;
-      padding-right: 20%;
-      height: 80px;
-
-      // all descendants of select-submit-wrapper
-      & * {
-        font-size: 30px;
-        align-items: center;
-
-        // move to the react-select-bar?
-        & [class*='control'] {
-          height: 100%;
-        }
-
-        & [class*='placeholder'] {
-          height: 100%;
-          font-size: 30px;
-          display: flex;
-          align-items: center;
-        }
-
-        & [class*='option'] {
-          height: 100%;
-          font-size: 40px;
-          margin-bottom: 5px;
-        }
-      }
-
-      // react-select bar
-      & > div {
-        width: 80%;
-        align-items: center;
-      }
-
-      & .recipe-search-button {
-        margin-right: 0px;
-        margin-left: auto;
-        justify-content: center;
       }
     }
   }
@@ -72,13 +28,13 @@
     background-image: url('../images/fridge-vector-icon.jpeg');
     background-repeat: no-repeat;
     background-position: inherit;
-    background-size: 25%;
+    background-size: 350px;
     margin-top: 65px;
     margin-right: 1px;
 
     & .search-page-inner {
       padding-top: 1%;
-      padding-left: 35%;
+      padding-left: 370px;
 
       & .select-prompt {
         width: 100%;
@@ -88,50 +44,6 @@
           font-weight: 1000;
           font-size: 60px;
           text-align: left;
-        }
-      }
-
-      & .select-submit-wrapper {
-        margin-top: 5%;
-        display: flex;
-        gap: 1rem;
-        padding-right: 20%;
-        height: 60px;
-
-        // all descendants of select-submit-wrapper
-        & * {
-          font-size: 20px;
-          align-items: center;
-
-          // move to the react-select-bar?
-          & [class*='control'] {
-            height: 100%;
-          }
-
-          & [class*='placeholder'] {
-            height: 100%;
-            font-size: 30px;
-            display: inline;
-            align-items: center;
-          }
-
-          & [class*='option'] {
-            height: 100%;
-            font-size: 200px;
-            margin-bottom: 5px;
-          }
-        }
-
-        // react-select bar
-        & > div {
-          width: 80%;
-          align-items: center;
-        }
-
-        & .recipe-search-button {
-          margin-right: 0px;
-          margin-left: auto;
-          justify-content: center;
         }
       }
     }

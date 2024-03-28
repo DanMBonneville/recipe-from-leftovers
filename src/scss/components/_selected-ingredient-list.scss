@@ -1,23 +1,20 @@
 .selected-ingredient-list {
   border-radius: 2%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-top: 10px;
-  margin-bottom: 5px;
+  margin-top: 60px;
+  overflow-y: auto;
+  height: 321px;
 
   & > li {
-    // border: 1px solid grey;
-    padding: 5px;
-    margin-top: 15px;
-    margin-bottom: -20px;
     text-align: left;
-    font-size: 30px;
   }
 
   & .remove-ingredient-icon {
     vertical-align: middle;
     color: grey;
+  }
+
+  & hr {
+    margin-right: 36px;
   }
 }
 
