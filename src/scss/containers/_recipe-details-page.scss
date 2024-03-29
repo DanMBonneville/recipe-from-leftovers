@@ -1,45 +1,25 @@
 .recipe-details-page {
-  height: 100%;
+  height: 111%;
   background-image: url('../images/dinner_table.jpg');
   background-repeat: no-repeat;
-  background-size: 110%;
-  background-position: top;
+  background-size: 137%;
+  background-position-x: -82px;
+  background-position-y: 0px;
+  // background-position-x: -80px;
   background-attachment: fixed;
+  overflow-y: hidden;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   .recipe-details-page-inner {
-    height: 92%;
-    // width: 85%;
-    position: relative;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    padding-top: 1%;
-    border: 3px solid black;
     background-color: white;
-    // text-align: center;
-    // overflow: scroll;
-
-    // & > * {
-    //   line-height: 50px;
-    //   width: 95%;
-    //   display: inline-block;
-    //   font-size: xx-large;
-    // }
-
-    // & .recipe-title {
-    //   font-size: 300%;
-    // }
-
-    // & .recipe-image {
-    //   border: 5px solid black;
-    //   border-radius: 2%;
-    // }
-
-    // & .recipe-ingredients-used-message {
-    //   font-size: xx-large;
-    // }
+    border: 2px solid black;
+    width: 87%;
+    height: 78%;
+    top: 104px;
+    position: fixed;
   }
 }
 
@@ -50,7 +30,6 @@
     background-size: 1072px;
     background-position-x: 182px;
     background-position-y: 112%;
-    background-attachment: fixed;
 
     & .recipe-details-page-inner {
       padding: 0px;
