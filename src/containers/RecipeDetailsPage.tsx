@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import IngredientList from '../components/IngredientList';
+import RecipeDetailsDescription from '../components/RecipeDetailsDescription';
 import { AppState } from '../store';
 
 const RecipeDetailsPage = () => {
@@ -23,11 +24,7 @@ const RecipeDetailsPage = () => {
   return (
     <div className={'recipe-details-page'}>
       <div className={'recipe-details-page-inner'}>
-        <div className={'recipe-title'}>{title}</div>
-        <img className={'recipe-image'} src={image} alt="recipe" />
-        <div className={'recipe-ingredients-used-message'}>
-          {getNumberOfIngredientsUsedMessage()}
-        </div>
+        <RecipeDetailsDescription />
         {usedIngredientCount !== 0 && (
           <IngredientList
             ingredients={usedIngredients}

@@ -42,3 +42,18 @@
     }
   }
 }
+
+@media only screen and (min-width: 768px) {
+  .recipe-details-page {
+    // width: 100%;
+    background-image: url('../images/dinner_table_desktop.jpg');
+    background-size: 1072px;
+    background-position-x: 185px;
+    background-position-y: 112%;
+    background-attachment: fixed;
+
+    & .recipe-details-page-inner {
+      width: 0px;
+    }
+  }
+}
