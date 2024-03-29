@@ -15,12 +15,11 @@ const IngredientCard = (props: IngredientListProps) => {
     : 'What you have';
 
   let ingredientsArray: JSX.Element[] = [];
-
   ingredients.forEach(
     (ingredient: IngredientDescriptionType, index: number) => {
       const separator = index === ingredients.length - 1 ? <></> : <hr />;
       ingredientsArray.push(
-        <li>
+        <li key={ingredient.id}>
           {' '}
           {ingredient.original}
           {separator}

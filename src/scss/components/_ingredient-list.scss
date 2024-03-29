@@ -11,15 +11,21 @@
   border-radius: 2%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-bottom: 5px;
+  padding-right: 10px;
+  text-align: center;
+  width: 100%;
 
   & .title-of-list {
+    align-self: center;
     text-decoration-line: underline;
+    margin-bottom: 15px;
   }
 
   & > li {
     margin-left: 15px;
     text-align: left;
+    margin-top: -10px;
+    margin-bottom: 10px;
   }
 }

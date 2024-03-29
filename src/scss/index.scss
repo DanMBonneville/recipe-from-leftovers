@@ -6,6 +6,7 @@
 @import 'components/ingredient-list';
 @import 'components/selected-ingredient-list';
 @import 'components/select-submit-wrapper';
+@import 'components/recipe-description';
 @import 'components/navBar';
 
 html,
@@ -28,4 +29,13 @@ code {
 
 .layout-background {
   height: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    height: 90%;
+  }
+  .layout-background {
+    height: 684px;
+  }
 }

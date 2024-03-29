@@ -1,8 +1,10 @@
 .selected-ingredient-list {
   border-radius: 2%;
-  margin-top: 60px;
+  margin-top: 80px;
   overflow-y: auto;
   height: 321px;
+  max-width: 65%;
+  background-color: 'secondary';
 
   & > li {
     text-align: left;
@@ -39,6 +41,10 @@
     & .remove-ingredient-icon {
       vertical-align: middle;
       color: grey;
+    }
+
+    & ::-webkit-scrollbar {
+      width: 10px;
     }
   }
 }
