@@ -71,8 +71,8 @@ const SearchPage = () => {
     <div className="search-page">
       <div className="search-page-inner">
         <div data-testid="select-prompt" className="select-prompt">
-          <h1>Leftovers?</h1>
-          <h1>Let's find a Recipe!</h1>
+          <div>Leftovers?</div>
+          <div>Let's find a Recipe!</div>
         </div>
         <SelectSubmitWrapper
           isSelectDisabled={isFecthingIngredientOptions}
