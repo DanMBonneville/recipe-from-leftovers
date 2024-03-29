@@ -15,7 +15,6 @@ const IngredientCard = (props: IngredientListProps) => {
     : 'What you have';
 
   let ingredientsArray: JSX.Element[] = [];
-  console.log('ingredients: ', ingredients);
   ingredients.forEach(
     (ingredient: IngredientDescriptionType, index: number) => {
       const separator = index === ingredients.length - 1 ? <></> : <hr />;
