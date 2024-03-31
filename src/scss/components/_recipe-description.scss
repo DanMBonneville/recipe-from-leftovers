@@ -1,23 +1,28 @@
 .recipe-description {
   background-color: $secondary;
   color: white;
-  flex-direction: column;
+  width: 45%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 50%;
-  border-bottom: 2px solid black;
+  height: 100%;
+  border-right: 5px solid black;
 
   & > * {
+    margin-left: 5px;
+    margin-right: 5px;
+
     // horizontal center
     display: flex;
     justify-content: center;
-    margin-left: 5px;
-    margin-right: 5px;
+
     // vert
     align-items: center;
   }
 
   & .recipe-title {
+    font-size: larger;
+    font-weight: 600;
     height: 20%;
   }
 
@@ -29,45 +34,33 @@
     height: 25%;
   }
 }
-@media only screen and (min-width: 768px) {
+
+@media only screen and (max-width: 768px) {
   .recipe-description {
-    height: 100%;
-    width: 50%;
-    background-color: $secondary;
+    height: 10%;
+    width: 48%;
     color: white;
     font-weight: 200;
+    border-right: 3px solid black;
+
     // horizontal center
     flex-direction: column;
     display: flex;
     justify-content: center;
-
     align-items: center;
 
     & > * {
-      margin-left: 5px;
-      margin-right: 5px;
-      display: flex;
-      justify-content: center;
     }
 
     & .recipe-title {
-      height: 10%;
-      // horizontal center
-      align-items: center;
-      font-size: 20px;
+      font-size: larger;
+      font-weight: 600;
     }
 
     & .recipe-image {
-      border: 2px black solid;
-      align-self: center;
-      height: 65%;
     }
 
     & .recipe-num-ingredients-used-message {
-      // horizontal center
-      height: 10%;
-      display: flex;
-      justify-content: center;
     }
   }
 }

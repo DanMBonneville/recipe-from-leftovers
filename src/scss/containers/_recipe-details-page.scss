@@ -1,50 +1,48 @@
+// desktop
 .recipe-details-page {
-  height: 111%;
-  background-image: url('../images/dinner_table.jpg');
+  background-image: url('../images/dinner_table_desktop.jpg');
   background-repeat: no-repeat;
-  background-size: 137%;
-  background-position-x: -82px;
-  background-position-y: 0px;
-  // background-position-x: -80px;
-  background-attachment: fixed;
-
+  background-size: 95%;
+  background-position: center;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
-  .recipe-details-page-inner {
+  & .recipe-details-page-inner {
+    display: flex;
+    margin-bottom: 1.2%;
+    margin-left: 0.3%;
+    height: 37.5vw;
+    width: 72.6vw;
     background-color: white;
-    border: 2px solid black;
-    width: 87%;
-    height: 78%;
-    top: 104px;
-    position: fixed;
+    border: 5px solid black;
+    border-radius: 4px;
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
   .recipe-details-page {
-    // width: 100%;
-    background-image: url('../images/dinner_table_desktop.jpg');
-    background-size: 1072px;
-    background-position-x: 182px;
-    background-position-y: 112%;
+    // overflow: hidden;
+    height: 100%;
+    background-image: url('../images/dinner_table.jpg');
+    background-repeat: no-repeat;
+    background-size: 140%;
+    background-position-x: 56.5%;
+    background-position-y: 80.5%;
+    background-attachment: fixed;
 
-    & .recipe-details-page-inner {
-      padding: 0px;
-      margin: 0px;
-      // left: 306px;
-      top: 150px;
-      // width: 821px;
-      width: 0px;
-      height: 421px;
-      position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .recipe-details-page-inner {
+      height: 172vw;
+      width: 88vw;
       display: flex;
-    }
-
-    & .ingredient-details {
-      width: 46%;
-      margin: 5px;
+      flex-direction: column;
     }
   }
 }
