@@ -1,0 +1,32 @@
+// desktop
+.select-submit-ingredients {
+  max-width: 65%;
+  display: flex;
+  gap: 0.75rem;
+  height: 45px;
+  align-items: center;
+  margin-bottom: 10px;
+
+  & [class*='placeholder'] {
+    font-size: 20px;
+  }
+}
+
+// mobile
+@media only screen and (max-width: 768px) {
+  .select-submit-ingredients {
+    position: absolute;
+    top: 15%;
+
+    & [class*='placeholder'] {
+      font-size: 12px;
+    }
+
+    & > button {
+      width: 5%;
+      min-width: 4%;
+      height: 75%;
+      min-height: 75%;
+    }
+  }
+}

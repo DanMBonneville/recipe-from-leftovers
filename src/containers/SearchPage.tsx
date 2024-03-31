@@ -7,7 +7,8 @@ import {
   convertIngredientOptionArrToStringArr,
   convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
-import SelectSubmitWrapper from '../components/SelectSubmitWrapper/SelectSubmitWrapper';
+import SelectIngredientsPrompt from '../components/SelectIngredientsPrompt';
+import SelectSubmitIngredients from '../components/SelectSubmitIngredients/SelectSubmitIngredients';
 import SelectedIngredientList from '../components/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
@@ -70,11 +71,8 @@ const SearchPage = () => {
   return (
     <div className="search-page">
       <div className="search-page-inner">
-        <div data-testid="select-prompt" className="select-prompt">
-          <div>Leftovers?</div>
-          <div>Let's find a Recipe!</div>
-        </div>
-        <SelectSubmitWrapper
+        <SelectIngredientsPrompt />
+        <SelectSubmitIngredients
           isSelectDisabled={isFecthingIngredientOptions}
           isButtonDisabled={recipeButtonDisabled}
           options={ingredientOptions}

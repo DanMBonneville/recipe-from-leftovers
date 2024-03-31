@@ -1,58 +1,29 @@
-//mobile
+// desktop
 .search-page {
   height: 100%;
   background-image: url('../images/fridge-vector-icon.jpeg');
   background-repeat: no-repeat;
-  background-size: 110%;
-  background-position: top;
-  margin-top: 30px;
+  background-position: inherit;
+  background-size: 360px;
   margin-right: 1px;
 
   & .search-page-inner {
-    padding-top: 15%;
-    padding-left: 25%;
-
-    & .select-prompt {
-      margin-top: 10%;
-      margin-bottom: 5%;
-      width: 100%;
-
-      & > * {
-        font-weight: 1000;
-        font-size: 25px;
-        text-align: left;
-      }
-    }
+    height: 100%;
+    padding-left: 365px;
   }
 }
 
-@media only screen and (min-width: 768px) {
+// mobile
+@media only screen and (max-width: 768px) {
   .search-page {
-    background-image: url('../images/fridge-vector-icon.jpeg');
-    background-repeat: no-repeat;
-    background-position: inherit;
-    background-size: 320px;
-    margin-top: 60px;
-    margin-right: 1px;
+    background-size: 104%;
+    background-position-y: 0%;
+    background-position-x: 0%;
+    margin-top: -8px;
+    margin-left: -10px;
 
     & .search-page-inner {
-      padding-top: 1px;
-      // margin-top: 5px;
-      padding-left: 370px;
-
-      & .select-prompt {
-        margin-top: 45px;
-        line-height: 20px;
-        vertical-align: top;
-        font-size: 5px;
-
-        & > * {
-          font-weight: 1000;
-          margin-bottom: 50px;
-          font-size: 60px;
-          text-align: left;
-        }
-      }
+      padding-left: 28%;
     }
   }
 }

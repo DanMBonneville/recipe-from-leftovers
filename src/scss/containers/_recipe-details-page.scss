@@ -7,7 +7,6 @@
   background-position-y: 0px;
   // background-position-x: -80px;
   background-attachment: fixed;
-  overflow-y: hidden;
 
   display: flex;
   align-items: center;
@@ -34,9 +33,10 @@
     & .recipe-details-page-inner {
       padding: 0px;
       margin: 0px;
-      left: 306px;
+      // left: 306px;
       top: 150px;
-      width: 821px;
+      // width: 821px;
+      width: 0px;
       height: 421px;
       position: fixed;
       display: flex;
