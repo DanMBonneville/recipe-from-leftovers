@@ -1,0 +1,25 @@
+.select-prompt {
+  padding-top: 5%;
+  font-size: 5px;
+  padding-bottom: 10px;
+
+  & > * {
+    font-weight: 1000;
+    font-size: 60px;
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .select-prompt {
+    padding-top: 0%;
+    position: absolute;
+    top: 15%;
+
+    & > * {
+      font-weight: 1000;
+      font-size: 25px;
+      text-align: left;
+    }
+  }
+}

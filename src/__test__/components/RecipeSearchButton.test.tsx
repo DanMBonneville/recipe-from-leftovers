@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import RecipeSearchButton from '../../components/SelectSubmitWrapper/RecipeSearchButton';
+import RecipeSearchButton from '../../components/SelectSubmitIngredients/RecipeSearchButton';
 
 describe('<RecipeSearchButton />', () => {
   it('Verify function in props is called once on click', () => {
