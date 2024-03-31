@@ -18,6 +18,10 @@
     position: absolute;
     top: 20%;
 
+    & [class*='container'] {
+      font-size: 12px;
+    }
+
     & [class*='placeholder'] {
       font-size: 12px;
     }
