@@ -9,20 +9,12 @@ const RecipePreview = (props: any) => {
   const { recipe, openRecipe } = props;
   const title = recipe.title;
   const image = recipe.image;
-  // const isMobileScreen = useMediaQuery('min-width: 768px');
-  // const xsForRecipePreview = isMobileScreen ? 4 : 12;
   const missedIngredientCount = recipe.missedIngredientCount;
   const usedIngredientCount = recipe.usedIngredientCount;
   const totalIngredientCount = missedIngredientCount + usedIngredientCount;
 
   return (
-    <Grid
-      item
-      // xs={xsForRecipePreview}
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-    >
+    <Grid item display="flex" justifyContent="center" alignItems="center">
       <Card>
         <CardActionArea onClick={() => openRecipe(recipe)}>
           <CardMedia component="img" alt="recipe" image={image} />
