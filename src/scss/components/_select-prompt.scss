@@ -12,9 +12,16 @@
 
 @media only screen and (max-width: 768px) {
   .select-prompt {
+    width: 100%;
+    height: 22%;
+
     padding-top: 0%;
-    position: absolute;
-    top: 11%;
+
+    display: flex;
+    flex-direction: column;
+    //vert
+    justify-content: end;
+    text-align: left;
 
     & > * {
       font-weight: 1000;

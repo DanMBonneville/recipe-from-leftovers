@@ -50,19 +50,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    & > * {
-    }
+    border-bottom: 4px solid black;
 
     & .recipe-title {
       font-size: larger;
       font-weight: 600;
-    }
-
-    & .recipe-image {
-    }
-
-    & .recipe-num-ingredients-used-message {
     }
   }
 }
