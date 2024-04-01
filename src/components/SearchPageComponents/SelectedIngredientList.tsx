@@ -2,7 +2,7 @@ import Icon from '@mui/material/Icon';
 import {
   IngredientOptionType,
   SelectedIngredientListProps,
-} from '../common/types';
+} from '../../common/types';
 
 const SelectedIngredientList = (props: SelectedIngredientListProps) => {
   const { selectedIngredients, removeIngredient } = props;

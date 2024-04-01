@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
 import { RecipeType } from '../common/types';
-import RecipePreview from '../components/RecipePreview';
+import RecipePreview from '../components/SearchResultsPageComponents/RecipePreview';
 import { AppState, store } from '../store';
 import { getRecipeInfo } from '../store/actions/actions';
 import { setRecipeToView } from '../store/reducers/recipeReducer';
@@ -19,7 +19,7 @@ const SearchResultsPage = () => {
 
   useEffect(() => {
     if (!isFetchingRecipes && recipes.length === 0) {
-      navigate('/searchPage');
+      navigate('/search-for-recipes');
     }
   });
 
@@ -32,11 +32,7 @@ const SearchResultsPage = () => {
   let recipePreviewList: JSX.Element[] = [];
   recipes.forEach((recipe: RecipeType) => {
     recipePreviewList.push(
-      <RecipePreview
-        key={recipe.title}
-        recipe={recipe}
-        openRecipe={openRecipe}
-      />
+      <RecipePreview key={recipe.id} recipe={recipe} openRecipe={openRecipe} />
     );
   });
 

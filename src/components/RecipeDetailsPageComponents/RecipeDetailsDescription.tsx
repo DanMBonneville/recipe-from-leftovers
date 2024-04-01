@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { AppState } from '../store';
+import { AppState } from '../../store';
 
 const RecipeDetailsDescription = () => {
   const recipe = useSelector((state: AppState) => state.recipe.recipeToView);

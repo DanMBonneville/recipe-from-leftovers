@@ -1,14 +1,21 @@
+import { Button } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import IngredientList from '../components/IngredientList';
-import RecipeDetailsDescription from '../components/RecipeDetailsDescription';
+import { useNavigate } from 'react-router-dom';
+import IngredientList from '../components/RecipeDetailsPageComponents/IngredientList';
+import RecipeDetailsDescription from '../components/RecipeDetailsPageComponents/RecipeDetailsDescription';
 import { AppState } from '../store';
 import { emptyRecipe } from '../store/reducers/recipeReducer';
 
 const RecipeDetailsPage = () => {
   const navigate = useNavigate();
   const recipe = useSelector((state: AppState) => state.recipe.recipeToView);
+  const {
+    usedIngredientCount,
+    usedIngredients,
+    missedIngredientCount,
+    missedIngredients,
+  } = recipe;
 
   let isFecthingRecipeInfoLink = useSelector(
     (state: AppState) => state.recipe.isFetchingRecipeInfoLink
@@ -20,16 +27,13 @@ const RecipeDetailsPage = () => {
 
   useEffect(() => {
     if (!isFecthingRecipeInfoLink && recipe === emptyRecipe) {
-      navigate('/searchPage');
+      navigate('/search-for-recipes');
     }
   });
 
-  const {
-    usedIngredientCount,
-    usedIngredients,
-    missedIngredientCount,
-    missedIngredients,
-  } = recipe;
+  const goToRecipeInstructions = () => {
+    window.location.href = recipeInfoLink;
+  };
 
   return (
     <div className={'recipe-details-page'}>
@@ -37,9 +41,15 @@ const RecipeDetailsPage = () => {
         <RecipeDetailsDescription />
         <div className={'ingredient-details'}>
           {!isFecthingRecipeInfoLink && (
-            <Link className="recipe-link" to={recipeInfoLink}>
+            <Button
+              data-testid="recipe-link"
+              className="recipe-link"
+              variant="outlined"
+              onClick={() => goToRecipeInstructions()}
+            >
+              {' '}
               Instructions
-            </Link>
+            </Button>
           )}
           {usedIngredientCount !== 0 && (
             <IngredientList

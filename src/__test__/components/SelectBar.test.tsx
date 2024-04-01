@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { IngredientOptionType } from '../../common/types';
-import SelectBar from '../../components/SelectSubmitIngredients/SelectBar';
+import SelectBar from '../../components/SearchPageComponents/SelectSubmitIngredients/SelectBar';
 
 describe('<SelectBar />', () => {
   it('Select Bar is initially empty', () => {

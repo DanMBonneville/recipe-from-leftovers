@@ -13,7 +13,7 @@ describe('resultsPage e2e tests', () => {
       .type('{enter}');
     cy.findByLabelText('Select Ingredients').type('Apple').type('{enter}');
     cy.findByTestId('recipe-search-button').click();
-    cy.url().should('contains', '/searchResults');
+    cy.url().should('contains', '/recipe-preview-list');
   });
 
   it('User sends correct ingredient list on submit', () => {
