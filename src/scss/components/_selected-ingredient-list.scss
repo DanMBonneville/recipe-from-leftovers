@@ -1,0 +1,39 @@
+// desktop
+.selected-ingredient-list {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  overflow-y: auto;
+  max-width: 56%;
+  background-color: 'secondary';
+  box-sizing: border-box;
+
+  & > li {
+    text-align: left;
+    font-size: 12px;
+  }
+
+  & .remove-ingredient-icon {
+    vertical-align: middle;
+    color: grey;
+  }
+
+  & hr {
+    margin-right: 36px;
+  }
+}
+
+//mobile
+@media only screen and (max-width: 768px) {
+  .selected-ingredient-list {
+    height: 60vh;
+    width: 100%;
+    padding-top: 12vh;
+    max-width: 100%;
+    display: flex;
+
+    & > li {
+      font-size: large;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+// desktop
+.search-page {
+  height: 100%;
+  background-image: url('../images/fridge-vector-icon.jpeg');
+  background-repeat: no-repeat;
+  background-position: inherit;
+  background-size: 360px;
+  margin-right: 1px;
+
+  & .search-page-inner {
+    height: 100%;
+    padding-left: 365px;
+  }
+}
+
+// mobile
+@media only screen and (max-width: 768px) {
+  .search-page {
+    width: 100vw;
+    height: 100%;
+    background-size: 105% 105%;
+
+    margin-top: -8px;
+    margin-left: -10px;
+
+    & .search-page-inner {
+      height: 100%;
+      // width: 70%;
+      padding-left: 30%;
+      margin-right: 10%;
+      display: flex;
+      align-items: left;
+      flex-direction: column;
+    }
+  }
+}

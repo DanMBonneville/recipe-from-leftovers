@@ -1,0 +1,59 @@
+// desktop
+.search-results-page {
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  & > * {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  & .search-results-title {
+    height: 10%;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & hr {
+    width: 88%;
+    border: 1px solid black;
+  }
+
+  & [class*='MuiGrid-container'] {
+    justify-content: center;
+    height: 88%;
+    margin-top: 0px;
+    padding-bottom: 10px;
+    overflow-y: auto;
+    width: 100%;
+  }
+
+  & [class*='MuiGrid-item'] {
+    width: 25%;
+  }
+
+  & [class*='MuiPaper-root'] {
+    width: 100%;
+    background-color: rgb(170, 172, 172);
+    border: 1px solid black;
+  }
+}
+
+//mobile
+@media only screen and (max-width: 768px) {
+  .search-results-page {
+    & [class*='MuiGrid-container'] {
+      height: 100%;
+      padding-left: 6%;
+
+      & [class*='MuiGrid-item'] {
+        width: 100%;
+      }
+    }
+  }
+}

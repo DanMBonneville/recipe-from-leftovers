@@ -1,0 +1,66 @@
+@use '@material/button/styles';
+@import 'abstracts/variables';
+@import 'containers/search-page';
+@import 'containers/search-results-page';
+@import 'containers/recipe-details-page';
+@import 'components/recipe-details-ingredient-list';
+@import 'components/selected-ingredient-list';
+@import 'components/select-submit-ingredients';
+@import 'components/select-prompt';
+@import 'components/recipe-description';
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Sanchez', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & .nav-bar {
+    height: 6%;
+    width: 100%;
+    z-index: 1;
+    background-color: $secondary;
+    border-bottom: 1px solid black;
+
+    display: flex;
+    align-items: center;
+
+    & > * {
+      height: 75%;
+    }
+
+    & .home-button {
+      margin-left: 10px;
+    }
+
+    & .back-page-btn {
+      margin-right: 20px;
+      margin-left: auto;
+    }
+
+    & .forward-page-btn {
+      margin-right: 10px;
+    }
+  }
+
+  & .content {
+    position: absolute;
+    top: 6%;
+    height: 94%;
+    width: 100%;
+  }
+}

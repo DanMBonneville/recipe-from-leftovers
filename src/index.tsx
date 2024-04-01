@@ -1,16 +1,37 @@
+import { ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
+import { store } from './store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#4BADEE',
+    },
+    secondary: {
+      main: '#808080',
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
+
+// reference app: https://github.com/MRFolio/recipes-app

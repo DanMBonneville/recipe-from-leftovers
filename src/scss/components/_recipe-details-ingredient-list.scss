@@ -1,0 +1,83 @@
+// desktop
+.ingredient-details {
+  width: 55%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  & .recipe-link {
+    font-weight: 600;
+    width: 94%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  & .used-ingredients {
+    border: 2px solid green;
+  }
+
+  & .missed-ingredients {
+    border: 2px solid red;
+  }
+
+  & .used-ingredients,
+  & .missed-ingredients {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: left;
+    width: 95%;
+
+    & .title-of-list {
+      align-self: center;
+      text-decoration-line: underline;
+      margin-bottom: 15px;
+    }
+
+    & > li {
+      margin-left: 15px;
+      text-align: left;
+      margin-top: -10px;
+      margin-bottom: 10px;
+
+      > hr {
+        width: 90%;
+      }
+    }
+  }
+}
+
+// mobile
+@media only screen and (max-width: 768px) {
+  .ingredient-details {
+    width: 100%;
+    & .used-ingredients,
+    & .missed-ingredients {
+      display: flex;
+      margin: 5px;
+
+      text-align: center;
+      width: 94%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      & .title-of-list {
+        align-self: center;
+        text-decoration-line: underline;
+        margin-bottom: 15px;
+      }
+
+      & > li {
+        margin-left: 15px;
+        text-align: left;
+        margin-top: -10px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

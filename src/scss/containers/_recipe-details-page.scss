@@ -1,0 +1,49 @@
+// desktop
+.recipe-details-page {
+  background-image: url('../images/dinner_table_desktop.jpg');
+  background-repeat: no-repeat;
+  background-size: 95%;
+  background-position: center;
+
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  & .recipe-details-page-inner {
+    display: flex;
+    margin-bottom: 1.2%;
+    margin-left: 0.3%;
+    height: 37.5vw;
+    width: 72.6vw;
+    background-color: white;
+    border: 5px solid black;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .recipe-details-page {
+    width: 100vw;
+    height: 100%;
+
+    background-image: url('../images/dinner_table.jpg');
+    background-repeat: no-repeat;
+    background-size: 105% 105%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .recipe-details-page-inner {
+      margin-bottom: 1%;
+      margin-right: 1%;
+      height: 86.6vh;
+      width: 86.6vw;
+      background-color: white;
+      border: 5px solid black;
+      flex-direction: column;
+    }
+  }
+}
