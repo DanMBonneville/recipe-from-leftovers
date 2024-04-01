@@ -5,37 +5,62 @@
 @import 'containers/recipe-details-page';
 @import 'components/recipe-details-ingredient-list';
 @import 'components/selected-ingredient-list';
-@import 'components/select-submit-wrapper';
+@import 'components/select-submit-ingredients';
+@import 'components/select-prompt';
 @import 'components/recipe-description';
-@import 'components/navBar';
-
-html,
-body {
-  height: 95%;
-  margin: 0;
-  font-family: 'Sanchez', serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-#root {
-  height: 100%;
-  margin: 0;
-}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-.layout-background {
+html,
+body,
+#root {
   height: 100%;
+  margin: 0;
+  font-family: 'Sanchez', serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media only screen and (min-width: 768px) {
-  body {
-    height: 90%;
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  & .nav-bar {
+    height: 6%;
+    width: 100%;
+    z-index: 1;
+    background-color: $secondary;
+    border-bottom: 1px solid black;
+
+    display: flex;
+    align-items: center;
+
+    & > * {
+      height: 75%;
+    }
+
+    & .home-button {
+      margin-left: 10px;
+    }
+
+    & .back-page-btn {
+      margin-right: 20px;
+      margin-left: auto;
+    }
+
+    & .forward-page-btn {
+      margin-right: 10px;
+    }
   }
-  .layout-background {
-    height: 684px;
+
+  & .content {
+    position: absolute;
+    top: 6%;
+    height: 94%;
+    width: 100%;
   }
 }

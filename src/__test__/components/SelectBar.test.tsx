@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { IngredientOptionType } from '../../common/types';
-import SelectBar from '../../components/SelectSubmitWrapper/SelectBar';
+import SelectBar from '../../components/SelectSubmitIngredients/SelectBar';
 
-describe('<MultiSelectBar />', () => {
+describe('<SelectBar />', () => {
   it('Select Bar is initially empty', () => {
     const handleSelectionChange = jest.fn();
     const options: IngredientOptionType[] = [
