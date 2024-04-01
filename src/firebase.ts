@@ -14,6 +14,6 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-
+console.log('The env file?? ', process.env.FIREBASE_API_KEY);
 const db = getFirestore();
 export const ingredientOptionsRef = doc(db, 'ingredients', 'options');
