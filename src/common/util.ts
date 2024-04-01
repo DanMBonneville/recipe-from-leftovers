@@ -8,6 +8,12 @@ export const updateObject = (oldObject: object, updatedProperties: object) => {
   };
 };
 
+export const alphabatizeIngredientOptions = (
+  options: IngredientOptionType[]
+) => {
+  return [...options].sort((a, b) => a.label.localeCompare(b.label));
+};
+
 export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
   var optionArr: IngredientOptionType[] = [];
   props.map((opt) => {

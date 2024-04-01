@@ -1,21 +1,47 @@
 import { stableDomDefaultParams } from '../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
-  before('User is on recipe details page for bread Omlette', () => {
-    cy.visit('/');
-    cy.get('body').waitForStableDOM(stableDomDefaultParams);
-    cy.findByLabelText('Select Ingredients').type('milk');
-    cy.findByText('Milk').click();
-    cy.findByLabelText('Select Ingredients').type('eggs');
-    cy.findByText('Free range eggs').click();
-    cy.findByTestId('recipe-search-button').click();
-    cy.findByText('Yorkshire Pudding').click();
-    cy.pause();
+  describe('Verify that a regular use case where the user has some of the ingrededients on the final page', () => {
+    before('User is on recipe details page for Bread Omlette', () => {
+      cy.visit('/');
+      cy.get('body').waitForStableDOM(stableDomDefaultParams);
+      cy.findByLabelText('Select Ingredients').type('milk');
+      cy.findByText('Milk').click();
+      cy.findByLabelText('Select Ingredients').type('eggs');
+      cy.findByText('Free range eggs').click();
+      cy.findByTestId('recipe-search-button').click();
+      cy.findByText('Yorkshire Pudding').click();
+    });
+
+    it('Verify what you have block is preset', () => {
+      cy.findByText('What you have').should('be.visible');
+    });
+
+    it('Verify what you need block is preset', () => {
+      cy.findByText('What you need').should('be.visible');
+    });
   });
 
-  it('Verify search button on search page nagiates use to results page', () => {
-    cy.findByText('Green grapes').click();
-    cy.findByTestId('recipe-search-button').click();
-    cy.url().should('contains', '/searchResults');
+  describe('Verify the use case for when the user has all the ingredients', () => {
+    before('User is on recipe details page for bread Omlette', () => {
+      cy.visit('/');
+      cy.get('body').waitForStableDOM(stableDomDefaultParams);
+      cy.findByLabelText('Select Ingredients').type('milk');
+      cy.findByText('Milk').click();
+      cy.findByLabelText('Select Ingredients').type('eggs');
+      cy.findByText('Free range eggs').click();
+      cy.findByLabelText('Select Ingredients').type('vanilla');
+      cy.findByText('Vanilla').click();
+      cy.findByTestId('recipe-search-button').click();
+      cy.findByText('Baked Custard').click();
+    });
+
+    it('Verify what you have block is preset', () => {
+      cy.findByText('What you have').should('be.visible');
+    });
+
+    it('Verify what you need block is preset', () => {
+      cy.get('div').contains('What you need').should('not.exist');
+    });
   });
 });

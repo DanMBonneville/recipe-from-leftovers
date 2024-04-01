@@ -9,7 +9,7 @@ app.use(cors());
 const createUrl = (ingredients: string) => {
   const apiKey = process.env.SPOON_API_KEY;
   ingredients.toLowerCase();
-  return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=1&apiKey=${apiKey}`;
+  return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=2&apiKey=${apiKey}`;
 };
 app.get('/getRecipesFromIngredients', (req: any, res: any) => {
   let url = createUrl(req.query.ingredients);
