@@ -19,7 +19,7 @@ export type IngredientDescriptionType = {
 
 export type RecipeType = {
   title: string;
-  id: string;
+  id: number;
   image: string;
   imageType: string;
   likes: number;
@@ -38,7 +38,9 @@ export type AppState = ReturnType<typeof store.getState>;
 export interface RecipeState {
   recipes: RecipeType[];
   recipeToView: RecipeType;
+  recipeInfoLink: string;
   isFecthingRecipes: boolean;
+  isFetchingRecipeInfoLink: boolean;
 }
 
 export type IngredientState = {
