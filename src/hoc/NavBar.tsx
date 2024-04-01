@@ -11,7 +11,7 @@ const NavBar = () => {
         className="home-button"
         size="large"
         variant="contained"
-        onClick={() => navigate('/searchPage')}
+        onClick={() => navigate('/search-for-recipes')}
       >
         <Icon>home</Icon>
       </Button>

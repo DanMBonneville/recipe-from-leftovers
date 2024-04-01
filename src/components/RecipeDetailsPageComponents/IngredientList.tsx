@@ -1,7 +1,7 @@
 import {
   IngredientDescriptionType,
   IngredientListProps,
-} from '../common/types';
+} from '../../common/types';
 
 const IngredientCard = (props: IngredientListProps) => {
   const { ingredients, isMissingIngredientList } = props;

@@ -1,4 +1,4 @@
-import { RecipeSearchButtonProps, SelectBarProps } from '../../common/types';
+import { RecipeSearchButtonProps, SelectBarProps } from '../../../common/types';
 import RecipeSearchButton from './RecipeSearchButton';
 import SelectBar from './SelectBar';
 

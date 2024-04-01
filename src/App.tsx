@@ -21,10 +21,13 @@ class App extends Component {
     return (
       <Layout>
         <Routes>
-          <Route path="/searchPage" Component={asyncSearchPage} />
-          <Route path="/searchResults" Component={asyncSearchResults} />
+          <Route path="/search-for-recipes" Component={asyncSearchPage} />
+          <Route path="/recipe-preview-list" Component={asyncSearchResults} />
           <Route path="/recipe/details" Component={asyncRecipeDetails} />
-          <Route path="*" element={<Navigate to="/searchPage" replace />} />
+          <Route
+            path="*"
+            element={<Navigate to="/search-for-recipes" replace />}
+          />
         </Routes>
       </Layout>
     );

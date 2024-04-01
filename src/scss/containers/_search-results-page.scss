@@ -27,9 +27,10 @@
   & [class*='MuiGrid-container'] {
     justify-content: center;
     height: 88%;
+    margin-top: 0px;
+    padding-bottom: 10px;
     overflow-y: auto;
     width: 100%;
-    margin-top: 0px;
   }
 
   & [class*='MuiGrid-item'] {
@@ -49,7 +50,6 @@
     & [class*='MuiGrid-container'] {
       height: 100%;
       padding-left: 6%;
-      padding-bottom: 10px;
 
       & [class*='MuiGrid-item'] {
         width: 100%;

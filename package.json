@@ -42,6 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
+    "cy:run": "cypress run",
     "cy:open": "cypress open",
     "eject": "react-scripts eject"
   },

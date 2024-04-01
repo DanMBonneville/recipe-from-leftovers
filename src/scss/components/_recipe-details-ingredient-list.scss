@@ -8,8 +8,10 @@
   flex-direction: column;
 
   & .recipe-link {
-    line-height: 20px;
+    font-weight: 600;
+    width: 94%;
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   & .used-ingredients {

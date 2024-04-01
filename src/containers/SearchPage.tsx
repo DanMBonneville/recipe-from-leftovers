@@ -7,9 +7,9 @@ import {
   convertIngredientOptionArrToStringArr,
   convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
-import SelectIngredientsPrompt from '../components/SelectIngredientsPrompt';
-import SelectSubmitIngredients from '../components/SelectSubmitIngredients/SelectSubmitIngredients';
-import SelectedIngredientList from '../components/SelectedIngredientList';
+import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
+import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
+import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
 import {
@@ -67,7 +67,7 @@ const SearchPage = () => {
     store.dispatch(
       getRecipes(convertIngredientOptionArrToStringArr(selectedIngredients))
     );
-    navigate('/searchResults');
+    navigate('/recipe-preview-list');
   };
 
   return (

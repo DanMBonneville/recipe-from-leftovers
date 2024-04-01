@@ -1,5 +1,5 @@
 import Select from 'react-select';
-import { SelectBarProps } from '../../common/types';
+import { SelectBarProps } from '../../../common/types';
 
 const SelectBar = (props: SelectBarProps) => {
   const { isSelectDisabled, options, handleSelectionChange } = props;
