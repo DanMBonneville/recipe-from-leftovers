@@ -18,13 +18,13 @@ export type IngredientDescriptionType = {
 };
 
 export type RecipeType = {
+  title: string;
   id: string;
   image: string;
   imageType: string;
   likes: number;
   missedIngredientCount: number;
   missedIngredients: IngredientDescriptionType[];
-  title: string;
   unusedIngredients: IngredientDescriptionType[];
   usedIngredientCount: number;
   usedIngredients: IngredientDescriptionType[];
@@ -43,7 +43,7 @@ export interface RecipeState {
 
 export type IngredientState = {
   selectedIngredients: IngredientOptionType[];
-  ingredientOptions: Array<IngredientOptionType>;
+  ingredientOptions: IngredientOptionType[];
   isFecthingIngredientOptions: boolean;
 };
 

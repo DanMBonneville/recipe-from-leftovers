@@ -1,6 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { IngredientOptionType, IngredientState } from '../../common/types';
-import { convertStringArrToIngredientOptionTypeArr } from '../../common/util';
+import {
+  alphabatizeIngredientOptions,
+  convertStringArrToIngredientOptionTypeArr,
+} from '../../common/util';
 import { getIngredientOptions } from '../actions/actions';
 
 const initialState = {
@@ -22,7 +25,7 @@ const ingredientSlice = createSlice({
       state,
       action: PayloadAction<IngredientOptionType[]>
     ) => {
-      state.ingredientOptions = action.payload;
+      state.ingredientOptions = alphabatizeIngredientOptions(action.payload);
     },
     setSelectedIngredients: (
       state,
@@ -36,13 +39,29 @@ const ingredientSlice = createSlice({
     ) => {
       state.selectedIngredients.push(action.payload);
     },
+    addIngredientOption: (
+      state,
+      action: PayloadAction<IngredientOptionType>
+    ) => {
+      state.ingredientOptions = alphabatizeIngredientOptions([
+        ...state.ingredientOptions,
+        action.payload,
+      ]);
+    },
+    removeIngredientOption: (
+      state,
+      action: PayloadAction<IngredientOptionType>
+    ) => {
+      state.ingredientOptions = state.ingredientOptions.filter(
+        (ingredient) => ingredient.label !== action.payload.label
+      );
+    },
     removeSelectedIngredients: (
       state,
       action: PayloadAction<IngredientOptionType>
     ) => {
-      const labelOnRemovedIngredient = action.payload.label;
       state.selectedIngredients = state.selectedIngredients.filter(
-        (ingredient) => ingredient.label !== labelOnRemovedIngredient
+        (ingredient) => ingredient.label !== action.payload.label
       );
     },
   },
@@ -53,8 +72,8 @@ const ingredientSlice = createSlice({
     builder.addCase(
       getIngredientOptions.fulfilled,
       (state: IngredientState, action: any) => {
-        state.ingredientOptions = convertStringArrToIngredientOptionTypeArr(
-          action.payload.optionArray
+        state.ingredientOptions = alphabatizeIngredientOptions(
+          convertStringArrToIngredientOptionTypeArr(action.payload.optionArray)
         );
         state.isFecthingIngredientOptions = false;
       }
@@ -69,6 +88,8 @@ const ingredientSlice = createSlice({
 export const {
   setSelectedIngredients,
   addSelectedIngredients,
+  addIngredientOption,
+  removeIngredientOption,
   removeSelectedIngredients,
 } = ingredientSlice.actions;
 

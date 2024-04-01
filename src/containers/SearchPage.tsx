@@ -13,7 +13,9 @@ import SelectedIngredientList from '../components/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getIngredientOptions, getRecipes } from '../store/actions/actions';
 import {
+  addIngredientOption,
   addSelectedIngredients,
+  removeIngredientOption,
   removeSelectedIngredients,
 } from '../store/reducers/ingredientReducer';
 
@@ -50,11 +52,15 @@ const SearchPage = () => {
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
   ) => {
-    dispatch(
-      addSelectedIngredients(
-        convertSingleValueIngredientToIngredientOption(newIngredient)
-      )
-    );
+    const selectedIngredient =
+      convertSingleValueIngredientToIngredientOption(newIngredient);
+    dispatch(addSelectedIngredients(selectedIngredient));
+    dispatch(removeIngredientOption(selectedIngredient));
+  };
+
+  const handleIngredientRemoval = (ingredient: IngredientOptionType) => {
+    dispatch(removeSelectedIngredients(ingredient));
+    dispatch(addIngredientOption(ingredient));
   };
 
   const handleSearchForRecipes = () => {
@@ -62,10 +68,6 @@ const SearchPage = () => {
       getRecipes(convertIngredientOptionArrToStringArr(selectedIngredients))
     );
     navigate('/searchResults');
-  };
-
-  const handleIngredientRemoval = (ingredient: IngredientOptionType) => {
-    dispatch(removeSelectedIngredients(ingredient));
   };
 
   return (
