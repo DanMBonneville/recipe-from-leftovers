@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RecipeState, RecipeType } from '../../common/types';
-import { getRecipes } from '../actions/actions';
+import { getRecipeInfo, getRecipes } from '../actions/actions';
 
-const emptyRecipe: RecipeType = {
-  id: '',
+export const emptyRecipe: RecipeType = {
+  id: 0,
   image: '',
   imageType: '',
   likes: 0,
@@ -18,7 +18,9 @@ const emptyRecipe: RecipeType = {
 const initialState = {
   recipes: [],
   recipeToView: emptyRecipe,
+  recipeInfoLink: '',
   isFecthingRecipes: false,
+  isFetchingRecipeInfoLink: false,
 } satisfies RecipeState as unknown as RecipeState;
 
 const recipeSlice = createSlice({
@@ -40,7 +42,20 @@ const recipeSlice = createSlice({
     builder.addCase(getRecipes.rejected, (state: RecipeState) => {
       state.recipes = [];
       state.isFecthingRecipes = false;
-      console.log('failed??');
+    });
+    builder.addCase(getRecipeInfo.pending, (state: RecipeState) => {
+      state.isFecthingRecipes = true;
+    });
+    builder.addCase(
+      getRecipeInfo.fulfilled,
+      (state: RecipeState, action: any) => {
+        state.recipeInfoLink = action.payload;
+        state.isFecthingRecipes = false;
+      }
+    );
+    builder.addCase(getRecipeInfo.rejected, (state: RecipeState) => {
+      state.recipeInfoLink = '';
+      state.isFecthingRecipes = false;
     });
   },
 });

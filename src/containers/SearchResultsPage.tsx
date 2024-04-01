@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
 import { RecipeType } from '../common/types';
 import RecipePreview from '../components/RecipePreview';
-import { AppState } from '../store';
+import { AppState, store } from '../store';
+import { getRecipeInfo } from '../store/actions/actions';
 import { setRecipeToView } from '../store/reducers/recipeReducer';
 
 const SearchResultsPage = () => {
@@ -24,6 +25,7 @@ const SearchResultsPage = () => {
 
   const openRecipe = (recipe: RecipeType) => {
     dispatch(setRecipeToView(recipe));
+    store.dispatch(getRecipeInfo(recipe.id));
     navigate('/recipe/details');
   };
 

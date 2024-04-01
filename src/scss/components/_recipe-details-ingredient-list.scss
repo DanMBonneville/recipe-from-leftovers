@@ -7,6 +7,11 @@
   justify-content: center;
   flex-direction: column;
 
+  & .recipe-link {
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+
   & .used-ingredients {
     border: 2px solid green;
   }
