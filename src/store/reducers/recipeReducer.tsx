@@ -40,7 +40,10 @@ const recipeSlice = createSlice({
       state.isFecthingRecipes = false;
     });
     builder.addCase(getRecipes.rejected, (state: RecipeState, action: any) => {
-      console.log('What even is the action.payload? --- ', action.payload);
+      console.log(
+        'What even is action.payload on rejected? --- ',
+        action.payload
+      );
       state.recipes = [];
       state.isFecthingRecipes = false;
     });

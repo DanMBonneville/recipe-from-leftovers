@@ -20,24 +20,20 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: post workding directory
-        run: pwd
-
       - name: install dependancies
         run: npm ci
 
       - name: build project
         env:
           SPOON_API_KEY: ${{ secrets.SPOON_API_KEY }}
-        run: npm run build
-
-      - name: test react
-        run: npm test
-
-      - name: start app
         run: |
-          cd build
-          npm start
+          npm ci
+          npm run build
+          npm test
+          pm2 stop 0 || true
+          pm2 start 0
+          pm2 save
+          sudo service nginx restart
 
       # - name: Deploy with gh-pages
       #   run: |
