@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const createGetRecipesByIngredientsUrl = (ingredients) => {
   const apiKey = process.env.SPOON_API_KEY;
+  console.log('This this spoon key, yo', apiKey);
   ingredients.toLowerCase();
   return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=2&apiKey=${apiKey}`;
 };
