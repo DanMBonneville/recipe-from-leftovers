@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const createGetRecipesByIngredientsUrl = (ingredients) => {
   const apiKey = process.env.SPOON_API_KEY;
-  console.log('This this spoon key, yo', apiKey);
+  console.log('This this spoon key: ', apiKey);
   ingredients.toLowerCase();
   return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=2&apiKey=${apiKey}`;
 };
@@ -47,7 +47,7 @@ app.get('/getRecipeLinkById', (req, res) => {
   axios
     .get(url)
     .then((recipeInfo) => {
-      console.log('The info: ', recipeInfo);
+      console.log('The recipe info: ', recipeInfo);
       res.json(recipeInfo.data.spoonacularSourceUrl);
     })
     .catch((error) => {
