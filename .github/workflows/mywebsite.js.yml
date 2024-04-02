@@ -19,10 +19,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: |
-          npm ci
-          npm run build
-          npm test
+      - name: install dependancies
+        run: npm ci
+      - name: build project
+        run: npm run build
+      - name: test react
+        run: npm test
+      - name: restart server
+        run: |
           pm2 stop 0
           pm2 start 0
           pm2 save
