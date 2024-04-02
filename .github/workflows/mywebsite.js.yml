@@ -27,24 +27,17 @@ jobs:
         run: npm ci
 
       - name: build project
-        run: npm run build
-
-      - name: Set up environment variables
         env:
           SPOON_API_KEY: ${{ secrets.SPOON_API_KEY }}
-        run: |
-          echo "SPOON_API_KEY=${SPOON_API_KEY}" >> .env.production
-          echo "SPOON_API_KEY=${SPOON_API_KEY}" >> .env.development
+        run: npm run build
 
       - name: test react
         run: npm test
 
-      - name: restart server
+      - name: start app
         run: |
-          pm2 stop 0 || true
-          pm2 start 0
-          pm2 save
-          sudo service restart nginx
+          cd build
+          npm start
 
       # - name: Deploy with gh-pages
       #   run: |
