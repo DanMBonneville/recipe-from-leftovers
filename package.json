@@ -39,7 +39,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:backend": "nodemon api/index.ts",
+    "start:backend": "node api/index.ts",
     "start:frontend": "react-scripts start",
     "start": "concurrently --kill-others-on-fail \"npm run start:backend\" \"npm run start:frontend\"",
     "build": "tsc && react-scripts build",
