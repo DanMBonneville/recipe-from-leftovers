@@ -16,40 +16,40 @@ app.use(
     preflightContinue: false,
   })
 );
-app.use(express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
-const createGetRecipesByIngredientsUrl = (ingredients: string) => {
+const createGetRecipesByIngredientsUrl = (ingredients) => {
   const apiKey = process.env.SPOON_API_KEY;
   ingredients.toLowerCase();
   return `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&ranking=2&apiKey=${apiKey}`;
 };
 
-const createGetRecipeInfoByIdUrl = (id: number) => {
+const createGetRecipeInfoByIdUrl = (id) => {
   const apiKey = process.env.SPOON_API_KEY;
   return `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
 };
 
-app.get('/getRecipesFromIngredients', (req: any, res: any) => {
+app.get('/getRecipesFromIngredients', (req, res) => {
   let url = createGetRecipesByIngredientsUrl(req.query.ingredients);
   axios
     .get(url)
-    .then((recipes: any) => {
+    .then((recipes) => {
       res.json(recipes.data);
     })
-    .catch((error: any) => {
+    .catch((error) => {
       res.json(error);
     });
 });
 
-app.get('/getRecipeLinkById', (req: any, res: any) => {
+app.get('/getRecipeLinkById', (req, res) => {
   let url = createGetRecipeInfoByIdUrl(req.query.id);
   axios
     .get(url)
-    .then((recipeInfo: any) => {
+    .then((recipeInfo) => {
       console.log('The info: ', recipeInfo);
       res.json(recipeInfo.data.spoonacularSourceUrl);
     })
-    .catch((error: any) => {
+    .catch((error) => {
       res.json(error);
     });
 });

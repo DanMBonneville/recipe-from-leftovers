@@ -39,9 +39,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:backend": "node api/index.ts",
-    "start:frontend": "react-scripts start",
-    "start": "concurrently --kill-others-on-fail \"npm run start:backend\" \"npm run start:frontend\"",
+    "start": "node server.js",
     "build": "tsc && react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
