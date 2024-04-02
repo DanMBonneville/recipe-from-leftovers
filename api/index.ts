@@ -5,8 +5,17 @@ const axios = require('axios');
 require('dotenv').config();
 
 const path = require('path');
+
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    allowedHeaders: ['authorization', 'Content-Type'], // you can change the headers
+    exposedHeaders: ['authorization'], // you can change the headers
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  })
+);
 app.use(express.static(path.join(__dirname, './build')));
 
 const createGetRecipesByIngredientsUrl = (ingredients: string) => {

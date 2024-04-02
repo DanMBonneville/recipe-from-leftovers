@@ -23,11 +23,14 @@ jobs:
           npm ci
           npm run build
           npm test
-          cd ..
           pm2 stop 0
           pm2 start 0
           pm2 save
           sudo service nginx restart
+      - name: Set up environment variables
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.SPOON_API_KEY }}
+        run: echo "SPOON_API_KEY=${SPOON_API_KEY}" >> .env.production
 
       # - name: Deploy with gh-pages
       #   run: |
