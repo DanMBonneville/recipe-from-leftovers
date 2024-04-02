@@ -22,7 +22,7 @@ jobs:
 
       - name: Set up environment variables
         env:
-          DB_CONNECTION_STRING: ${{ secrets.SPOON_API_KEY }}
+          SPOON_API_KEY: ${{ secrets.SPOON_API_KEY }}
         run: echo "SPOON_API_KEY=${SPOON_API_KEY}" >> .env.production
 
       - name: post workding directory
