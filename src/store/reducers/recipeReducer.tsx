@@ -39,7 +39,8 @@ const recipeSlice = createSlice({
       state.recipes = action.payload;
       state.isFecthingRecipes = false;
     });
-    builder.addCase(getRecipes.rejected, (state: RecipeState) => {
+    builder.addCase(getRecipes.rejected, (state: RecipeState, action: any) => {
+      console.log('What even is the action.payload? --- ', action.payload);
       state.recipes = [];
       state.isFecthingRecipes = false;
     });
