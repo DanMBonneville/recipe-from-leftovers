@@ -21,22 +21,17 @@ jobs:
           cache: 'npm'
           
       - name: Cache node modules
-        id: cache
+        id: npm-cache
         uses: actions/cache@v2
-        env:
-          cache-name: chache-node-modules
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
             
 
       # Install dependencies using npm ci
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: build project
