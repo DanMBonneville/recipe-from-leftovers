@@ -22,7 +22,7 @@ const spoon_api_key_query_parm = `apiKey=${process.env.SPOON_API_KEY}`;
 
 const createGetRecipesByIngredientsUrl = (ingredients) => {
   ingredients.toLowerCase();
-  return `${spoonacular_domain}${recipe_path}recipes/findByIngredients?ingredients=${ingredients}&ranking=2&${spoon_api_key_query_parm}`;
+  return `${spoonacular_domain}${recipe_path}findByIngredients?ingredients=${ingredients}&ranking=2&${spoon_api_key_query_parm}`;
 };
 
 const createGetRecipeInfoByIdUrl = (id) => {
@@ -39,7 +39,7 @@ app.get('/getRecipesFromIngredients', (req, res) => {
       res.json(recipes.data);
     })
     .catch((error) => {
-      res.json(error);
+      res.status(500).send(error);
     });
 });
 
@@ -51,13 +51,12 @@ app.get('/getRecipeLinkById', (req, res) => {
       res.json(recipeInfo.data.spoonacularSourceUrl);
     })
     .catch((error) => {
-      res.json(error);
+      res.status(500).send(error);
     });
 });
 
-app.use((req, res, next) => {
-  console.log('404 in server: ', req.query);
-  res.status(404).send('404 - not found: ', req.query);
+app.use((req, res) => {
+  res.redirect('/');
 });
 
 app.use((err, req, res, next) => {
