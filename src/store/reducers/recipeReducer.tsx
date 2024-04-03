@@ -33,15 +33,17 @@ const recipeSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getRecipes.pending, (state: RecipeState) => {
+      console.log('Pending...');
       state.isFecthingRecipes = true;
     });
     builder.addCase(getRecipes.fulfilled, (state: RecipeState, action: any) => {
+      console.log('fulfilled');
       state.recipes = action.payload;
       state.isFecthingRecipes = false;
     });
     builder.addCase(getRecipes.rejected, (state: RecipeState, action: any) => {
       console.log(
-        'What even is action.payload on rejected? --- ',
+        'Rejected What even is action.payload on rejected? --- ',
         action.payload
       );
       state.recipes = [];

@@ -40,7 +40,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "tsc && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "cy:run": "cypress run",
