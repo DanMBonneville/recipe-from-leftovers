@@ -21,7 +21,7 @@ const SearchResultsPage = () => {
     if (!isFetchingRecipes && recipes.length === 0) {
       navigate('/search-for-recipes');
     }
-  });
+  }, [recipes, isFetchingRecipes, navigate]);
 
   const openRecipe = (recipe: RecipeType) => {
     dispatch(setRecipeToView(recipe));

@@ -16,7 +16,7 @@ app.use(
     preflightContinue: false,
   })
 );
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static('build'));
 
 const createGetRecipesByIngredientsUrl = (ingredients) => {
   const apiKey = process.env.SPOON_API_KEY;
