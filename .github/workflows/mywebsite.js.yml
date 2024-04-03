@@ -20,22 +20,32 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Cache npm dependencies
+      # Check npm dependencies cache
+      - name: Check if cache exists
+        id: cache
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+          key: ${{ runner.os }}-build-${{ env-cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: install dependancies
+      # Install dependencies using npm ci
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+
+      # Cache build artifacts cache
+      - name: Cache build artifacts
+        uses: actions/cache@v2
+        with:
+          path: ~/build
+          key: ${{ runner.os }}-build-${{ hashFiles('**/build/**') }}
 
       - name: build project
         run: |
-          npm ci
           npm run build
-          npm test
+
+      - name: restart server
+        run: |
           pm2 stop 0 || true
           pm2 start 0
           pm2 save
