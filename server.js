@@ -48,11 +48,12 @@ app.get('/getRecipeLinkById', (req, res) => {
 });
 
 app.use((req, res, next) => {
+  console.log("404 in server: ", req.query);
   res.status(404).send('404 - not found: ', req.query);
 });
 
 app.use((err, req, res, next) => {
-  console.error(err);
+  console.error("500 error in server: ", err);
   res.status(500).send('500 - Internal Server Error: ', err);
 });
 
