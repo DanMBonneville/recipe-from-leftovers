@@ -1,8 +1,3 @@
-import {
-  createGetRecipeInfoByIdUrl,
-  createGetRecipesByIngredientsUrl,
-} from './util';
-
 const PORT = 8000;
 const express = require('express');
 const cors = require('cors');
@@ -12,6 +7,19 @@ require('dotenv').config();
 const app = express();
 app.use(cors);
 app.use(express.static('build'));
+
+const spoonacular_domain = 'https://api.spoonacular.com/';
+const recipe_path = 'recipes/';
+const spoon_api_key_query_parm = `apiKey=${process.env.SPOON_API_KEY}`;
+
+const createGetRecipesByIngredientsUrl = (ingredients) => {
+  ingredients.toLowerCase();
+  return `${spoonacular_domain}${recipe_path}recipes/findByIngredients?ingredients=${ingredients}&ranking=2&${spoon_api_key_query_parm}`;
+};
+
+const createGetRecipeInfoByIdUrl = (id) => {
+  return `${spoonacular_domain}${recipe_path}${id}/information?${spoon_api_key_query_parm}`;
+};
 
 app.get('/getRecipesFromIngredients', (req, res) => {
   let ingredients = req.query.ingredients;
