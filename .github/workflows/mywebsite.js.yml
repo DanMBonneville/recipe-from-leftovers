@@ -19,30 +19,28 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
-      # Check npm dependencies cache
-      - name: Check if cache exists
+          
+      - name: Cache node modules
         id: cache
         uses: actions/cache@v2
+        env:
+          cache-name: chache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env-cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+            
 
       # Install dependencies using npm ci
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      # Cache build artifacts cache
-      - name: Cache build artifacts
-        uses: actions/cache@v2
-        with:
-          path: ~/build
-          key: ${{ runner.os }}-build-${{ hashFiles('**/build/**') }}
-
       - name: build project
-        run: |
-          npm run build
+        run: npm run build
 
       - name: restart server
         run: |
@@ -53,13 +51,6 @@ jobs:
 
       - name: Set Api Key env variable
         run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
-
-      # - name: Deploy with gh-pages
-      #   run: |
-      #     git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-      #     npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # cypress-run:
   #   name: Cypress run
