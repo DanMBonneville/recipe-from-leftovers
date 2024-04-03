@@ -5,7 +5,15 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-app.use(cors);
+app.use(
+  cors({
+    allowedHeaders: ['authorization', 'Content-Type'], // you can change the headers
+    exposedHeaders: ['authorization'], // you can change the headers
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+  })
+);
 app.use(express.static('build'));
 
 const spoonacular_domain = 'https://api.spoonacular.com/';
@@ -48,12 +56,12 @@ app.get('/getRecipeLinkById', (req, res) => {
 });
 
 app.use((req, res, next) => {
-  console.log("404 in server: ", req.query);
+  console.log('404 in server: ', req.query);
   res.status(404).send('404 - not found: ', req.query);
 });
 
 app.use((err, req, res, next) => {
-  console.error("500 error in server: ", err);
+  console.error('500 error in server: ', err);
   res.status(500).send('500 - Internal Server Error: ', err);
 });
 
