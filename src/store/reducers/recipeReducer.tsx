@@ -44,18 +44,18 @@ const recipeSlice = createSlice({
       state.isFecthingRecipes = false;
     });
     builder.addCase(getRecipeInfo.pending, (state: RecipeState) => {
-      state.isFecthingRecipes = true;
+      state.isFetchingRecipeInfoLink = true;
     });
     builder.addCase(
       getRecipeInfo.fulfilled,
       (state: RecipeState, action: any) => {
         state.recipeInfoLink = action.payload;
-        state.isFecthingRecipes = false;
+        state.isFetchingRecipeInfoLink = false;
       }
     );
     builder.addCase(getRecipeInfo.rejected, (state: RecipeState) => {
       state.recipeInfoLink = '';
-      state.isFecthingRecipes = false;
+      state.isFetchingRecipeInfoLink = false;
     });
   },
 });
