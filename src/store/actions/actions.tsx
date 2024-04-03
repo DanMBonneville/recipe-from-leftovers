@@ -4,27 +4,36 @@ import { getDoc } from 'firebase/firestore';
 import { ingredientOptionsRef } from '../../firebase';
 
 const createGetRecipesFromIngredientsUrl = (ingredients: String) => {
-  let url = 'http://localhost:8000/getRecipesFromIngredients';
+  let url = '/getRecipesFromIngredients';
   let ingredientString = ingredients.toLowerCase();
   return (url += `?ingredients=${ingredientString}`);
 };
 
 const createGetRecipeInfoByIdUrl = (id: number) => {
-  return `http://localhost:8000/getRecipeLinkById?id=${id}`;
+  return `/getRecipeLinkById?id=${id}`;
 };
 
 export const getRecipes = createAsyncThunk(
   'getRecipesFromIngredients',
   async (ingredients: String) => {
-    return (await axios.get(createGetRecipesFromIngredientsUrl(ingredients)))
-      .data;
+    const url = createGetRecipesFromIngredientsUrl(ingredients);
+    try {
+      return (await axios.get(url)).data;
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 );
 
 export const getRecipeInfo = createAsyncThunk(
   'getRecipeLinkById',
   async (id: number) => {
-    return (await axios.get(createGetRecipeInfoByIdUrl(id))).data;
+    const url = createGetRecipeInfoByIdUrl(id);
+    try {
+      return (await axios.get(url)).data;
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 );
 
