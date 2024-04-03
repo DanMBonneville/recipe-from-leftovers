@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
@@ -30,11 +30,17 @@ const SearchResultsPage = () => {
   };
 
   let recipePreviewList: JSX.Element[] = [];
-  recipes.forEach((recipe: RecipeType) => {
-    recipePreviewList.push(
-      <RecipePreview key={recipe.id} recipe={recipe} openRecipe={openRecipe} />
-    );
-  });
+  if (recipes.length !== 0) {
+    recipes.forEach((recipe: RecipeType) => {
+      recipePreviewList.push(
+        <RecipePreview
+          key={recipe.id}
+          recipe={recipe}
+          openRecipe={openRecipe}
+        />
+      );
+    });
+  }
 
   return (
     <div className="search-results-page">

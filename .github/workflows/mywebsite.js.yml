@@ -20,22 +20,23 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Cache npm dependencies
+      - name: Cache node modules
+        id: npm-cache
         uses: actions/cache@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
 
-      - name: install dependancies
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: build project
+        run: npm run build
+
+      - name: restart server
         run: |
-          npm ci
-          npm run build
-          npm test
           pm2 stop 0 || true
           pm2 start 0
           pm2 save
@@ -44,27 +45,29 @@ jobs:
       - name: Set Api Key env variable
         run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
 
-      # - name: Deploy with gh-pages
-      #   run: |
-      #     git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-      #     npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  cypress-run:
+    name: Cypress run
+    runs-on: ubuntu-latest
 
-  # cypress-run:
-  #   name: Cypress run
-  #   runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [21.x]
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Use Node.js ${{ matrix.node-version }}
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: ${{ matrix.node-version }}
-  #         cache: 'npm'
-  #     - run: npm ci
-  #     - run: npm run cy:run
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: Cache node modules
+        id: npm-cyress-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+      - name: Install dependencies
+        if: steps.npm-cyress-cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - run: npm run cy:run
