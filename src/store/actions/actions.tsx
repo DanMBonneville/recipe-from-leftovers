@@ -16,28 +16,24 @@ const createGetRecipeInfoByIdUrl = (id: number) => {
 export const getRecipes = createAsyncThunk(
   'getRecipesFromIngredients',
   async (ingredients: String) => {
-    axios
-      .get(createGetRecipesFromIngredientsUrl(ingredients))
-      .then((res) => {
-        return res.data;
-      })
-      .catch((e) => {
-        return Promise.reject(e);
-      });
+    const url = createGetRecipesFromIngredientsUrl(ingredients);
+    try {
+      return (await axios.get(url)).data;
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 );
 
 export const getRecipeInfo = createAsyncThunk(
   'getRecipeLinkById',
   async (id: number) => {
-    axios
-      .get(createGetRecipeInfoByIdUrl(id))
-      .then((res) => {
-        return res.data;
-      })
-      .catch((e) => {
-        return Promise.reject(e);
-      });
+    const url = createGetRecipeInfoByIdUrl(id);
+    try {
+      return (await axios.get(url)).data;
+    } catch (e) {
+      return Promise.reject(e);
+    }
   }
 );
 
