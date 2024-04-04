@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  build-and-test:
     runs-on: self-hosted
 
     strategy:
@@ -50,26 +50,6 @@ jobs:
 
       - name: Set Firebase Api Key env variable
         run: echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> .env
-
-  e2e-tests:
-    needs: build
-    runs-on: self-hosted
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Cache node modules
-        id: npm-cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
 
       - name: Run Cypress tests
         run: npm run cy:run
