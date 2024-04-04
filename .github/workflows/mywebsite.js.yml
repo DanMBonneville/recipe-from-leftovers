@@ -42,8 +42,31 @@ jobs:
           pm2 save
           sudo service nginx restart
 
-      - name: Set Api Key env variable
+      - name: Set Spoonacular Api Key env variable
         run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
 
-      - name: Run cypress test
-        run: npm run cy:run
+      - name: Set Firebase Api Key env variable
+        run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
+
+  e2e-tests:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        id: npm-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Run Cypress tests
+        run: npm run cypress:run
