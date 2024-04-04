@@ -46,7 +46,7 @@ jobs:
         run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
 
       - name: Set Firebase Api Key env variable
-        run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
+        run: echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> .env
 
   e2e-tests:
     needs: build
