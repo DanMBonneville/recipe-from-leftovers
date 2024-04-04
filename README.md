@@ -1,4 +1,4 @@
-MVP v1 is deployed on https://www.danmbonneville.com
+MVP v1 is deployed on https://www.recipe-from-leftovers.com
 
 # Recipe from Leftovers
 
