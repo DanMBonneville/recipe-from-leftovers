@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import React from 'react';
 
 const RecipePreview = (props: any) => {
   const { recipe, openRecipe } = props;
@@ -19,7 +20,7 @@ const RecipePreview = (props: any) => {
         <CardActionArea onClick={() => openRecipe(recipe)}>
           <CardMedia component="img" alt="recipe" image={image} />
           <CardContent background-color="primary">
-            <Typography gutterBottom variant="h6" component="div">
+            <Typography gutterBottom variant="h6" color="white" component="div">
               {title}
             </Typography>
             <Typography variant="body2" color="secondary">
