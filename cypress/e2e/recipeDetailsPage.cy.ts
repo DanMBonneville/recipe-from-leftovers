@@ -5,6 +5,7 @@ describe('resultsPage e2e tests', () => {
     before('User is on recipe details page for Bread Omlette', () => {
       cy.clearLocalStorage();
       cy.visit('/');
+      cy.reload();
       cy.get('body').waitForStableDOM(stableDomDefaultParams);
       cy.findByLabelText('Select Ingredients').type('milk');
       cy.findByText('Milk').click();
@@ -27,6 +28,7 @@ describe('resultsPage e2e tests', () => {
     before('User is on recipe details page for bread Omlette', () => {
       cy.clearLocalStorage();
       cy.visit('/');
+      cy.reload();
       cy.get('body').waitForStableDOM(stableDomDefaultParams);
       cy.findByLabelText('Select Ingredients').type('milk');
       cy.findByText('Milk').click();
