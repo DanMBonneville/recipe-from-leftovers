@@ -3,6 +3,7 @@ import { stableDomDefaultParams } from '../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
   before('User is on Search Page', () => {
+    cy.clearLocalStorage();
     cy.visit('/');
     cy.get('body').waitForStableDOM(stableDomDefaultParams);
   });
