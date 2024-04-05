@@ -29,8 +29,15 @@
       width: 88%;
     }
 
-    & [class*='placeholder'] {
-      font-size: 12px;
+    & [class*='ValueContainer'] {
+      width: 100%;
+      overflow: hidden;
+
+      & [class*='placeholder'] {
+        display: inline-block;
+        white-space: nowrap;
+        font-size: calc(100vw / 32);
+      }
     }
 
     & [class*='MuiButton-contained'] {
