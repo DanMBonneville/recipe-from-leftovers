@@ -5,10 +5,11 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  overflow-x: hidden;
 
   & > * {
-    padding-left: 2%;
-    padding-right: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
   }
 
   & .search-results-title {
@@ -19,22 +20,27 @@
     align-items: center;
   }
 
-  & hr {
-    width: 88%;
-    border: 1px solid black;
-  }
-
   & [class*='MuiGrid-container'] {
+    border-top: 1px solid black;
     justify-content: center;
     height: 88%;
     margin-top: 0px;
+    margin-left: 1%;
     padding-bottom: 10px;
     overflow-y: auto;
-    width: 100%;
-  }
+    width: 99%;
 
-  & [class*='MuiGrid-item'] {
-    width: 25%;
+    & [class*='MuiGrid-item'] {
+      width: 25%;
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+      padding: 16px;
+    }
+
+    & [class*='MuiGrid-item']:last-child {
+      padding-right: 1%;
+      border-right: 1px solid black;
+    }
   }
 
   & [class*='MuiPaper-root'] {
@@ -49,7 +55,8 @@
   .search-results-page {
     & [class*='MuiGrid-container'] {
       height: 100%;
-      padding-left: 6%;
+      width: 100%;
+      margin-left: 0%;
 
       & [class*='MuiGrid-item'] {
         width: 100%;

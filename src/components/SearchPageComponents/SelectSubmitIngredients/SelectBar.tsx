@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { SelectBarProps } from '../../../common/types';
 
 const SelectBar = (props: SelectBarProps) => {
   const { isSelectDisabled, options, handleSelectionChange } = props;
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const checkIsMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  const [isMobile, setIsMobile] = useState(checkIsMobile);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(checkIsMobile);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const customStyles = {
     control: (provided: any) => ({
@@ -21,7 +33,7 @@ const SelectBar = (props: SelectBarProps) => {
       ...provided,
       display: 'inline-block',
       whiteSpace: 'nowrap',
-      fontSize: isMobile ? 'calc(100vw / 33)' : '20px',
+      fontSize: isMobile ? 'calc(100vw / 33)' : '16px',
     }),
   };
 
@@ -35,7 +47,6 @@ const SelectBar = (props: SelectBarProps) => {
       isDisabled={isSelectDisabled}
       isClearable={true}
       onChange={handleSelectionChange}
-      // menuIsOpen
     />
   );
 };

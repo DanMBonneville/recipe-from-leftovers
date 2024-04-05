@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Layout from './hoc/Layout';
 import asyncComponent from './hoc/asyncComponent';

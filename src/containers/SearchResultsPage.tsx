@@ -45,7 +45,6 @@ const SearchResultsPage = () => {
   return (
     <div className="search-results-page">
       <div className="search-results-title">Search Results</div>
-      <hr />
       <Grid container spacing={2}>
         {recipePreviewList}
       </Grid>
