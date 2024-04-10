@@ -1,13 +1,14 @@
 @use '@material/button/styles';
 @import 'abstracts/variables';
+@import 'containers/recipe-details-page';
 @import 'containers/search-page';
 @import 'containers/search-results-page';
-@import 'containers/recipe-details-page';
-@import 'components/recipe-details-ingredient-list';
-@import 'components/selected-ingredient-list';
-@import 'components/select-submit-ingredients';
-@import 'components/select-prompt';
+@import 'components/loader';
 @import 'components/recipe-description';
+@import 'components/recipe-details-ingredient-list';
+@import 'components/select-prompt';
+@import 'components/select-submit-ingredients';
+@import 'components/selected-ingredient-list';
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

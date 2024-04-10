@@ -7,6 +7,7 @@ import {
   convertIngredientOptionArrToStringArr,
   convertSingleValueIngredientToIngredientOption,
 } from '../common/util';
+import Loader from '../components/Loader';
 import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
 import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
 import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientList';
@@ -69,6 +70,10 @@ const SearchPage = () => {
     );
     navigate('/recipe-preview-list');
   };
+
+  if (isFecthingIngredientOptions) {
+    return <Loader />;
+  }
 
   return (
     <div className="search-page">
