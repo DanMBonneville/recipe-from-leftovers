@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
-        
+
       - name: Verify directory
         run: pwd
 
@@ -44,9 +44,10 @@ jobs:
           pm2 start 0
           pm2 save
           sudo service nginx restart
-
-      - name: Set Spoonacular Api Key env variable
-        run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
+      - name: Set Api Key env variables
+        run: |
+          echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
+          echo "FIREBASE_SERVICE_ACCOUNT_KEY=${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" >> .env
 
       - name: Set Firebase env variables
         run: |

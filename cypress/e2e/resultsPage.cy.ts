@@ -20,7 +20,7 @@ describe('resultsPage e2e tests', () => {
 
   it('User sends correct ingredient list on submit', () => {
     cy.findByTestId('back-page-btn').click();
-    cy.intercept('GET', '**getRecipesFromIngredients**').as('GetRecipes');
+    cy.intercept('GET', '**get-recipes-from-ingredients**').as('GetRecipes');
     cy.findByTestId('recipe-search-button').click();
     cy.wait('@GetRecipes').then((res: Interception) => {
       const ingredientArray = (res.request.query.ingredients + '').split(',');
