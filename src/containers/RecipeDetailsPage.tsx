@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 import IngredientList from '../components/RecipeDetailsPageComponents/IngredientList';
 import RecipeDetailsDescription from '../components/RecipeDetailsPageComponents/RecipeDetailsDescription';
 import { AppState } from '../store';
@@ -40,7 +41,9 @@ const RecipeDetailsPage = () => {
       <div className={'recipe-details-page-inner'}>
         <RecipeDetailsDescription />
         <div className={'ingredient-details'}>
-          {!isFecthingRecipeInfoLink && (
+          {isFecthingRecipeInfoLink ? (
+            <Loader />
+          ) : (
             <Button
               data-testid="recipe-link"
               className="recipe-link"
