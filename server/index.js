@@ -2,7 +2,6 @@ const PORT = 8000;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const { ingredientOptionsRef } = require('./firebase');
 const path = require('path');
 require('dotenv').config();
 
@@ -18,6 +17,13 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
+var admin = require('firebase-admin');
+
+var serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
 const spoonacular_domain = 'https://api.spoonacular.com/';
 const recipe_path = 'recipes/';
 const spoon_api_key_query_parm = `apiKey=${process.env.SPOON_API_KEY}`;
@@ -32,7 +38,10 @@ const createGetRecipeInfoByIdUrl = (id) => {
 };
 
 app.get('/api/get-ingredient-options', (req, res) => {
-  ingredientOptionsRef
+  admin
+    .firestore()
+    .collection('ingredients')
+    .doc('options')
     .get()
     .then((docSnap) => {
       res.json(docSnap.data());
