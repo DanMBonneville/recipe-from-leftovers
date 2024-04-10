@@ -1,5 +1,6 @@
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
+import React from 'react';
 import { RecipeSearchButtonProps } from '../../../common/types';
 
 const RecipeSearchButton = (props: RecipeSearchButtonProps) => {

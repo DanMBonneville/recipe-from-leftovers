@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  build-and-test:
     runs-on: self-hosted
 
     strategy:
@@ -31,6 +31,9 @@ jobs:
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
+        
+      - name: Verify directory
+        run: pwd
 
       - name: build project
         run: npm run build
@@ -42,8 +45,17 @@ jobs:
           pm2 save
           sudo service nginx restart
 
-      - name: Set Api Key env variable
+      - name: Set Spoonacular Api Key env variable
         run: echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
 
-      - name: Run cypress test
+      - name: Set Firebase env variables
+        run: |
+          echo "FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }}" >> .env
+          echo "FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "FIREBASE_STARAGE_BUCKET=${{ secrets.FIREBASE_STARAGE_BUCKET }}" >> .env
+          echo "FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }}" >> .env
+          echo "FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }}" >> .env
+          echo "FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }}" >> .env
+
+      - name: Run Cypress tests
         run: npm run cy:run

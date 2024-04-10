@@ -6,14 +6,6 @@
   gap: 0.75rem;
   align-items: center;
   margin-bottom: 10px;
-
-  & > [class*='container'] {
-    width: 56%;
-  }
-
-  & [class*='placeholder'] {
-    font-size: 20px;
-  }
 }
 
 // mobile
@@ -22,16 +14,6 @@
     width: 100%;
     display: flex;
     align-items: center;
-
-    & > [class*='container'] {
-      font-size: 12px;
-      height: 75%;
-      width: 88%;
-    }
-
-    & [class*='placeholder'] {
-      font-size: 12px;
-    }
 
     & [class*='MuiButton-contained'] {
       width: 15%;

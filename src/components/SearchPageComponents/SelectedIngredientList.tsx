@@ -1,4 +1,5 @@
 import Icon from '@mui/material/Icon';
+import React from 'react';
 import {
   IngredientOptionType,
   SelectedIngredientListProps,

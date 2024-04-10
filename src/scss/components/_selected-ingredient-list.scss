@@ -17,23 +17,20 @@
     vertical-align: middle;
     color: grey;
   }
-
-  & hr {
-    margin-right: 36px;
-  }
 }
 
 //mobile
 @media only screen and (max-width: 768px) {
   .selected-ingredient-list {
-    height: 60vh;
+    height: 45%;
     width: 100%;
-    padding-top: 12vh;
+    margin-top: 12vh;
     max-width: 100%;
     display: flex;
 
     & > li {
-      font-size: large;
+      white-space: nowrap;
+      font-size: calc(100vw / 40);
     }
   }
 }
