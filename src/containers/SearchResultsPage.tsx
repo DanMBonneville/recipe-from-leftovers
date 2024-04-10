@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { JSX } from 'react/jsx-runtime';
 import { RecipeType } from '../common/types';
+import Loader from '../components/Loader';
 import RecipePreview from '../components/SearchResultsPageComponents/RecipePreview';
 import { AppState, store } from '../store';
 import { getRecipeInfo } from '../store/actions/actions';
@@ -45,9 +46,13 @@ const SearchResultsPage = () => {
   return (
     <div className="search-results-page">
       <div className="search-results-title">Search Results</div>
-      <Grid container spacing={2}>
-        {recipePreviewList}
-      </Grid>
+      {isFetchingRecipes ? (
+        <Loader />
+      ) : (
+        <Grid container spacing={2}>
+          {recipePreviewList}
+        </Grid>
+      )}
     </div>
   );
 };
