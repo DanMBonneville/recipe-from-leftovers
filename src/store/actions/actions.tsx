@@ -1,46 +1,45 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getDoc } from 'firebase/firestore';
-import { ingredientOptionsRef } from '../../firebase';
+
+const sendGetRequest = async (url: string) => {
+  try {
+    return (await axios.get(url)).data;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
+const createGetAllIngredientOptionsUrl = () => {
+  return `/api/get-ingredient-options`;
+};
 
 const createGetRecipesFromIngredientsUrl = (ingredients: String) => {
-  let url = '/getRecipesFromIngredients';
+  let url = '/api/get-recipes-from-ingredients';
   let ingredientString = ingredients.toLowerCase();
   return (url += `?ingredients=${ingredientString}`);
 };
 
 const createGetRecipeInfoByIdUrl = (id: number) => {
-  return `/getRecipeLinkById?id=${id}`;
+  return `/api/get-recipe-link-by-id?id=${id}`;
 };
 
+export const getIngredientOptions = createAsyncThunk(
+  'get-ingredient-options',
+  async () => {
+    return await sendGetRequest(createGetAllIngredientOptionsUrl());
+  }
+);
+
 export const getRecipes = createAsyncThunk(
-  'getRecipesFromIngredients',
+  'get-recipes-from-ingredients',
   async (ingredients: String) => {
-    const url = createGetRecipesFromIngredientsUrl(ingredients);
-    try {
-      return (await axios.get(url)).data;
-    } catch (e) {
-      return Promise.reject(e);
-    }
+    return sendGetRequest(createGetRecipesFromIngredientsUrl(ingredients));
   }
 );
 
 export const getRecipeInfo = createAsyncThunk(
-  'getRecipeLinkById',
+  'get-recipe-link-by-id',
   async (id: number) => {
-    const url = createGetRecipeInfoByIdUrl(id);
-    try {
-      return (await axios.get(url)).data;
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  }
-);
-
-export const getIngredientOptions = createAsyncThunk(
-  'getIngredientOptions',
-  async () => {
-    const docSnap = await getDoc(ingredientOptionsRef);
-    return docSnap.data();
+    return sendGetRequest(createGetRecipeInfoByIdUrl(id));
   }
 );

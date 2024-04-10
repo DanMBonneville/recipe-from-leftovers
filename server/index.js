@@ -2,6 +2,8 @@ const PORT = 8000;
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const { ingredientOptionsRef } = require('./firebase');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -14,7 +16,7 @@ app.use(
     preflightContinue: false,
   })
 );
-app.use(express.static('build'));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 const spoonacular_domain = 'https://api.spoonacular.com/';
 const recipe_path = 'recipes/';
@@ -29,7 +31,18 @@ const createGetRecipeInfoByIdUrl = (id) => {
   return `${spoonacular_domain}${recipe_path}${id}/information?${spoon_api_key_query_parm}`;
 };
 
-app.get('/getRecipesFromIngredients', (req, res) => {
+app.get('/api/get-ingredient-options', (req, res) => {
+  ingredientOptionsRef
+    .get()
+    .then((docSnap) => {
+      res.json(docSnap.data());
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+});
+
+app.get('/api/get-recipes-from-ingredients', (req, res) => {
   let ingredients = req.query.ingredients;
   if (ingredients) ingredients.toLowerCase();
   let url = createGetRecipesByIngredientsUrl(ingredients);
@@ -43,7 +56,7 @@ app.get('/getRecipesFromIngredients', (req, res) => {
     });
 });
 
-app.get('/getRecipeLinkById', (req, res) => {
+app.get('/api/get-recipe-link-by-id', (req, res) => {
   let url = createGetRecipeInfoByIdUrl(req.query.id);
   axios
     .get(url)
