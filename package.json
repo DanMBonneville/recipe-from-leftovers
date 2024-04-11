@@ -44,8 +44,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
+    "cy:run:local": "CYPRESS_baseUrl=http://localhost:8000 cypress run",
+    "cy:open": "CYPRESS_baseUrl=http://localhost:8000 cypress open",
+    "cy:run": "CYPRESS_baseUrl=https://www.recipe-from-leftovers.com/ cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
