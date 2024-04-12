@@ -36,6 +36,7 @@ export type RecipeType = {
 export type AppState = ReturnType<typeof store.getState>;
 
 export interface UserState {
+  isLoggedIn: boolean;
   userName: string;
   password: string;
   defaultIngredients: any;

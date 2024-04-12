@@ -17,20 +17,20 @@ fireRouter.get('/get-ingredient-options', (req, res) => {
     });
 });
 
-fireRouter.get('/create-user', (req, res) => {
+fireRouter.post('/create-user', (req, res) => {
   const firebaseAdmin = req.firebaseAdmin;
+  const { email, password } = req.body;
   firebaseAdmin
     .auth()
     .createUser({
-      email: 'someEmail@coolguy.com',
-      password: 'abc123',
+      email: email,
+      password: password,
     })
     .then((userRecord) => {
-      console.log('Successfully created new user:', userRecord);
       res.json(userRecord);
     })
     .catch((error) => {
-      console.error('Error creating new user:', error);
+      res.status(500).send(error);
     });
 });
 

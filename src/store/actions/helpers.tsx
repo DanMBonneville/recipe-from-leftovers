@@ -8,6 +8,14 @@ export const sendGetRequest = async (url: string) => {
   }
 };
 
+export const sendPostRequest = async (url: string, body: Object) => {
+  try {
+    return (await axios.post(url, body)).data;
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
 export const createGetAllIngredientOptionsUrl = () => {
   return `/api/fire/get-ingredient-options`;
 };

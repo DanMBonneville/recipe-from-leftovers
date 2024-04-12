@@ -3,6 +3,7 @@ import { UserState } from '../../common/types';
 import { createUser } from '../actions/actions';
 
 const initialState = {
+  isLoggedIn: false,
   userName: '',
   password: '',
   defaultIngredients: {},
