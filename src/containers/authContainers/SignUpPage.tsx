@@ -20,26 +20,27 @@ const SignUpPage = () => {
     navigate('/login');
   };
 
-  // TODO: Style this in mobile and Desktop
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleSignUp}>Sign Up</button>
-      <p>
-        Already have an account? <span onClick={onLoginClick}>Login</span>
-      </p>
+    <div className="sign-up-container">
+      <div className="sign-up-form">
+        <h2>Sign Up</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleSignUp}>Sign Up</button>
+        <p>
+          Already have an account? <span onClick={onLoginClick}>Login</span>
+        </p>
+      </div>
     </div>
   );
 };
