@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserState } from '../../common/types';
-import { createUser } from '../actions/actions';
+import { createUser, loginUser } from '../actions/actions';
 
 const initialState = {
+  isLoggingIn: false,
   isLoggedIn: false,
-  userName: '',
-  password: '',
+  idToken: '',
+  email: '',
   defaultIngredients: {},
 } satisfies UserState as UserState;
 
@@ -18,6 +19,19 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(loginUser.pending, (state: UserState) => {
+      state.isLoggingIn = true;
+    });
+    builder.addCase(loginUser.fulfilled, (state: UserState, action: any) => {
+      state.isLoggingIn = false;
+      state.isLoggedIn = true;
+      state.email = action.payload.email;
+      state.idToken = action.payload.idToken;
+    });
+    builder.addCase(loginUser.rejected, (state: UserState, action: any) => {
+      state.isLoggingIn = false;
+      console.log('login user rejected');
+    });
     builder.addCase(createUser.pending, (state: UserState) => {
       console.log('Create user pending... ');
     });

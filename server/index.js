@@ -24,8 +24,9 @@ const adminInstance = initializeFirebaseAdmin(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY
 );
 app.use((req, res, next) => {
-  req.firebaseAdmin = adminInstance;
   req.spoonKey = process.env.SPOON_API_KEY;
+  req.fireApiKey = process.env.FIREBASE_WEB_API_KEY;
+  req.firebaseAdmin = adminInstance;
   next();
 });
 

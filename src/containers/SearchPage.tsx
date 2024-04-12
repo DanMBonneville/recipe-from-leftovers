@@ -71,7 +71,7 @@ const SearchPage = () => {
     navigate('/recipe-preview-list');
   };
 
-  if (isFecthingIngredientOptions) {
+  if (isFecthingIngredientOptions || ingredientOptions.length === 0) {
     return <Loader />;
   }
 
