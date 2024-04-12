@@ -13,8 +13,10 @@ import storage from 'redux-persist/lib/storage';
 import errorReducer from './reducers/errorReducer';
 import ingredientReducer from './reducers/ingredientReducer';
 import recipeReducer from './reducers/recipeReducer';
+import userReducer from './reducers/userReducer';
 
 const rootReducer = combineReducers({
+  user: userReducer,
   ingredient: ingredientReducer,
   recipe: recipeReducer,
   error: errorReducer,

@@ -6,10 +6,15 @@ import {
   sendGetRequest,
 } from './helpers';
 
+export const createUser = createAsyncThunk('create-user', async () => {
+  console.log('Create user function');
+  return sendGetRequest('/api/fire/create-user');
+});
+
 export const getIngredientOptions = createAsyncThunk(
   'get-ingredient-options',
   async () => {
-    return await sendGetRequest(createGetAllIngredientOptionsUrl());
+    return sendGetRequest(createGetAllIngredientOptionsUrl());
   }
 );
 
