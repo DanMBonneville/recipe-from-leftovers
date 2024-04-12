@@ -17,24 +17,26 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      <p>
-        Don't have an account? <span onClick={onSignUpClick}>Sign Up</span>
-      </p>
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}>Login</button>
+        <p>
+          Don't have an account? <span onClick={onSignUpClick}>Sign Up</span>
+        </p>
+      </div>
     </div>
   );
 };
