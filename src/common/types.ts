@@ -35,6 +35,12 @@ export type RecipeType = {
  */
 export type AppState = ReturnType<typeof store.getState>;
 
+export interface UserState {
+  userName: string;
+  password: string;
+  defaultIngredients: any;
+}
+
 export interface RecipeState {
   recipes: RecipeType[];
   recipeToView: RecipeType;

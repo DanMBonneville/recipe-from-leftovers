@@ -12,7 +12,11 @@ import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIn
 import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
 import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
-import { getIngredientOptions, getRecipes } from '../store/actions/actions';
+import {
+  createUser,
+  getIngredientOptions,
+  getRecipes,
+} from '../store/actions/actions';
 import {
   addIngredientOption,
   addSelectedIngredients,
@@ -40,6 +44,7 @@ const SearchPage = () => {
     if (ingredientOptions.length <= 1) {
       store.dispatch(getIngredientOptions());
     }
+    store.dispatch(createUser());
   }, [ingredientOptions]);
 
   useEffect(() => {
