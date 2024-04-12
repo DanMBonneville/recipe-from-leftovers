@@ -44,10 +44,11 @@ jobs:
           pm2 start 0
           pm2 save
           sudo service nginx restart
-          
+
       - name: Set environment variables
         run: |
           echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
+          echo "FIREBASE_WEB_API_KEY=${{ secrets.FIREBASE_WEB_API_KEY }}" >> .env
           echo "FIREBASE_SERVICE_ACCOUNT_KEY=$(echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | base64 --decode)" >> .env
 
       - name: Run Cypress tests

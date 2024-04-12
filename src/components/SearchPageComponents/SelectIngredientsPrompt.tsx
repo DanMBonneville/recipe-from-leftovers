@@ -1,3 +1,5 @@
+import React from 'react';
+
 const SelectIngredientsPrompt = () => {
   return (
     <div data-testid="select-prompt" className="select-prompt">

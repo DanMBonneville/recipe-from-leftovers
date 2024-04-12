@@ -7,6 +7,13 @@ import {
   sendPostRequest,
 } from './helpers';
 
+export const loginUser = createAsyncThunk(
+  'login-user',
+  async (body: Object) => {
+    return sendPostRequest('api/fire/login-user', body);
+  }
+);
+
 export const createUser = createAsyncThunk(
   'create-user',
   async (body: Object) => {
