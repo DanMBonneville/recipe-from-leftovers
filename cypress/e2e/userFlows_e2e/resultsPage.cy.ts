@@ -1,5 +1,5 @@
 import { Interception } from 'cypress/types/net-stubbing';
-import { stableDomDefaultParams } from '../fixtures/constants';
+import { stableDomDefaultParams } from '../../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
   before('User is on Search Page', () => {

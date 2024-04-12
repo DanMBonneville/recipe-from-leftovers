@@ -4,12 +4,15 @@ import {
   createGetRecipeInfoByIdUrl,
   createGetRecipesFromIngredientsUrl,
   sendGetRequest,
+  sendPostRequest,
 } from './helpers';
 
-export const createUser = createAsyncThunk('create-user', async () => {
-  console.log('Create user function');
-  return sendGetRequest('/api/fire/create-user');
-});
+export const createUser = createAsyncThunk(
+  'create-user',
+  async (body: Object) => {
+    return sendPostRequest('/api/fire/create-user', body);
+  }
+);
 
 export const getIngredientOptions = createAsyncThunk(
   'get-ingredient-options',

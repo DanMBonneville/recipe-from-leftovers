@@ -17,13 +17,12 @@ app.use(
     preflightContinue: false,
   })
 );
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 const adminInstance = initializeFirebaseAdmin(
   process.env.FIREBASE_SERVICE_ACCOUNT_KEY
 );
-
-app.use(express.static(path.join(__dirname, '..', 'build')));
-
 app.use((req, res, next) => {
   req.firebaseAdmin = adminInstance;
   req.spoonKey = process.env.SPOON_API_KEY;

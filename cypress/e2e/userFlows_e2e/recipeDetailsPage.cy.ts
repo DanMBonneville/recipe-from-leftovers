@@ -1,4 +1,4 @@
-import { stableDomDefaultParams } from '../fixtures/constants';
+import { stableDomDefaultParams } from '../../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
   describe('Verify that a regular use case where the user has some of the ingrededients on the final page', () => {

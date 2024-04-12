@@ -1,4 +1,4 @@
-import { stableDomDefaultParams } from '../fixtures/constants';
+import { stableDomDefaultParams } from '../../fixtures/constants';
 
 describe('searchPage e2e tests', () => {
   before('User is on Search Page', () => {
