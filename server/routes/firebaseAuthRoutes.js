@@ -1,25 +1,10 @@
 const express = require('express');
 const axios = require('axios');
-const { createLoginUrl } = require('./helpers');
+const { createLoginUrl } = require('./util');
 
-const fireRouter = express.Router();
+const authRouter = express.Router();
 
-fireRouter.get('/get-ingredient-options', (req, res) => {
-  const firebaseAdmin = req.firebaseAdmin;
-  firebaseAdmin
-    .firestore()
-    .collection('ingredients')
-    .doc('options')
-    .get()
-    .then((docSnap) => {
-      res.json(docSnap.data());
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-fireRouter.post('/login-user', (req, res) => {
+authRouter.post('/login-user', (req, res) => {
   const apiKey = req.fireApiKey;
   const { email, password } = req.body;
   axios
@@ -30,10 +15,13 @@ fireRouter.post('/login-user', (req, res) => {
     })
     .then((response) => {
       res.json(response.data);
+    })
+    .catch((error) => {
+      res.status(500).send(error.response.data);
     });
 });
 
-fireRouter.post('/create-user', (req, res) => {
+authRouter.post('/create-user', (req, res) => {
   const firebaseAdmin = req.firebaseAdmin;
   const { email, password } = req.body;
   firebaseAdmin
@@ -46,8 +34,8 @@ fireRouter.post('/create-user', (req, res) => {
       res.json(userRecord);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.json(error);
     });
 });
 
-module.exports = fireRouter;
+module.exports = authRouter;

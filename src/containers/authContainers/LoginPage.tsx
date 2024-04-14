@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createLoginErrorMessage } from '../../common/util';
 import Loader from '../../components/Loader';
 import { AppState, store } from '../../store';
 import { loginUser } from '../../store/actions/actions';
@@ -10,10 +11,13 @@ const LoginPage = () => {
 
   const isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
   const isLoggingIn = useSelector((state: AppState) => state.user.isLoggingIn);
+  const loginError = useSelector(
+    (state: AppState) => state.user.loginErrorMessage
+  );
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -21,8 +25,11 @@ const LoginPage = () => {
     }
   }, [isLoggedIn, navigate]);
 
+  useEffect(() => {
+    if (loginError) setErrorMessage(createLoginErrorMessage(loginError));
+  }, [loginError]);
+
   const handleLogin = () => {
-    // Implement your login logic here
     store.dispatch(loginUser({ email, password }));
   };
 
@@ -37,7 +44,7 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2>Login</h2>
+        <h2>Login y</h2>
         <input
           data-testid="email-input"
           type="email"
@@ -55,7 +62,7 @@ const LoginPage = () => {
         <button data-testid="login-button" onClick={handleLogin}>
           Login
         </button>
-        {error && <p className="error-message">{error}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <p>
           Don't have an account? <span onClick={onSignUpClick}>Sign Up</span>
         </p>

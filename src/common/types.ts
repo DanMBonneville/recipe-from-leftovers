@@ -41,6 +41,7 @@ export interface UserState {
   idToken: string;
   email: string;
   defaultIngredients: any;
+  loginErrorMessage: string;
 }
 
 export interface RecipeState {

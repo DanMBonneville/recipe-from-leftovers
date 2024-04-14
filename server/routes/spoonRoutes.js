@@ -6,7 +6,7 @@ const spoonRouter = express.Router();
 const {
   createGetRecipesByIngredientsUrl,
   createGetRecipeInfoByIdUrl,
-} = require('./helpers');
+} = require('./util');
 
 spoonRouter.get('/get-recipes-from-ingredients', (req, res) => {
   const apiKey = req.spoonKey;

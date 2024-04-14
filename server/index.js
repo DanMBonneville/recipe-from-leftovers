@@ -3,8 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const { initializeFirebaseAdmin } = require('./firebaseConfig');
-const fireRouter = require('./routes/firebaseRoutes');
+const fireRouter = require('./routes/firebaseGeneralRoutes');
 const spoonRouter = require('./routes/spoonRoutes');
+const authRouter = require('./routes/firebaseAuthRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/api/fire', authRouter);
 app.use('/api/fire', fireRouter);
 app.use('/api/spoon', spoonRouter);
 

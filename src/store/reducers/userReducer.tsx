@@ -8,6 +8,7 @@ const initialState = {
   idToken: '',
   email: '',
   defaultIngredients: {},
+  loginErrorMessage: '',
 } satisfies UserState as UserState;
 
 const userSlice = createSlice({
@@ -30,7 +31,8 @@ const userSlice = createSlice({
     });
     builder.addCase(loginUser.rejected, (state: UserState, action: any) => {
       state.isLoggingIn = false;
-      console.log('login user rejected');
+      state.isLoggedIn = false;
+      state.loginErrorMessage = action.error.message;
     });
     builder.addCase(createUser.pending, (state: UserState) => {
       console.log('Create user pending... ');

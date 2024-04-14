@@ -11,8 +11,8 @@ export const sendGetRequest = async (url: string) => {
 export const sendPostRequest = async (url: string, body: Object) => {
   try {
     return (await axios.post(url, body)).data;
-  } catch (e) {
-    return Promise.reject(e);
+  } catch (e: any) {
+    return Promise.reject(e.response.data.error);
   }
 };
 
