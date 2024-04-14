@@ -42,3 +42,16 @@ export const convertIngredientOptionArrToStringArr = (
   ingredients.forEach((ingredient) => ingredientArr.push(ingredient.value));
   return ingredientArr.join();
 };
+
+export const createLoginErrorMessage = (errorMessage: string) => {
+  switch (errorMessage) {
+    case 'INVALID_EMAIL':
+      return 'Please enter a valid email address.';
+    case 'INVALID_LOGIN_CREDENTIALS':
+      return 'Incorrect email or password. Please try again.';
+    case 'MISSING_PASSWORD':
+      return 'Please enter a password.';
+    default:
+      return `Unhandled error: ${errorMessage}`;
+  }
+};

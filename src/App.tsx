@@ -27,20 +27,23 @@ const App = () => {
 
   return (
     <Layout>
-      <Routes>
-        <Route path="/login" Component={asyncLoginPage} />
-        <Route path="/sign-up" Component={asyncSignUpPage} />
-        {!isLoggedIn && (
+      {isLoggedIn ? (
+        <Routes>
+          <Route path="/search-for-recipes" Component={asyncSearchPage} />
+          <Route path="/recipe-preview-list" Component={asyncSearchResults} />
+          <Route path="/recipe/details" Component={asyncRecipeDetails} />
+          <Route
+            path="*"
+            element={<Navigate to="/search-for-recipes" replace />}
+          />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/login" Component={asyncLoginPage} />
+          <Route path="/sign-up" Component={asyncSignUpPage} />
           <Route path="*" element={<Navigate to="/login" replace />} />
-        )}
-        <Route path="/search-for-recipes" Component={asyncSearchPage} />
-        <Route path="/recipe-preview-list" Component={asyncSearchResults} />
-        <Route path="/recipe/details" Component={asyncRecipeDetails} />
-        <Route
-          path="*"
-          element={<Navigate to="/search-for-recipes" replace />}
-        />
-      </Routes>
+        </Routes>
+      )}
     </Layout>
   );
 };
