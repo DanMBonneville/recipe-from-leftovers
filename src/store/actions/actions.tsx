@@ -5,7 +5,7 @@ import {
   createGetRecipesFromIngredientsUrl,
   sendGetRequest,
   sendPostRequest,
-} from './helpers';
+} from './utils';
 
 export const loginUser = createAsyncThunk(
   'login-user',

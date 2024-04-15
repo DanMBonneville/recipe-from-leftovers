@@ -1,4 +1,15 @@
 import { SingleValue } from 'react-select';
+import {
+  SIGNUP_EMAIL_ALREADY_EXISTS_ERROR_CODE,
+  SIGNUP_INVALID_PASSWORD_CODE,
+  SINGUP_INVALID_EMAIL_CODE,
+  lOGIN_INVALID_EMAIL,
+  lOGIN_INVALID_EMAIL_MSG,
+  lOGIN_INVALID_LOGIN_CREDENTIALS,
+  lOGIN_INVALID_LOGIN_CREDENTIALS_MSG,
+  lOGIN_MISSING_PASSWORD,
+  lOGIN_MISSING_PASSWORD_MSG,
+} from './constants';
 import { IngredientOptionType } from './types';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
@@ -45,13 +56,50 @@ export const convertIngredientOptionArrToStringArr = (
 
 export const createLoginErrorMessage = (errorMessage: string) => {
   switch (errorMessage) {
-    case 'INVALID_EMAIL':
-      return 'Please enter a valid email address.';
-    case 'INVALID_LOGIN_CREDENTIALS':
-      return 'Incorrect email or password. Please try again.';
-    case 'MISSING_PASSWORD':
-      return 'Please enter a password.';
+    case lOGIN_INVALID_EMAIL:
+      return lOGIN_INVALID_EMAIL_MSG;
+    case lOGIN_INVALID_LOGIN_CREDENTIALS:
+      return lOGIN_INVALID_LOGIN_CREDENTIALS_MSG;
+    case lOGIN_MISSING_PASSWORD:
+      return lOGIN_MISSING_PASSWORD_MSG;
     default:
       return `Unhandled error: ${errorMessage}`;
   }
+};
+
+export const createLoginErrorClassObject = (errorMessage: string) => {
+  let emailClass = '';
+  let passwordClass = '';
+
+  switch (errorMessage) {
+    case lOGIN_INVALID_EMAIL:
+      emailClass = 'email-input-error';
+      break;
+    case lOGIN_INVALID_LOGIN_CREDENTIALS:
+      emailClass = 'email-input-error';
+      passwordClass = 'password-input-error';
+      break;
+    case lOGIN_MISSING_PASSWORD:
+      passwordClass = 'password-input-error';
+      break;
+    default:
+  }
+  return { emailClass, passwordClass };
+};
+
+export const createSignUpErrorClassObject = (errorMessage: string) => {
+  let emailClass = '';
+  let passwordClass = '';
+
+  switch (errorMessage) {
+    case SINGUP_INVALID_EMAIL_CODE:
+    case SIGNUP_EMAIL_ALREADY_EXISTS_ERROR_CODE:
+      emailClass = 'email-input-error';
+      break;
+    case SIGNUP_INVALID_PASSWORD_CODE:
+      passwordClass = 'password-input-error';
+      break;
+    default:
+  }
+  return { emailClass, passwordClass };
 };
