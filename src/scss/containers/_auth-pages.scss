@@ -29,6 +29,12 @@
     border-radius: 3px;
   }
 
+  & .email-input-error,
+  .password-input-error {
+    border: 2px solid #ff0000;
+    color: #ff0000;
+  }
+
   & button {
     width: 100%;
     padding: 10px;

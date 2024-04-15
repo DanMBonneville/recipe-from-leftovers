@@ -1,4 +1,12 @@
 import { SingleValue } from 'react-select';
+import {
+  INVALID_EMAIL,
+  INVALID_EMAIL_MSG,
+  INVALID_LOGIN_CREDENTIALS,
+  INVALID_LOGIN_CREDENTIALS_MSG,
+  MISSING_PASSWORD,
+  MISSING_PASSWORD_MSG,
+} from './constants';
 import { IngredientOptionType } from './types';
 
 export const updateObject = (oldObject: object, updatedProperties: object) => {
@@ -45,12 +53,41 @@ export const convertIngredientOptionArrToStringArr = (
 
 export const createLoginErrorMessage = (errorMessage: string) => {
   switch (errorMessage) {
+    case INVALID_EMAIL:
+      return INVALID_EMAIL_MSG;
+    case INVALID_LOGIN_CREDENTIALS:
+      return INVALID_LOGIN_CREDENTIALS_MSG;
+    case MISSING_PASSWORD:
+      return MISSING_PASSWORD_MSG;
+    default:
+      return `Unhandled error: ${errorMessage}`;
+  }
+};
+
+export const createErrorClassObject = (errorMessage: string) => {
+  let emailClass = '';
+  let passwordClass = '';
+
+  switch (errorMessage) {
+    case INVALID_EMAIL:
+      emailClass = 'email-input-error';
+      break;
+    case INVALID_LOGIN_CREDENTIALS:
+      emailClass = 'email-input-error';
+      passwordClass = 'password-input-error';
+      break;
+    case MISSING_PASSWORD:
+      passwordClass = 'password-input-error';
+      break;
+    default:
+  }
+  return { emailClass, passwordClass };
+};
+
+export const createSugnUpMessage = (errorMessage: string) => {
+  switch (errorMessage) {
     case 'INVALID_EMAIL':
       return 'Please enter a valid email address.';
-    case 'INVALID_LOGIN_CREDENTIALS':
-      return 'Incorrect email or password. Please try again.';
-    case 'MISSING_PASSWORD':
-      return 'Please enter a password.';
     default:
       return `Unhandled error: ${errorMessage}`;
   }
