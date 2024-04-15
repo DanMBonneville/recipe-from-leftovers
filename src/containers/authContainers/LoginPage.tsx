@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createLoginErrorMessage } from '../../common/util';
+import {
+  createErrorClassObject,
+  createLoginErrorMessage,
+} from '../../common/util';
 import Loader from '../../components/Loader';
 import { AppState, store } from '../../store';
 import { loginUser } from '../../store/actions/actions';
@@ -9,8 +12,8 @@ import { loginUser } from '../../store/actions/actions';
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
   const isLoggingIn = useSelector((state: AppState) => state.user.isLoggingIn);
+  const isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
   const loginError = useSelector(
     (state: AppState) => state.user.loginErrorMessage
   );
@@ -18,6 +21,10 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [credentialClassNames, setCredentialClassNames] = useState({
+    emailClass: '',
+    passwordClass: '',
+  });
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -26,10 +33,18 @@ const LoginPage = () => {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    if (loginError) setErrorMessage(createLoginErrorMessage(loginError));
+    localStorage.clear();
+    sessionStorage.clear();
+    if (loginError) {
+      setErrorMessage(createLoginErrorMessage(loginError));
+      setCredentialClassNames(createErrorClassObject(loginError));
+    } else {
+      setCredentialClassNames({ emailClass: '', passwordClass: '' });
+    }
   }, [loginError]);
 
-  const handleLogin = () => {
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     store.dispatch(loginUser({ email, password }));
   };
 
@@ -44,11 +59,12 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <div className="login-form">
-        <h2>Login y</h2>
+        <h2>Login</h2>
         <input
           data-testid="email-input"
           type="email"
           placeholder="Email"
+          className={credentialClassNames.emailClass}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -56,10 +72,11 @@ const LoginPage = () => {
           data-testid="password-input"
           type="password"
           placeholder="Password"
+          className={credentialClassNames.passwordClass}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button data-testid="login-button" onClick={handleLogin}>
+        <button data-testid="login-button" onClick={(e) => handleLogin(e)}>
           Login
         </button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
