@@ -3,12 +3,15 @@ import { UserState } from '../../common/types';
 import { createUser, loginUser } from '../actions/actions';
 
 const initialState = {
-  isLoggingIn: false,
-  isLoggedIn: false,
   idToken: '',
   email: '',
   defaultIngredients: {},
+  isLoggingIn: false,
+  isLoggedIn: false,
   loginErrorMessage: '',
+  isSigningUp: false,
+  signUpErrorCode: '',
+  signUpErrorMessage: '',
 } satisfies UserState as UserState;
 
 const userSlice = createSlice({
@@ -35,13 +38,18 @@ const userSlice = createSlice({
       state.loginErrorMessage = action.error.message;
     });
     builder.addCase(createUser.pending, (state: UserState) => {
-      console.log('Create user pending... ');
+      state.isSigningUp = true;
     });
     builder.addCase(createUser.fulfilled, (state: UserState, action: any) => {
+      // TODO: sign up happy path
+      // add spinner while signing in
+      state.isSigningUp = false;
       console.log('Create user fulfilled! action payload: ', action.payload);
     });
     builder.addCase(createUser.rejected, (state: UserState, action: any) => {
-      console.log('Create user rejected');
+      state.isSigningUp = false;
+      state.signUpErrorCode = action.error.code;
+      state.signUpErrorMessage = action.error.message;
     });
   },
 });

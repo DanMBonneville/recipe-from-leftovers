@@ -12,7 +12,7 @@ export const sendPostRequest = async (url: string, body: Object) => {
   try {
     return (await axios.post(url, body)).data;
   } catch (e: any) {
-    return Promise.reject(e.response.data.error);
+    return Promise.reject(e.response.data);
   }
 };
 

@@ -17,7 +17,7 @@ authRouter.post('/login-user', (req, res) => {
       res.json(response.data);
     })
     .catch((error) => {
-      res.status(500).send(error.response.data);
+      res.status(500).send(error.response.data.error);
     });
 });
 
@@ -34,7 +34,7 @@ authRouter.post('/create-user', (req, res) => {
       res.json(userRecord);
     })
     .catch((error) => {
-      res.json(error);
+      res.status(500).send(error.errorInfo);
     });
 });
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
-  createErrorClassObject,
+  createLoginErrorClassObject,
   createLoginErrorMessage,
 } from '../../common/util';
 import Loader from '../../components/Loader';
@@ -37,7 +37,7 @@ const LoginPage = () => {
     sessionStorage.clear();
     if (loginError) {
       setErrorMessage(createLoginErrorMessage(loginError));
-      setCredentialClassNames(createErrorClassObject(loginError));
+      setCredentialClassNames(createLoginErrorClassObject(loginError));
     } else {
       setCredentialClassNames({ emailClass: '', passwordClass: '' });
     }
@@ -61,7 +61,7 @@ const LoginPage = () => {
       <div className="login-form">
         <h2>Login</h2>
         <input
-          data-testid="email-input"
+          data-testid="login-email-input"
           type="email"
           placeholder="Email"
           className={credentialClassNames.emailClass}
@@ -69,7 +69,7 @@ const LoginPage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-          data-testid="password-input"
+          data-testid="login-password-input"
           type="password"
           placeholder="Password"
           className={credentialClassNames.passwordClass}

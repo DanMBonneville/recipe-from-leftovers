@@ -1,11 +1,14 @@
 import { SingleValue } from 'react-select';
 import {
-  INVALID_EMAIL,
-  INVALID_EMAIL_MSG,
-  INVALID_LOGIN_CREDENTIALS,
-  INVALID_LOGIN_CREDENTIALS_MSG,
-  MISSING_PASSWORD,
-  MISSING_PASSWORD_MSG,
+  SIGNUP_EMAIL_ALREADY_EXISTS_ERROR_CODE,
+  SIGNUP_INVALID_PASSWORD_CODE,
+  SINGUP_INVALID_EMAIL_CODE,
+  lOGIN_INVALID_EMAIL,
+  lOGIN_INVALID_EMAIL_MSG,
+  lOGIN_INVALID_LOGIN_CREDENTIALS,
+  lOGIN_INVALID_LOGIN_CREDENTIALS_MSG,
+  lOGIN_MISSING_PASSWORD,
+  lOGIN_MISSING_PASSWORD_MSG,
 } from './constants';
 import { IngredientOptionType } from './types';
 
@@ -53,30 +56,30 @@ export const convertIngredientOptionArrToStringArr = (
 
 export const createLoginErrorMessage = (errorMessage: string) => {
   switch (errorMessage) {
-    case INVALID_EMAIL:
-      return INVALID_EMAIL_MSG;
-    case INVALID_LOGIN_CREDENTIALS:
-      return INVALID_LOGIN_CREDENTIALS_MSG;
-    case MISSING_PASSWORD:
-      return MISSING_PASSWORD_MSG;
+    case lOGIN_INVALID_EMAIL:
+      return lOGIN_INVALID_EMAIL_MSG;
+    case lOGIN_INVALID_LOGIN_CREDENTIALS:
+      return lOGIN_INVALID_LOGIN_CREDENTIALS_MSG;
+    case lOGIN_MISSING_PASSWORD:
+      return lOGIN_MISSING_PASSWORD_MSG;
     default:
       return `Unhandled error: ${errorMessage}`;
   }
 };
 
-export const createErrorClassObject = (errorMessage: string) => {
+export const createLoginErrorClassObject = (errorMessage: string) => {
   let emailClass = '';
   let passwordClass = '';
 
   switch (errorMessage) {
-    case INVALID_EMAIL:
+    case lOGIN_INVALID_EMAIL:
       emailClass = 'email-input-error';
       break;
-    case INVALID_LOGIN_CREDENTIALS:
+    case lOGIN_INVALID_LOGIN_CREDENTIALS:
       emailClass = 'email-input-error';
       passwordClass = 'password-input-error';
       break;
-    case MISSING_PASSWORD:
+    case lOGIN_MISSING_PASSWORD:
       passwordClass = 'password-input-error';
       break;
     default:
@@ -84,11 +87,19 @@ export const createErrorClassObject = (errorMessage: string) => {
   return { emailClass, passwordClass };
 };
 
-export const createSugnUpMessage = (errorMessage: string) => {
+export const createSignUpErrorClassObject = (errorMessage: string) => {
+  let emailClass = '';
+  let passwordClass = '';
+
   switch (errorMessage) {
-    case 'INVALID_EMAIL':
-      return 'Please enter a valid email address.';
+    case SINGUP_INVALID_EMAIL_CODE:
+    case SIGNUP_EMAIL_ALREADY_EXISTS_ERROR_CODE:
+      emailClass = 'email-input-error';
+      break;
+    case SIGNUP_INVALID_PASSWORD_CODE:
+      passwordClass = 'password-input-error';
+      break;
     default:
-      return `Unhandled error: ${errorMessage}`;
   }
+  return { emailClass, passwordClass };
 };
