@@ -47,8 +47,7 @@ const LoginPage = () => {
     }
   }, [loginError]);
 
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const isEmailAndPasswordValid = () => {
     if (!email || !email.includes('@')) {
       setErrorMessage(createLoginErrorMessage(lOGIN_INVALID_EMAIL));
       setCredentialClassNames(createLoginErrorClassObject(lOGIN_INVALID_EMAIL));
@@ -58,6 +57,14 @@ const LoginPage = () => {
         createLoginErrorClassObject(lOGIN_MISSING_PASSWORD)
       );
     } else {
+      return true;
+    }
+    return false;
+  };
+
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isEmailAndPasswordValid()) {
       setCredentialClassNames({ emailClass: '', passwordClass: '' });
       store.dispatch(loginUser({ email, password }));
     }
