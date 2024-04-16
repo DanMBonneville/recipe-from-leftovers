@@ -4,17 +4,19 @@ import {
   alphabatizeIngredientOptions,
   convertStringArrToIngredientOptionTypeArr,
 } from '../../common/util';
-import { getIngredientOptions } from '../actions/actions';
+import {
+  getDefaultIngredients,
+  getIngredientOptions,
+  saveDefaultIngredients,
+} from '../actions/actions';
 
 const initialState = {
-  selectedIngredients: [],
-  ingredientOptions: [
-    {
-      label: '',
-      value: '',
-    },
-  ],
   isFecthingIngredientOptions: false,
+  initialIngredientOptions: [],
+  ingredientOptions: [],
+  isFetchingDefaultSelectedIngredients: false,
+  defaultSelectedIngredients: [],
+  selectedIngredients: [],
 } satisfies IngredientState as IngredientState;
 
 const ingredientSlice = createSlice({
@@ -48,19 +50,19 @@ const ingredientSlice = createSlice({
         action.payload,
       ]);
     },
-    removeIngredientOption: (
-      state,
-      action: PayloadAction<IngredientOptionType>
-    ) => {
-      state.ingredientOptions = state.ingredientOptions.filter(
-        (ingredient) => ingredient.label !== action.payload.label
-      );
-    },
     removeSelectedIngredients: (
       state,
       action: PayloadAction<IngredientOptionType>
     ) => {
       state.selectedIngredients = state.selectedIngredients.filter(
+        (ingredient) => ingredient.label !== action.payload.label
+      );
+    },
+    removeIngredientOption: (
+      state,
+      action: PayloadAction<IngredientOptionType>
+    ) => {
+      state.ingredientOptions = state.ingredientOptions.filter(
         (ingredient) => ingredient.label !== action.payload.label
       );
     },
@@ -72,9 +74,11 @@ const ingredientSlice = createSlice({
     builder.addCase(
       getIngredientOptions.fulfilled,
       (state: IngredientState, action: any) => {
-        state.ingredientOptions = alphabatizeIngredientOptions(
+        const orderedIngredientOptions = alphabatizeIngredientOptions(
           convertStringArrToIngredientOptionTypeArr(action.payload.optionArray)
         );
+        state.initialIngredientOptions = orderedIngredientOptions;
+        state.ingredientOptions = orderedIngredientOptions;
         state.isFecthingIngredientOptions = false;
       }
     );
@@ -82,10 +86,49 @@ const ingredientSlice = createSlice({
       state.ingredientOptions = [];
       state.isFecthingIngredientOptions = false;
     });
+    builder.addCase(getDefaultIngredients.pending, (state: IngredientState) => {
+      state.isFetchingDefaultSelectedIngredients = true;
+    });
+    builder.addCase(
+      getDefaultIngredients.fulfilled,
+      (state: IngredientState, action: any) => {
+        state.isFetchingDefaultSelectedIngredients = false;
+        state.defaultSelectedIngredients = action.payload;
+        state.selectedIngredients = action.payload;
+      }
+    );
+    builder.addCase(
+      getDefaultIngredients.rejected,
+      (state: IngredientState) => {
+        state.isFetchingDefaultSelectedIngredients = false;
+      }
+    );
+    builder.addCase(
+      saveDefaultIngredients.pending,
+      (state: IngredientState, action: any) => {
+        console.log('saving default ingredients...');
+        // state.isFetchingDefaultSelectedIngredients = true;
+      }
+    );
+    builder.addCase(
+      saveDefaultIngredients.fulfilled,
+      (state: IngredientState, action: any) => {
+        console.log('success! ', action.payload);
+        // state.isFetchingDefaultSelectedIngredients = false;
+      }
+    );
+    builder.addCase(
+      saveDefaultIngredients.rejected,
+      (state: IngredientState, action: any) => {
+        console.log('failure :(');
+        // state.isFetchingDefaultSelectedIngredients = false;
+      }
+    );
   },
 });
 
 export const {
+  setIngredientOptions,
   setSelectedIngredients,
   addSelectedIngredients,
   addIngredientOption,

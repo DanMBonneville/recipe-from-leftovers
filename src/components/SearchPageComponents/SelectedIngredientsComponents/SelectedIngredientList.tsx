@@ -3,7 +3,7 @@ import React from 'react';
 import {
   IngredientOptionType,
   SelectedIngredientListProps,
-} from '../../common/types';
+} from '../../../common/types';
 
 const SelectedIngredientList = (props: SelectedIngredientListProps) => {
   const { selectedIngredients, removeIngredient } = props;
