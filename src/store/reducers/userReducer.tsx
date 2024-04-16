@@ -18,6 +18,10 @@ const userSlice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
+    logout: (state) => {
+      console.log('Logging out');
+      state.isLoggedIn = false;
+    },
     getDefafultIngredients: (state, action) => {
       state.defaultIngredients = action.payload;
     },
@@ -54,5 +58,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { getDefafultIngredients } = userSlice.actions;
+export const { logout, getDefafultIngredients } = userSlice.actions;
 export default userSlice.reducer;
