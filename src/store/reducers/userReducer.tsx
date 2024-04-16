@@ -5,7 +5,6 @@ import { createUser, loginUser } from '../actions/actions';
 const initialState = {
   idToken: '',
   email: '',
-  defaultIngredients: {},
   isLoggingIn: false,
   isLoggedIn: false,
   loginErrorMessage: '',
@@ -20,9 +19,6 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isLoggedIn = false;
-    },
-    getDefafultIngredients: (state, action) => {
-      state.defaultIngredients = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -57,5 +53,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { logout, getDefafultIngredients } = userSlice.actions;
+export const { logout } = userSlice.actions;
 export default userSlice.reducer;

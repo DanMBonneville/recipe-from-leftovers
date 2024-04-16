@@ -38,7 +38,6 @@ export type AppState = ReturnType<typeof store.getState>;
 export interface UserState {
   idToken: string;
   email: string;
-  defaultIngredients: object;
   isLoggingIn: boolean;
   isLoggedIn: boolean;
   loginErrorMessage: string;
@@ -57,8 +56,11 @@ export interface RecipeState {
 
 export type IngredientState = {
   selectedIngredients: IngredientOptionType[];
+  defaultSelectedIngredients: IngredientOptionType[];
+  initialIngredientOptions: IngredientOptionType[];
   ingredientOptions: IngredientOptionType[];
   isFecthingIngredientOptions: boolean;
+  isFetchingDefaultSelectedIngredients: boolean;
 };
 
 export type ErrorState = {
@@ -85,6 +87,11 @@ export type RecipeSearchButtonProps = {
 export type SelectedIngredientListProps = {
   selectedIngredients: IngredientOptionType[];
   removeIngredient: Function;
+};
+
+export type SaveSelectedIngredientsListProps = {
+  saveDefaultFridge: Function;
+  restoreDefaultFridge: Function;
 };
 
 export type IngredientListProps = {

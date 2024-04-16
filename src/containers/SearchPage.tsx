@@ -10,22 +10,40 @@ import {
 import Loader from '../components/Loader';
 import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
 import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
-import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientList';
+import SaveIngredientListButton from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
+import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientsComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
-import { getIngredientOptions, getRecipes } from '../store/actions/actions';
+import {
+  getDefaultIngredients,
+  getIngredientOptions,
+  getRecipes,
+  saveDefaultIngredients,
+} from '../store/actions/actions';
 import {
   addIngredientOption,
   addSelectedIngredients,
   removeIngredientOption,
   removeSelectedIngredients,
+  setIngredientOptions,
+  setSelectedIngredients,
 } from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  let userId = useSelector((state: AppState) => state.user.idToken);
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
+  );
+  let intialIngredientOptions = useSelector(
+    (state: AppState) => state.ingredient.initialIngredientOptions
+  );
+  let isFetchingDefaultSelectedIngredients = useSelector(
+    (state: AppState) => state.ingredient.isFecthingIngredientOptions
+  );
+  let defaultSelectedIngredients = useSelector(
+    (state: AppState) => state.ingredient.defaultSelectedIngredients
   );
   let ingredientOptions = useSelector(
     (state: AppState) => state.ingredient.ingredientOptions
@@ -35,6 +53,12 @@ const SearchPage = () => {
   );
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (intialIngredientOptions.length <= 1) {
+      store.dispatch(getDefaultIngredients());
+    }
+  }, [intialIngredientOptions]);
 
   useEffect(() => {
     if (ingredientOptions.length <= 1) {
@@ -49,6 +73,19 @@ const SearchPage = () => {
       setRecipeButtonDisabled(false);
     }
   }, [selectedIngredients]);
+
+  const saveDefaultFridge = () => {
+    store.dispatch(saveDefaultIngredients({ userId, selectedIngredients }));
+  };
+
+  const restoreDefaultFridge = () => {
+    const ingredientOptionsMinusDefaultSelection =
+      intialIngredientOptions.filter(
+        (ingredient) => !defaultSelectedIngredients.includes(ingredient)
+      );
+    dispatch(setIngredientOptions(ingredientOptionsMinusDefaultSelection));
+    dispatch(setSelectedIngredients(defaultSelectedIngredients));
+  };
 
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
@@ -71,7 +108,11 @@ const SearchPage = () => {
     navigate('/recipe-preview-list');
   };
 
-  if (isFecthingIngredientOptions || ingredientOptions.length === 0) {
+  if (
+    ingredientOptions.length === 0 ||
+    isFecthingIngredientOptions ||
+    isFetchingDefaultSelectedIngredients
+  ) {
     return <Loader />;
   }
 
@@ -85,6 +126,10 @@ const SearchPage = () => {
           options={ingredientOptions}
           handleSelectionChange={handleSelectionChange}
           handleSearchForRecipes={handleSearchForRecipes}
+        />
+        <SaveIngredientListButton
+          saveDefaultFridge={saveDefaultFridge}
+          restoreDefaultFridge={restoreDefaultFridge}
         />
         <SelectedIngredientList
           selectedIngredients={selectedIngredients}

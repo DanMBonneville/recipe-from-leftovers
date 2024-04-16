@@ -62,7 +62,17 @@ const LoginPage = () => {
     return false;
   };
 
-  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLogin(e);
+    }
+  };
+
+  const handleLogin = (
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
     if (isEmailAndPasswordValid()) {
       setCredentialClassNames({ emailClass: '', passwordClass: '' });
@@ -97,6 +107,7 @@ const LoginPage = () => {
           className={credentialClassNames.passwordClass}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={handleKeyPress}
         />
         <button data-testid="login-button" onClick={(e) => handleLogin(e)}>
           Login
