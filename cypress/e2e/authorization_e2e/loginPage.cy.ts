@@ -1,24 +1,15 @@
 describe('login e2e tests', () => {
-  const clearSessionGoToRoot = () => {
-    cy.clearLocalStorage().then(() => {
-      cy.clearAllSessionStorage().then(() => {
-        cy.visit('/');
-      });
-    });
-  };
-
   const attemptLoginWithCredentials = (email: string, password: string) => {
     cy.findByTestId('login-email-input').clear();
     if (email) cy.findByTestId('login-email-input').type(email);
-    cy.findByTestId('login-password-input').clear();
     if (password) cy.findByTestId('login-password-input').type(password);
+    cy.findByTestId('login-password-input').clear();
     cy.findByTestId('login-button').click();
   };
 
   describe('happy path', () => {
-    before('Clear local storage', () => {
-      cy.clearLocalStorage();
-      cy.visit('/');
+    before('Clear session go to root', () => {
+      cy.clearSessionGoToRoot();
     });
 
     it('redirects to search page after successful log in', () => {
@@ -29,8 +20,8 @@ describe('login e2e tests', () => {
   });
 
   describe('unverified user can not access app', () => {
-    before('Clear local storage', () => {
-      clearSessionGoToRoot();
+    before('Clear session go to root', () => {
+      cy.clearSessionGoToRoot();
     });
 
     it('User is redirected to login', () => {
@@ -43,9 +34,8 @@ describe('login e2e tests', () => {
   });
 
   describe('Verify login error scenarios ', () => {
-    before('Clear local storage', () => {
-      cy.clearLocalStorage();
-      cy.visit('/');
+    before('Clear session go to root', () => {
+      cy.clearSessionGoToRoot();
     });
 
     it('Verify invalid email message', () => {

@@ -38,4 +38,18 @@ authRouter.post('/create-user', (req, res) => {
     });
 });
 
+authRouter.post('/delete-user', (req, res) => {
+  const firebaseAdmin = req.firebaseAdmin;
+  const { uid } = req.body;
+  firebaseAdmin
+    .auth()
+    .deleteUser(uid)
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((error) => {
+      res.status(500).send(error.errorInfo);
+    });
+});
+
 module.exports = authRouter;
