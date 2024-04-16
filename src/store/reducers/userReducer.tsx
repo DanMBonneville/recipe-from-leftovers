@@ -44,10 +44,10 @@ const userSlice = createSlice({
       state.isSigningUp = true;
     });
     builder.addCase(createUser.fulfilled, (state: UserState, action: any) => {
-      // TODO: sign up happy path
-      // add spinner while signing in
       state.isSigningUp = false;
-      console.log('Create user fulfilled! action payload: ', action.payload);
+      state.isLoggedIn = true;
+      state.email = action.payload.email;
+      state.idToken = action.payload.uid;
     });
     builder.addCase(createUser.rejected, (state: UserState, action: any) => {
       state.isSigningUp = false;

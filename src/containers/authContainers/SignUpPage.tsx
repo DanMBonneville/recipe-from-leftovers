@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createSignUpErrorClassObject } from '../../common/util';
+import Loader from '../../components/Loader';
 import { AppState, store } from '../../store';
 import { createUser } from '../../store/actions/actions';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
 
-  let isLoggingIn = useSelector((state: AppState) => state.user.isLoggingIn);
   let isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
+  let isSigningUp = useSelector((state: AppState) => state.user.isSigningUp);
   let signUpErrorCode = useSelector(
     (state: AppState) => state.user.signUpErrorCode
   );
@@ -25,9 +26,6 @@ const SignUpPage = () => {
     passwordClass: '',
   });
 
-  // isLoggingIn
-  // check out login redirect on success
-
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/');
@@ -37,7 +35,6 @@ const SignUpPage = () => {
   useEffect(() => {
     localStorage.clear();
     sessionStorage.clear();
-
     if (signUpErrorCode) {
       setCredentialClassNames(createSignUpErrorClassObject(signUpErrorCode));
     } else {
@@ -53,6 +50,10 @@ const SignUpPage = () => {
   const onLoginClick = () => {
     navigate('/login');
   };
+
+  if (isSigningUp) {
+    return <Loader />;
+  }
 
   return (
     <div className="sign-up-container">
@@ -74,7 +75,9 @@ const SignUpPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleSignUp}>Sign Up</button>
+        <button data-testid="sign-up-button" onClick={handleSignUp}>
+          Sign Up
+        </button>
         {signUpErrorMessage && (
           <p className="error-message">{signUpErrorMessage}</p>
         )}
