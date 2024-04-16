@@ -42,7 +42,7 @@ describe('login e2e tests', () => {
     });
   });
 
-  describe.only('Verify login error scenarios ', () => {
+  describe('Verify login error scenarios ', () => {
     before('Clear local storage', () => {
       cy.clearLocalStorage();
       cy.visit('/');
