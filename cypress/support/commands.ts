@@ -13,7 +13,6 @@ Cypress.Commands.add('clearSessionGoToRoot', () => {
 });
 
 Cypress.Commands.add('deleteUserByUid', (uid: string) => {
-  console.log('Deleting user... ', uid);
   return cy.wrap(axios.post('/api/fire/delete-user', { uid }));
 });
 
