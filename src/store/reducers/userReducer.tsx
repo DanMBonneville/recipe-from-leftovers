@@ -19,7 +19,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      console.log('Logging out');
       state.isLoggedIn = false;
     },
     getDefafultIngredients: (state, action) => {
