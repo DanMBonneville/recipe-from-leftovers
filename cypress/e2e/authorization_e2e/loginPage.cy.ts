@@ -8,10 +8,10 @@ describe('login e2e tests', () => {
   };
 
   const attemptLoginWithCredentials = (email: string, password: string) => {
-    cy.findByTestId('email-input').clear();
-    if (email) cy.findByTestId('email-input').type(email);
-    cy.findByTestId('password-input').clear();
-    if (password) cy.findByTestId('password-input').type(password);
+    cy.findByTestId('login-email-input').clear();
+    if (email) cy.findByTestId('login-email-input').type(email);
+    cy.findByTestId('login-password-input').clear();
+    if (password) cy.findByTestId('login-password-input').type(password);
     cy.findByTestId('login-button').click();
   };
 
@@ -51,6 +51,8 @@ describe('login e2e tests', () => {
     it('Verify invalid email message', () => {
       attemptLoginWithCredentials('asdf', '');
       cy.findByText('Please enter a valid email address.').should('be.visible');
+      cy.get('.email-input-error').should('be.visible');
+      cy.get('.password-input-error').should('not.exist');
     });
 
     it('Verify invalid login credentials message', () => {
@@ -58,11 +60,14 @@ describe('login e2e tests', () => {
       cy.findByText('Incorrect email or password. Please try again.').should(
         'be.visible'
       );
+      cy.get('.email-input-error').should('be.visible');
+      cy.get('.password-input-error').should('be.visible');
     });
     it('Verify missing password message', () => {
-      attemptLoginWithCredentials('test@test1', '');
-      cy.pause();
+      attemptLoginWithCredentials('test@test', '');
       cy.findByText('Please enter a password.').should('be.visible');
+      cy.get('.email-input-error').should('not.exist');
+      cy.get('.password-input-error').should('be.visible');
     });
   });
 });

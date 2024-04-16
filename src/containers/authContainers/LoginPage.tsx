@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
+  lOGIN_INVALID_EMAIL,
+  lOGIN_MISSING_PASSWORD,
+} from '../../common/constants';
+import {
   createLoginErrorClassObject,
   createLoginErrorMessage,
 } from '../../common/util';
@@ -43,9 +47,27 @@ const LoginPage = () => {
     }
   }, [loginError]);
 
+  const isEmailAndPasswordValid = () => {
+    if (!email || !email.includes('@')) {
+      setErrorMessage(createLoginErrorMessage(lOGIN_INVALID_EMAIL));
+      setCredentialClassNames(createLoginErrorClassObject(lOGIN_INVALID_EMAIL));
+    } else if (!password) {
+      setErrorMessage(createLoginErrorMessage(lOGIN_MISSING_PASSWORD));
+      setCredentialClassNames(
+        createLoginErrorClassObject(lOGIN_MISSING_PASSWORD)
+      );
+    } else {
+      return true;
+    }
+    return false;
+  };
+
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    store.dispatch(loginUser({ email, password }));
+    if (isEmailAndPasswordValid()) {
+      setCredentialClassNames({ emailClass: '', passwordClass: '' });
+      store.dispatch(loginUser({ email, password }));
+    }
   };
 
   const onSignUpClick = () => {
