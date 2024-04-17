@@ -23,6 +23,7 @@ const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
+    resetIngredientState: () => initialState,
     setIngredientOptions: (
       state,
       action: PayloadAction<IngredientOptionType[]>
@@ -39,6 +40,7 @@ const ingredientSlice = createSlice({
       state,
       action: PayloadAction<IngredientOptionType>
     ) => {
+      console.log('The state: ', state);
       state.selectedIngredients.push(action.payload);
     },
     addIngredientOption: (
@@ -105,29 +107,31 @@ const ingredientSlice = createSlice({
     );
     builder.addCase(
       saveDefaultIngredients.pending,
-      (state: IngredientState, action: any) => {
-        console.log('saving default ingredients...');
-        // state.isFetchingDefaultSelectedIngredients = true;
+      (state: IngredientState) => {
+        state.isFetchingDefaultSelectedIngredients = true;
+        state.defaultSelectedIngredients = state.selectedIngredients;
       }
     );
     builder.addCase(
       saveDefaultIngredients.fulfilled,
       (state: IngredientState, action: any) => {
         console.log('success! ', action.payload);
-        // state.isFetchingDefaultSelectedIngredients = false;
+
+        state.isFetchingDefaultSelectedIngredients = false;
       }
     );
     builder.addCase(
       saveDefaultIngredients.rejected,
       (state: IngredientState, action: any) => {
         console.log('failure :(');
-        // state.isFetchingDefaultSelectedIngredients = false;
+        state.isFetchingDefaultSelectedIngredients = false;
       }
     );
   },
 });
 
 export const {
+  resetIngredientState,
   setIngredientOptions,
   setSelectedIngredients,
   addSelectedIngredients,

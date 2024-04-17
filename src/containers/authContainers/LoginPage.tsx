@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
   lOGIN_INVALID_EMAIL,
@@ -12,9 +12,14 @@ import {
 import Loader from '../../components/Loader';
 import { AppState, store } from '../../store';
 import { loginUser } from '../../store/actions/actions';
+import { resetErrorState } from '../../store/reducers/errorReducer';
+import { resetIngredientState } from '../../store/reducers/ingredientReducer';
+import { resetRecipesState } from '../../store/reducers/recipeReducer';
+import { resetUserState } from '../../store/reducers/userReducer';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const isLoggingIn = useSelector((state: AppState) => state.user.isLoggingIn);
   const isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
@@ -33,8 +38,14 @@ const LoginPage = () => {
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/');
+    } else {
+      console.log('resetting state');
+      dispatch(resetUserState());
+      dispatch(resetIngredientState());
+      dispatch(resetRecipesState());
+      dispatch(resetErrorState());
     }
-  }, [isLoggedIn, navigate]);
+  }, [dispatch, isLoggedIn, navigate]);
 
   useEffect(() => {
     localStorage.clear();
