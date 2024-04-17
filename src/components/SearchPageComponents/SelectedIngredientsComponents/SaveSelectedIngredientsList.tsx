@@ -8,21 +8,21 @@ const SaveIngredientListButton = (props: SaveSelectedIngredientsListProps) => {
     <div className="default-ingredient-options">
       <Button
         data-testid="save-default-ingredient-list"
-        className="save-default-ingredient-list"
         size="medium"
         variant="contained"
+        color="secondary"
         onClick={() => saveDefaultFridge()}
       >
-        Save as your Default Fridge
+        Save Selection
       </Button>
       <Button
         data-testid="restore-default-ingredient-list"
-        className="restore-default-ingredient-list"
         size="medium"
         variant="contained"
+        color="secondary"
         onClick={() => restoreDefaultFridge()}
       >
-        Restore Default Fridge
+        Restore Selection
       </Button>
     </div>
   );

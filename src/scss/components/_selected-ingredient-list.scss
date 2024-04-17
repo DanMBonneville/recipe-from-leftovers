@@ -2,10 +2,9 @@
 .selected-ingredient-list {
   display: flex;
   flex-direction: column;
-  height: 300px;
+  height: 275px;
   overflow-y: auto;
-  max-width: 56%;
-  background-color: 'secondary';
+  max-width: 67%;
   box-sizing: border-box;
 
   & > li {
