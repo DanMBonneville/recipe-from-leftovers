@@ -11,7 +11,11 @@ import {
 } from '../../common/util';
 import Loader from '../../components/Loader';
 import { AppState, store } from '../../store';
-import { loginUser } from '../../store/actions/actions';
+import {
+  getIngredientOptions,
+  getSavedSelectedIngredients,
+  loginUser,
+} from '../../store/actions/actions';
 import { resetErrorState } from '../../store/reducers/errorReducer';
 import { resetIngredientState } from '../../store/reducers/ingredientReducer';
 import { resetRecipesState } from '../../store/reducers/recipeReducer';
@@ -39,7 +43,6 @@ const LoginPage = () => {
     if (isLoggedIn) {
       navigate('/');
     } else {
-      console.log('resetting state');
       dispatch(resetUserState());
       dispatch(resetIngredientState());
       dispatch(resetRecipesState());
@@ -87,6 +90,8 @@ const LoginPage = () => {
     e.preventDefault();
     if (isEmailAndPasswordValid()) {
       setCredentialClassNames({ emailClass: '', passwordClass: '' });
+      store.dispatch(getIngredientOptions());
+      store.dispatch(getSavedSelectedIngredients(email));
       store.dispatch(loginUser({ email, password }));
     }
   };

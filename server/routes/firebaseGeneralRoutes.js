@@ -18,14 +18,14 @@ fireRouter.get('/get-ingredient-options', (req, res) => {
 
 fireRouter.get('/get-default-selected-ingredients', (req, res) => {
   const firebaseAdmin = req.firebaseAdmin;
-  let uid = req.query.uid;
+  let email = req.query.email;
   firebaseAdmin
     .firestore()
-    .collection('ingredients')
-    .doc('default-fridge')
-    .get(uid)
+    .collection('savedIngredientSelection')
+    .doc(email)
+    .get()
     .then((docSnap) => {
-      res.json(Object.values(docSnap.data())[0]);
+      res.json(Object.values(docSnap.data()));
     })
     .catch((error) => {
       res.status(500).send(error);
@@ -34,15 +34,12 @@ fireRouter.get('/get-default-selected-ingredients', (req, res) => {
 
 fireRouter.post('/save-default-selected-ingredients', (req, res) => {
   const firebaseAdmin = req.firebaseAdmin;
-  const { userId, selectedIngredients } = req.body;
-  console.log('Server good so far...');
+  const { email, selectedIngredientsObject } = req.body;
   firebaseAdmin
     .firestore()
-    .collection('ingredients')
-    .doc('default-fridge')
-    .set({
-      [userId]: selectedIngredients,
-    })
+    .collection('savedIngredientSelection')
+    .doc(email)
+    .set(selectedIngredientsObject)
     .then((docSnap) => {
       res.json(docSnap);
     })

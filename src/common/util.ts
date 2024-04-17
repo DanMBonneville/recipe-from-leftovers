@@ -19,10 +19,38 @@ export const updateObject = (oldObject: object, updatedProperties: object) => {
   };
 };
 
+export const convertListToObject = (arr: Array<IngredientOptionType>) => {
+  const object: { [key: string]: IngredientOptionType } = {};
+  arr.forEach((item, index) => {
+    object[String(index)] = item;
+  });
+  return object;
+};
+
 export const alphabatizeIngredientOptions = (
   options: IngredientOptionType[]
 ) => {
   return [...options].sort((a, b) => a.label.localeCompare(b.label));
+};
+
+export const filterIngredientsFromIngredientList = (
+  ingredients: IngredientOptionType[],
+  ingredientList: IngredientOptionType[]
+) => {
+  if (!ingredients || 0 === ingredients.length) {
+    return ingredientList;
+  }
+  return ingredientList.filter((ingredientOpion: IngredientOptionType) => {
+    let shouldKeep = true;
+    if (ingredients && 0 < ingredients.length) {
+      ingredients.forEach((ingredient) => {
+        if (ingredientOpion.label === ingredient.label) {
+          shouldKeep = false;
+        }
+      });
+    }
+    return shouldKeep;
+  });
 };
 
 export const convertStringArrToIngredientOptionTypeArr = (props: string[]) => {
@@ -50,6 +78,7 @@ export const convertIngredientOptionArrToStringArr = (
   ingredients: IngredientOptionType[]
 ) => {
   const ingredientArr: string[] = [];
+
   ingredients.forEach((ingredient) => ingredientArr.push(ingredient.value));
   return ingredientArr.join();
 };

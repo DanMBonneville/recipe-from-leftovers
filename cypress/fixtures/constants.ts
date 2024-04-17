@@ -7,6 +7,8 @@ export const stableDomDefaultParams = {
 };
 
 export const testUser1Email = 'test@test.com';
+export const testUser1Password = '123456';
+export const testUser2Email = 'test2@test.com';
 export const testUser2Password = '123456';
 
 export const loginUri = '/login';

@@ -5,7 +5,9 @@ import { SingleValue } from 'react-select';
 import { IngredientOptionType } from '../common/types';
 import {
   convertIngredientOptionArrToStringArr,
+  convertListToObject,
   convertSingleValueIngredientToIngredientOption,
+  filterIngredientsFromIngredientList,
 } from '../common/util';
 import Loader from '../components/Loader';
 import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
@@ -13,12 +15,7 @@ import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSu
 import SaveIngredientListButton from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
 import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientsComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
-import {
-  getDefaultIngredients,
-  getIngredientOptions,
-  getRecipes,
-  saveDefaultIngredients,
-} from '../store/actions/actions';
+import { getRecipes, saveDefaultIngredients } from '../store/actions/actions';
 import {
   addIngredientOption,
   addSelectedIngredients,
@@ -32,19 +29,23 @@ const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  let userId = useSelector((state: AppState) => state.user.idToken);
+  let email = useSelector((state: AppState) => state.user.email);
+
+  // is loading
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
-  );
-  let intialIngredientOptions = useSelector(
-    (state: AppState) => state.ingredient.initialIngredientOptions
   );
   let isFetchingDefaultSelectedIngredients = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
   );
+  // initial state
+  let intialIngredientOptions = useSelector(
+    (state: AppState) => state.ingredient.initialIngredientOptions
+  );
   let defaultSelectedIngredients = useSelector(
     (state: AppState) => state.ingredient.defaultSelectedIngredients
   );
+  // app state
   let ingredientOptions = useSelector(
     (state: AppState) => state.ingredient.ingredientOptions
   );
@@ -55,18 +56,6 @@ const SearchPage = () => {
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (intialIngredientOptions.length <= 1) {
-      store.dispatch(getDefaultIngredients());
-    }
-  }, [intialIngredientOptions]);
-
-  useEffect(() => {
-    if (ingredientOptions.length <= 1) {
-      store.dispatch(getIngredientOptions());
-    }
-  }, [ingredientOptions]);
-
-  useEffect(() => {
     if (0 === selectedIngredients.length) {
       setRecipeButtonDisabled(true);
     } else {
@@ -75,13 +64,17 @@ const SearchPage = () => {
   }, [selectedIngredients]);
 
   const saveDefaultFridge = () => {
-    store.dispatch(saveDefaultIngredients({ userId, selectedIngredients }));
+    const selectedIngredientsObject = convertListToObject(selectedIngredients);
+    store.dispatch(
+      saveDefaultIngredients({ email, selectedIngredientsObject })
+    );
   };
 
   const restoreDefaultFridge = () => {
     const ingredientOptionsMinusDefaultSelection =
-      intialIngredientOptions.filter(
-        (ingredient) => !defaultSelectedIngredients.includes(ingredient)
+      filterIngredientsFromIngredientList(
+        defaultSelectedIngredients,
+        intialIngredientOptions
       );
     dispatch(setIngredientOptions(ingredientOptionsMinusDefaultSelection));
     dispatch(setSelectedIngredients(defaultSelectedIngredients));
@@ -90,6 +83,9 @@ const SearchPage = () => {
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
   ) => {
+    if (!newIngredient || newIngredient?.label === '') {
+      return;
+    }
     const selectedIngredient =
       convertSingleValueIngredientToIngredientOption(newIngredient);
     dispatch(addSelectedIngredients(selectedIngredient));

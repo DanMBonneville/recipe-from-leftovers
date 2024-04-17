@@ -3,27 +3,30 @@ import { IngredientOptionType, IngredientState } from '../../common/types';
 import {
   alphabatizeIngredientOptions,
   convertStringArrToIngredientOptionTypeArr,
+  filterIngredientsFromIngredientList,
 } from '../../common/util';
 import {
-  getDefaultIngredients,
   getIngredientOptions,
+  getSavedSelectedIngredients,
   saveDefaultIngredients,
 } from '../actions/actions';
 
-const initialState = {
+const is = {
   isFecthingIngredientOptions: false,
   initialIngredientOptions: [],
   ingredientOptions: [],
   isFetchingDefaultSelectedIngredients: false,
   defaultSelectedIngredients: [],
   selectedIngredients: [],
-} satisfies IngredientState as IngredientState;
+};
+
+const initialState = is satisfies IngredientState as IngredientState;
 
 const ingredientSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {
-    resetIngredientState: () => initialState,
+    resetIngredientState: () => is,
     setIngredientOptions: (
       state,
       action: PayloadAction<IngredientOptionType[]>
@@ -40,8 +43,10 @@ const ingredientSlice = createSlice({
       state,
       action: PayloadAction<IngredientOptionType>
     ) => {
-      console.log('The state: ', state);
-      state.selectedIngredients.push(action.payload);
+      state.selectedIngredients = [
+        ...state.selectedIngredients,
+        action.payload,
+      ];
     },
     addIngredientOption: (
       state,
@@ -88,19 +93,27 @@ const ingredientSlice = createSlice({
       state.ingredientOptions = [];
       state.isFecthingIngredientOptions = false;
     });
-    builder.addCase(getDefaultIngredients.pending, (state: IngredientState) => {
-      state.isFetchingDefaultSelectedIngredients = true;
-    });
     builder.addCase(
-      getDefaultIngredients.fulfilled,
-      (state: IngredientState, action: any) => {
-        state.isFetchingDefaultSelectedIngredients = false;
-        state.defaultSelectedIngredients = action.payload;
-        state.selectedIngredients = action.payload;
+      getSavedSelectedIngredients.pending,
+      (state: IngredientState) => {
+        state.isFetchingDefaultSelectedIngredients = true;
       }
     );
     builder.addCase(
-      getDefaultIngredients.rejected,
+      getSavedSelectedIngredients.fulfilled,
+      (state: IngredientState, action: any) => {
+        const defaultSelection = action.payload;
+        state.isFetchingDefaultSelectedIngredients = false;
+        state.defaultSelectedIngredients = defaultSelection;
+        state.selectedIngredients = defaultSelection;
+        state.ingredientOptions = filterIngredientsFromIngredientList(
+          defaultSelection,
+          state.initialIngredientOptions
+        );
+      }
+    );
+    builder.addCase(
+      getSavedSelectedIngredients.rejected,
       (state: IngredientState) => {
         state.isFetchingDefaultSelectedIngredients = false;
       }
@@ -109,21 +122,18 @@ const ingredientSlice = createSlice({
       saveDefaultIngredients.pending,
       (state: IngredientState) => {
         state.isFetchingDefaultSelectedIngredients = true;
-        state.defaultSelectedIngredients = state.selectedIngredients;
       }
     );
     builder.addCase(
       saveDefaultIngredients.fulfilled,
       (state: IngredientState, action: any) => {
-        console.log('success! ', action.payload);
-
         state.isFetchingDefaultSelectedIngredients = false;
+        state.defaultSelectedIngredients = state.selectedIngredients;
       }
     );
     builder.addCase(
       saveDefaultIngredients.rejected,
       (state: IngredientState, action: any) => {
-        console.log('failure :(');
         state.isFetchingDefaultSelectedIngredients = false;
       }
     );

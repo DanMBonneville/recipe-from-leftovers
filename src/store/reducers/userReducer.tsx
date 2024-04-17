@@ -44,7 +44,7 @@ const userSlice = createSlice({
       state.isSigningUp = false;
       state.isLoggedIn = true;
       state.email = action.payload.email;
-      state.idToken = action.payload.uid;
+      state.idToken = action.payload.idToken;
     });
     builder.addCase(createUser.rejected, (state: UserState, action: any) => {
       state.isSigningUp = false;

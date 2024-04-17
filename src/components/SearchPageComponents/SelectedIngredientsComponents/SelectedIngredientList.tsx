@@ -9,7 +9,7 @@ const SelectedIngredientList = (props: SelectedIngredientListProps) => {
   const { selectedIngredients, removeIngredient } = props;
 
   let ingredientsArray: JSX.Element[] = [];
-  if (selectedIngredients) {
+  if (selectedIngredients && 0 < selectedIngredients.length) {
     selectedIngredients.forEach(
       (ingredient: IngredientOptionType, index: number) => {
         const separator =
