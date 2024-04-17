@@ -9,19 +9,24 @@ const SelectedIngredientList = (props: SelectedIngredientListProps) => {
   const { selectedIngredients, removeIngredient } = props;
 
   let ingredientsArray: JSX.Element[] = [];
-  selectedIngredients.forEach(
-    (ingredient: IngredientOptionType, index: number) => {
-      const separator =
-        index === selectedIngredients.length - 1 ? <></> : <hr />;
-      ingredientsArray.push(
-        <li key={ingredient.label} onClick={() => removeIngredient(ingredient)}>
-          {ingredient.label + ' '}
-          <Icon className={'remove-ingredient-icon'}>clear</Icon>
-          {separator}
-        </li>
-      );
-    }
-  );
+  if (selectedIngredients && 0 < selectedIngredients.length) {
+    selectedIngredients.forEach(
+      (ingredient: IngredientOptionType, index: number) => {
+        const separator =
+          index === selectedIngredients.length - 1 ? <></> : <hr />;
+        ingredientsArray.push(
+          <li
+            key={ingredient.label}
+            onClick={() => removeIngredient(ingredient)}
+          >
+            {ingredient.label + ' '}
+            <Icon className={'remove-ingredient-icon'}>clear</Icon>
+            {separator}
+          </li>
+        );
+      }
+    );
+  }
 
   return <div className={'selected-ingredient-list'}>{ingredientsArray}</div>;
 };

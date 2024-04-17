@@ -28,10 +28,12 @@ export const getIngredientOptions = createAsyncThunk(
   }
 );
 
-export const getDefaultIngredients = createAsyncThunk(
+export const getSavedSelectedIngredients = createAsyncThunk(
   'get-default-selected-ingredients',
-  async () => {
-    return sendGetRequest('/api/fire/get-default-selected-ingredients');
+  async (email: Object) => {
+    return sendGetRequest(
+      `/api/fire/get-default-selected-ingredients?email=${email}`
+    );
   }
 );
 export const saveDefaultIngredients = createAsyncThunk(

@@ -9,11 +9,13 @@ const errorSlice = createSlice({
   name: 'error',
   initialState,
   reducers: {
+    resetErrorState: () => initialState,
     setShowAddIngredientsMessage: (state, action) => {
       state.showAddIngredientMessage = action.payload;
     },
   },
 });
 
-export const { setShowAddIngredientsMessage } = errorSlice.actions;
+export const { resetErrorState, setShowAddIngredientsMessage } =
+  errorSlice.actions;
 export default errorSlice.reducer;

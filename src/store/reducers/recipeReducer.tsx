@@ -27,6 +27,7 @@ const recipeSlice = createSlice({
   name: 'recipes',
   initialState,
   reducers: {
+    resetRecipesState: () => initialState,
     setRecipeToView: (state, action: PayloadAction<RecipeType>) => {
       state.recipeToView = action.payload;
     },
@@ -60,5 +61,5 @@ const recipeSlice = createSlice({
   },
 });
 
-export const { setRecipeToView } = recipeSlice.actions;
+export const { resetRecipesState, setRecipeToView } = recipeSlice.actions;
 export default recipeSlice.reducer;
