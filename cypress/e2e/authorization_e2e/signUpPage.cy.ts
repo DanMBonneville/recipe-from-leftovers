@@ -1,4 +1,5 @@
 import { Interception } from 'cypress/types/net-stubbing';
+import { testSignUpPassword, testSignUpUser } from '../../fixtures/constants';
 
 describe('sign up e2e tests', () => {
   describe('Verify error scenarios', () => {
@@ -61,7 +62,7 @@ describe('sign up e2e tests', () => {
     before('Clear session go to root', () => {
       cy.clearSessionGoToRoot();
       cy.findByText('Sign Up').click();
-      attemptSignUpWithCredentials('test2@test.com', '123987');
+      attemptSignUpWithCredentials(testSignUpUser, testSignUpPassword);
     });
 
     it('User is redirected to page as new user', () => {

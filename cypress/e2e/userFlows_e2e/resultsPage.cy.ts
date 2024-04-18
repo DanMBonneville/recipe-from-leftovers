@@ -1,12 +1,10 @@
 import { Interception } from 'cypress/types/net-stubbing';
-import { stableDomDefaultParams } from '../../fixtures/constants';
+import { testUser1Email, testUser1Password } from '../../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
   before('User is on Search Page', () => {
-    cy.clearLocalStorage();
-    cy.visit('/');
-    cy.reload();
-    cy.get('body').waitForStableDOM(stableDomDefaultParams);
+    cy.login(testUser1Email, testUser1Password);
+    cy.deselectAllIngredients();
   });
 
   it('Verify search button on search page navigates use to results page', () => {
