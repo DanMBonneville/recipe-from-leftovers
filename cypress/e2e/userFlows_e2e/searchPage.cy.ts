@@ -31,6 +31,7 @@ describe('searchPage e2e tests', () => {
   describe('Verify functionality of ingredient list', () => {
     before(() => {
       cy.login(testUser1Email, testUser2Password);
+      cy.deselectAllIngredients();
     });
 
     it('User selects multiple ingredients, they are displayed', () => {
