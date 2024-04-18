@@ -12,7 +12,7 @@ import {
 import Loader from '../components/Loader';
 import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
 import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
-import SaveIngredientListButton from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
+import SaveRestoreIngredientListButtons from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
 import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientsComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
 import { getRecipes, saveDefaultIngredients } from '../store/actions/actions';
@@ -123,7 +123,7 @@ const SearchPage = () => {
           handleSelectionChange={handleSelectionChange}
           handleSearchForRecipes={handleSearchForRecipes}
         />
-        <SaveIngredientListButton
+        <SaveRestoreIngredientListButtons
           saveDefaultFridge={saveDefaultFridge}
           restoreDefaultFridge={restoreDefaultFridge}
         />
