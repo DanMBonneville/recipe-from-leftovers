@@ -50,6 +50,7 @@ Cypress.Commands.add('deselectAllIngredients', () => {
         });
       }
     });
+  cy.findByTestId('select-prompt').click();
 });
 
 Cypress.Commands.add('deleteUserByUid', (uid: string) => {

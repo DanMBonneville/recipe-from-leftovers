@@ -138,20 +138,19 @@ describe('searchPage e2e tests', () => {
 
     after(() => {
       cy.login(testUser1Email, testUser1Password);
+      cy.deselectAllIngredients();
       cy.intercept('POST', '**save-default-selected-ingredients').as(
         'SaveIngredients'
       );
-      cy.deselectAllIngredients().then(() => {
-        cy.findByText('Save Selection').click();
-      });
+      cy.findByText('Save Selection').click();
       cy.wait('@SaveIngredients');
       cy.login(testUser2Email, testUser2Password);
+      cy.deselectAllIngredients();
       cy.intercept('POST', '**save-default-selected-ingredients').as(
         'SaveIngredients'
       );
-      cy.deselectAllIngredients().then(() => {
-        cy.findByText('Save Selection').click();
-      });
+      cy.findByText('Save Selection').click();
+      cy.wait('@SaveIngredients');
     });
   });
 });
