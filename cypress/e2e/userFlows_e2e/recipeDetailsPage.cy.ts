@@ -1,12 +1,10 @@
-import { stableDomDefaultParams } from '../fixtures/constants';
+import { testUser1Email, testUser1Password } from '../../fixtures/constants';
 
 describe('resultsPage e2e tests', () => {
   describe('Verify that a regular use case where the user has some of the ingrededients on the final page', () => {
     before('User is on recipe details page for Bread Omlette', () => {
-      cy.clearLocalStorage();
-      cy.visit('/');
-      cy.reload();
-      cy.get('body').waitForStableDOM(stableDomDefaultParams);
+      cy.login(testUser1Email, testUser1Password);
+      cy.deselectAllIngredients();
       cy.findByLabelText('Select Ingredients').type('milk');
       cy.findByText('Milk').click();
       cy.findByLabelText('Select Ingredients').type('eggs');
@@ -26,10 +24,8 @@ describe('resultsPage e2e tests', () => {
 
   describe('Verify the use case for when the user has all the ingredients', () => {
     before('User is on recipe details page for bread Omlette', () => {
-      cy.clearLocalStorage();
-      cy.visit('/');
-      cy.reload();
-      cy.get('body').waitForStableDOM(stableDomDefaultParams);
+      cy.login(testUser1Email, testUser1Password);
+      cy.deselectAllIngredients();
       cy.findByLabelText('Select Ingredients').type('milk');
       cy.findByText('Milk').click();
       cy.findByLabelText('Select Ingredients').type('eggs');

@@ -5,28 +5,51 @@ import { SingleValue } from 'react-select';
 import { IngredientOptionType } from '../common/types';
 import {
   convertIngredientOptionArrToStringArr,
+  convertListToObject,
   convertSingleValueIngredientToIngredientOption,
+  filterIngredientsFromIngredientList,
 } from '../common/util';
 import Loader from '../components/Loader';
 import SelectIngredientsPrompt from '../components/SearchPageComponents/SelectIngredientsPrompt';
 import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSubmitIngredients/SelectSubmitIngredients';
-import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientList';
+import SaveRestoreIngredientListButtons from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
+import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientsComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
-import { getIngredientOptions, getRecipes } from '../store/actions/actions';
+import {
+  getIngredientOptions,
+  getRecipes,
+  saveDefaultIngredients,
+} from '../store/actions/actions';
 import {
   addIngredientOption,
   addSelectedIngredients,
   removeIngredientOption,
   removeSelectedIngredients,
+  setIngredientOptions,
+  setSelectedIngredients,
 } from '../store/reducers/ingredientReducer';
 
 const SearchPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  let email = useSelector((state: AppState) => state.user.email);
+
+  // is loading
   let isFecthingIngredientOptions = useSelector(
     (state: AppState) => state.ingredient.isFecthingIngredientOptions
   );
+  let isFetchingDefaultSelectedIngredients = useSelector(
+    (state: AppState) => state.ingredient.isFecthingIngredientOptions
+  );
+  // initial state
+  let intialIngredientOptions = useSelector(
+    (state: AppState) => state.ingredient.initialIngredientOptions
+  );
+  let defaultSelectedIngredients = useSelector(
+    (state: AppState) => state.ingredient.defaultSelectedIngredients
+  );
+  // app state
   let ingredientOptions = useSelector(
     (state: AppState) => state.ingredient.ingredientOptions
   );
@@ -37,10 +60,10 @@ const SearchPage = () => {
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (ingredientOptions.length <= 1) {
+    if (0 === intialIngredientOptions.length) {
       store.dispatch(getIngredientOptions());
     }
-  }, [ingredientOptions]);
+  }, [intialIngredientOptions]);
 
   useEffect(() => {
     if (0 === selectedIngredients.length) {
@@ -50,9 +73,29 @@ const SearchPage = () => {
     }
   }, [selectedIngredients]);
 
+  const saveDefaultFridge = () => {
+    const selectedIngredientsObject = convertListToObject(selectedIngredients);
+    store.dispatch(
+      saveDefaultIngredients({ email, selectedIngredientsObject })
+    );
+  };
+
+  const restoreDefaultFridge = () => {
+    const ingredientOptionsMinusDefaultSelection =
+      filterIngredientsFromIngredientList(
+        defaultSelectedIngredients,
+        intialIngredientOptions
+      );
+    dispatch(setIngredientOptions(ingredientOptionsMinusDefaultSelection));
+    dispatch(setSelectedIngredients(defaultSelectedIngredients));
+  };
+
   const handleSelectionChange = (
     newIngredient: SingleValue<IngredientOptionType>
   ) => {
+    if (!newIngredient || newIngredient?.label === '') {
+      return;
+    }
     const selectedIngredient =
       convertSingleValueIngredientToIngredientOption(newIngredient);
     dispatch(addSelectedIngredients(selectedIngredient));
@@ -71,7 +114,11 @@ const SearchPage = () => {
     navigate('/recipe-preview-list');
   };
 
-  if (isFecthingIngredientOptions) {
+  if (
+    ingredientOptions.length === 0 ||
+    isFecthingIngredientOptions ||
+    isFetchingDefaultSelectedIngredients
+  ) {
     return <Loader />;
   }
 
@@ -85,6 +132,10 @@ const SearchPage = () => {
           options={ingredientOptions}
           handleSelectionChange={handleSelectionChange}
           handleSearchForRecipes={handleSearchForRecipes}
+        />
+        <SaveRestoreIngredientListButtons
+          saveDefaultFridge={saveDefaultFridge}
+          restoreDefaultFridge={restoreDefaultFridge}
         />
         <SelectedIngredientList
           selectedIngredients={selectedIngredients}

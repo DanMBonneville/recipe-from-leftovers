@@ -1,41 +1,70 @@
 /// <reference types="cypress" />
 import '@testing-library/cypress/add-commands';
+import axios, { AxiosResponse } from 'axios';
 import { registerCommand } from 'cypress-wait-for-stable-dom';
+import { stableDomDefaultParams } from '../fixtures/constants';
 registerCommand();
 
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+Cypress.Commands.add('clearSessionGoToRoot', () => {
+  cy.clearLocalStorage().then(() => {
+    cy.clearAllSessionStorage().then(() => {
+      cy.visit('/');
+    });
+  });
+});
+
+Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.clearSessionGoToRoot();
+  cy.findByTestId('login-email-input').clear();
+  cy.findByTestId('login-password-input').clear();
+  if (email) cy.findByTestId('login-email-input').type(email);
+  if (password) cy.findByTestId('login-password-input').type(password);
+  cy.findByTestId('login-button').click();
+  cy.waitForStableDOM(stableDomDefaultParams);
+});
+
+Cypress.Commands.add('selectIngredient', (ingredient: string) => {
+  cy.findByLabelText('Select Ingredients')
+    .clear()
+    .type(ingredient)
+    .type('{enter}');
+});
+
+Cypress.Commands.add('deselectIngredient', (ingredient: string) => {
+  cy.contains(ingredient).click();
+});
+
+Cypress.Commands.add('deselectAllIngredients', () => {
+  cy.get('body')
+    .find('span')
+    .then(($elements) => {
+      const elementsWithClear = $elements.filter((index, el) => {
+        if (el && el.textContent) {
+          return el.textContent.includes('clear');
+        }
+        return false;
+      });
+      if (elementsWithClear.length > 0) {
+        cy.wrap(elementsWithClear).each(($el) => {
+          cy.wrap($el).click();
+        });
+      }
+    });
+});
+
+Cypress.Commands.add('deleteUserByUid', (uid: string) => {
+  return cy.wrap(axios.post('/api/fire/delete-user', { uid }));
+});
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      clearSessionGoToRoot(): Chainable<void>;
+      login(email: string, password: string): Chainable<void>;
+      selectIngredient(ingredient: string): Chainable<void>;
+      deselectIngredient(ingredient: string): Chainable<void>;
+      deselectAllIngredients(): Chainable<void>;
+      deleteUserByUid(uid: string): Chainable<AxiosResponse<any>>;
+    }
+  }
+}

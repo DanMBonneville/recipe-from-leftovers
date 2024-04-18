@@ -1,9 +1,21 @@
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { AppState } from '../store';
+import { logout } from '../store/reducers/userReducer';
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: AppState) => state.user.isLoggedIn);
+
+  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(logout());
+  };
+
   return (
     <div className="nav-bar">
       <Button
@@ -15,6 +27,16 @@ const NavBar = () => {
       >
         <Icon>home</Icon>
       </Button>
+      {isLoggedIn && (
+        <Button
+          data-testid="logout-btn"
+          className="logout-button"
+          variant="contained"
+          onClick={(e) => handleLogout(e)}
+        >
+          Logout
+        </Button>
+      )}
       <Button
         data-testid="back-page-btn"
         className="back-page-btn"

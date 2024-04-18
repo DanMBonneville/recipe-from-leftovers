@@ -1,11 +1,13 @@
 @use '@material/button/styles';
 @import 'abstracts/variables';
+@import 'containers/auth-pages';
 @import 'containers/recipe-details-page';
 @import 'containers/search-page';
 @import 'containers/search-results-page';
 @import 'components/loader';
 @import 'components/recipe-description';
 @import 'components/recipe-details-ingredient-list';
+@import 'components/save-ingredient-list-button';
 @import 'components/select-prompt';
 @import 'components/select-submit-ingredients';
 @import 'components/selected-ingredient-list';
@@ -45,6 +47,10 @@ body,
     }
 
     & .home-button {
+      margin-left: 10px;
+    }
+
+    & .logout-button {
       margin-left: 10px;
     }
 

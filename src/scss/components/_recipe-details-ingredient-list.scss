@@ -1,13 +1,16 @@
 // desktop
 .ingredient-details {
   width: 55%;
+  max-height: 100%;
+  overflow-y: scroll;
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   flex-direction: column;
 
   & .recipe-link {
+    // height: 15px;
     font-weight: 600;
     width: 94%;
     margin-bottom: 10px;

@@ -1,32 +1,45 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import {
+  createGetAllIngredientOptionsUrl,
+  createGetRecipeInfoByIdUrl,
+  createGetRecipesFromIngredientsUrl,
+  sendGetRequest,
+  sendPostRequest,
+} from './utils';
 
-const sendGetRequest = async (url: string) => {
-  try {
-    return (await axios.get(url)).data;
-  } catch (e) {
-    return Promise.reject(e);
+export const loginUser = createAsyncThunk(
+  'login-user',
+  async (body: Object) => {
+    return sendPostRequest('api/fire/login-user', body);
   }
-};
+);
 
-const createGetAllIngredientOptionsUrl = () => {
-  return `/api/get-ingredient-options`;
-};
-
-const createGetRecipesFromIngredientsUrl = (ingredients: String) => {
-  let url = '/api/get-recipes-from-ingredients';
-  let ingredientString = ingredients.toLowerCase();
-  return (url += `?ingredients=${ingredientString}`);
-};
-
-const createGetRecipeInfoByIdUrl = (id: number) => {
-  return `/api/get-recipe-link-by-id?id=${id}`;
-};
+export const createUser = createAsyncThunk(
+  'create-user',
+  async (body: Object) => {
+    return sendPostRequest('/api/fire/create-user', body);
+  }
+);
 
 export const getIngredientOptions = createAsyncThunk(
   'get-ingredient-options',
   async () => {
-    return await sendGetRequest(createGetAllIngredientOptionsUrl());
+    return sendGetRequest(createGetAllIngredientOptionsUrl());
+  }
+);
+
+export const getSavedSelectedIngredients = createAsyncThunk(
+  'get-default-selected-ingredients',
+  async (email: Object) => {
+    return sendGetRequest(
+      `/api/fire/get-default-selected-ingredients?email=${email}`
+    );
+  }
+);
+export const saveDefaultIngredients = createAsyncThunk(
+  'save-default-selected-ingredients',
+  async (body: Object) => {
+    return sendPostRequest('/api/fire/save-default-selected-ingredients', body);
   }
 );
 

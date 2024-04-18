@@ -1,81 +1,39 @@
 const PORT = 8000;
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
 const path = require('path');
+const { initializeFirebaseAdmin } = require('./firebaseConfig');
+const fireRouter = require('./routes/firebaseGeneralRoutes');
+const spoonRouter = require('./routes/spoonRoutes');
+const authRouter = require('./routes/firebaseAuthRoutes');
 require('dotenv').config();
 
 const app = express();
 app.use(
   cors({
-    allowedHeaders: ['authorization', 'Content-Type'], // you can change the headers
-    exposedHeaders: ['authorization'], // you can change the headers
+    allowedHeaders: ['authorization', 'Content-Type'],
+    exposedHeaders: ['authorization'],
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
   })
 );
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'build')));
 
-var admin = require('firebase-admin');
-
-var serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+const adminInstance = initializeFirebaseAdmin(
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY
+);
+app.use((req, res, next) => {
+  req.spoonKey = process.env.SPOON_API_KEY;
+  req.fireApiKey = process.env.FIREBASE_WEB_API_KEY;
+  req.firebaseAdmin = adminInstance;
+  next();
 });
 
-const spoonacular_domain = 'https://api.spoonacular.com/';
-const recipe_path = 'recipes/';
-const spoon_api_key_query_parm = `apiKey=${process.env.SPOON_API_KEY}`;
-
-const createGetRecipesByIngredientsUrl = (ingredients) => {
-  ingredients.toLowerCase();
-  return `${spoonacular_domain}${recipe_path}findByIngredients?ingredients=${ingredients}&ranking=2&${spoon_api_key_query_parm}`;
-};
-
-const createGetRecipeInfoByIdUrl = (id) => {
-  return `${spoonacular_domain}${recipe_path}${id}/information?${spoon_api_key_query_parm}`;
-};
-
-app.get('/api/get-ingredient-options', (req, res) => {
-  admin
-    .firestore()
-    .collection('ingredients')
-    .doc('options')
-    .get()
-    .then((docSnap) => {
-      res.json(docSnap.data());
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-app.get('/api/get-recipes-from-ingredients', (req, res) => {
-  let ingredients = req.query.ingredients;
-  if (ingredients) ingredients.toLowerCase();
-  let url = createGetRecipesByIngredientsUrl(ingredients);
-  axios
-    .get(url)
-    .then((recipes) => {
-      res.json(recipes.data);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
-
-app.get('/api/get-recipe-link-by-id', (req, res) => {
-  let url = createGetRecipeInfoByIdUrl(req.query.id);
-  axios
-    .get(url)
-    .then((recipeInfo) => {
-      res.json(recipeInfo.data.spoonacularSourceUrl);
-    })
-    .catch((error) => {
-      res.status(500).send(error);
-    });
-});
+app.use('/api/fire', authRouter);
+app.use('/api/fire', fireRouter);
+app.use('/api/spoon', spoonRouter);
 
 app.use((req, res) => {
   res.redirect('/');
