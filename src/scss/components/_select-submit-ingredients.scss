@@ -6,6 +6,10 @@
   gap: 0.75rem;
   align-items: center;
   margin-bottom: 10px;
+
+  & .MuiButtonBase-root {
+    width: 10%;
+  }
 }
 
 // mobile

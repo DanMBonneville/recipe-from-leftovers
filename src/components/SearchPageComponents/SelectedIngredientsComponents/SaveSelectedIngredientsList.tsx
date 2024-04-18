@@ -2,7 +2,9 @@ import { Button } from '@mui/material';
 import React from 'react';
 import { SaveSelectedIngredientsListProps } from '../../../common/types';
 
-const SaveIngredientListButton = (props: SaveSelectedIngredientsListProps) => {
+const SaveRestoreIngredientListButtons = (
+  props: SaveSelectedIngredientsListProps
+) => {
   const { saveDefaultFridge, restoreDefaultFridge } = props;
   return (
     <div className="default-ingredient-options">
@@ -28,4 +30,4 @@ const SaveIngredientListButton = (props: SaveSelectedIngredientsListProps) => {
   );
 };
 
-export default SaveIngredientListButton;
+export default SaveRestoreIngredientListButtons;
