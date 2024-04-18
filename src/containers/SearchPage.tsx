@@ -15,7 +15,11 @@ import SelectSubmitIngredients from '../components/SearchPageComponents/SelectSu
 import SaveRestoreIngredientListButtons from '../components/SearchPageComponents/SelectedIngredientsComponents/SaveSelectedIngredientsList';
 import SelectedIngredientList from '../components/SearchPageComponents/SelectedIngredientsComponents/SelectedIngredientList';
 import { AppState, store } from '../store';
-import { getRecipes, saveDefaultIngredients } from '../store/actions/actions';
+import {
+  getIngredientOptions,
+  getRecipes,
+  saveDefaultIngredients,
+} from '../store/actions/actions';
 import {
   addIngredientOption,
   addSelectedIngredients,
@@ -54,6 +58,12 @@ const SearchPage = () => {
   );
 
   const [recipeButtonDisabled, setRecipeButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    if (0 === intialIngredientOptions.length) {
+      store.dispatch(getIngredientOptions());
+    }
+  }, [intialIngredientOptions]);
 
   useEffect(() => {
     if (0 === selectedIngredients.length) {

@@ -110,7 +110,7 @@ describe('searchPage e2e tests', () => {
       cy.login(testUser2Email, testUser2Password);
     });
 
-    it('Second user does not have default state', () => {
+    it('Verify second user does not have default selection of the first user', () => {
       cy.get('[key="Apple"]').should('not.exist');
     });
 
