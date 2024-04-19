@@ -137,6 +137,7 @@ describe('searchPage e2e tests', () => {
     });
 
     after(() => {
+      cy.findByText('Logout').click();
       cy.login(testUser1Email, testUser1Password);
       cy.deselectAllIngredients();
       cy.intercept('POST', '**save-default-selected-ingredients').as(
