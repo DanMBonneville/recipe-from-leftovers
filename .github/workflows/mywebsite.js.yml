@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  build-and-deploy:
+  build-and-test:
     runs-on: self-hosted
 
     strategy:
@@ -47,34 +47,6 @@ jobs:
           echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
           echo "FIREBASE_WEB_API_KEY=${{ secrets.FIREBASE_WEB_API_KEY }}" >> .env
           echo "FIREBASE_SERVICE_ACCOUNT_KEY=$(echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | base64 --decode)" >> .env
-
-  test:
-    runs-on: self-hosted
-    needs: build-and-deploy
-
-    strategy:
-      matrix:
-        node-version: [17.x]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Cache node modules
-        id: npm-cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
 
       - name: Run Cypress tests
         run: npm run cy:run
