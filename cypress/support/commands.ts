@@ -13,6 +13,10 @@ Cypress.Commands.add('clearSessionGoToRoot', () => {
   });
 });
 
+Cypress.Commands.add('waitForStableDom', () => {
+  cy.waitForStableDOM(stableDomDefaultParams);
+});
+
 Cypress.Commands.add('login', (email: string, password: string) => {
   cy.clearSessionGoToRoot();
   cy.findByTestId('login-email-input').clear();
@@ -61,6 +65,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       clearSessionGoToRoot(): Chainable<void>;
+      waitForStableDom(): Chainable<void>;
       login(email: string, password: string): Chainable<void>;
       selectIngredient(ingredient: string): Chainable<void>;
       deselectIngredient(ingredient: string): Chainable<void>;

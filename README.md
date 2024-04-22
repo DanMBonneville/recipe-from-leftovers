@@ -1,5 +1,7 @@
+A React application for creating recipes from the leftover food in your fridge
+
 MVP deployed on 4/4/24 https://www.recipe-from-leftovers.com
-An application for suggesting recipes based on leftover food in the fridge
+v2 deployed 4/18/24
 
 # Recipe from Leftovers
 
