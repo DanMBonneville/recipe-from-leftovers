@@ -7,8 +7,9 @@ on:
       - completed
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: self-hosted
+    if: github.event.workflow_run.conclusion == 'success'
 
     strategy:
       matrix:
