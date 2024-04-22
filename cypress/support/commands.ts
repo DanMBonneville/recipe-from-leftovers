@@ -13,7 +13,12 @@ Cypress.Commands.add('clearSessionGoToRoot', () => {
   });
 });
 
+Cypress.Commands.add('waitForStableDom', () => {
+  cy.waitForStableDOM(stableDomDefaultParams);
+});
+
 Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.waitForStableDOM();
   cy.clearSessionGoToRoot();
   cy.findByTestId('login-email-input').clear();
   cy.findByTestId('login-password-input').clear();
@@ -50,6 +55,7 @@ Cypress.Commands.add('deselectAllIngredients', () => {
         });
       }
     });
+  cy.findByTestId('select-prompt').click();
 });
 
 Cypress.Commands.add('deleteUserByUid', (uid: string) => {
@@ -60,6 +66,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       clearSessionGoToRoot(): Chainable<void>;
+      waitForStableDom(): Chainable<void>;
       login(email: string, password: string): Chainable<void>;
       selectIngredient(ingredient: string): Chainable<void>;
       deselectIngredient(ingredient: string): Chainable<void>;

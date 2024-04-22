@@ -1,4 +1,7 @@
-MVP v1 is deployed on https://www.recipe-from-leftovers.com
+A React application for creating recipes from the leftover food in your fridge
+
+MVP deployed on 4/4/24 https://www.recipe-from-leftovers.com
+v2 deployed 4/18/24
 
 # Recipe from Leftovers
 

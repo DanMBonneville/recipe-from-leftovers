@@ -32,9 +32,6 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Verify directory
-        run: pwd
-
       - name: build project
         run: npm run build
 

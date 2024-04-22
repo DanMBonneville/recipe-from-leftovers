@@ -128,7 +128,7 @@ describe('searchPage e2e tests', () => {
       cy.findByText('Logout').click();
     });
 
-    it('Verify first user maintins default selection', () => {
+    it('Verify first user maintains default selection', () => {
       cy.login(testUser1Email, testUser1Password);
       cy.findByTestId('select-prompt').should('be.visible');
       cy.findByText('Apple').should('be.visible');
@@ -137,21 +137,22 @@ describe('searchPage e2e tests', () => {
     });
 
     after(() => {
+      cy.waitForStableDOM();
+      cy.findByText('Logout').click();
       cy.login(testUser1Email, testUser1Password);
+      cy.deselectAllIngredients();
       cy.intercept('POST', '**save-default-selected-ingredients').as(
         'SaveIngredients'
       );
-      cy.deselectAllIngredients().then(() => {
-        cy.findByText('Save Selection').click();
-      });
+      cy.findByText('Save Selection').click();
       cy.wait('@SaveIngredients');
       cy.login(testUser2Email, testUser2Password);
+      cy.deselectAllIngredients();
       cy.intercept('POST', '**save-default-selected-ingredients').as(
         'SaveIngredients'
       );
-      cy.deselectAllIngredients().then(() => {
-        cy.findByText('Save Selection').click();
-      });
+      cy.findByText('Save Selection').click();
+      cy.wait('@SaveIngredients');
     });
   });
 });
