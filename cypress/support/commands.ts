@@ -18,6 +18,7 @@ Cypress.Commands.add('waitForStableDom', () => {
 });
 
 Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.waitForStableDOM();
   cy.clearSessionGoToRoot();
   cy.findByTestId('login-email-input').clear();
   cy.findByTestId('login-password-input').clear();
