@@ -78,7 +78,7 @@ jobs:
 
   test:
     runs-on: self-hosted
-    needs: build
+    needs: deploy
 
     strategy:
       matrix:
