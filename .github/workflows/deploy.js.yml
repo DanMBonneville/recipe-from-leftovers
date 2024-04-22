@@ -1,8 +1,10 @@
-name: Mywebsite.js CI
+name: deploy
 
 on:
-  push:
-    branches: ['main']
+  workflow_run:
+    workflows: ['build']
+    types:
+      - completed
 
 jobs:
   build-and-test:
@@ -32,12 +34,6 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Verify directory
-        run: pwd
-
-      - name: build project
-        run: npm run build
-
       - name: restart server
         run: |
           pm2 stop 0 || true
@@ -50,6 +46,3 @@ jobs:
           echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
           echo "FIREBASE_WEB_API_KEY=${{ secrets.FIREBASE_WEB_API_KEY }}" >> .env
           echo "FIREBASE_SERVICE_ACCOUNT_KEY=$(echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | base64 --decode)" >> .env
-
-      - name: Run Cypress tests
-        run: npm run cy:run
