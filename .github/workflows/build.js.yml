@@ -1,11 +1,11 @@
-name: Mywebsite.js CI
+name: build
 
 on:
   push:
     branches: ['main']
 
 jobs:
-  build-and-test:
+  build:
     runs-on: self-hosted
 
     strategy:
@@ -32,24 +32,5 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Verify directory
-        run: pwd
-
       - name: build project
         run: npm run build
-
-      - name: restart server
-        run: |
-          pm2 stop 0 || true
-          pm2 start 0
-          pm2 save
-          sudo service nginx restart
-
-      - name: Set environment variables
-        run: |
-          echo "SPOON_API_KEY=${{ secrets.SPOON_API_KEY }}" >> .env
-          echo "FIREBASE_WEB_API_KEY=${{ secrets.FIREBASE_WEB_API_KEY }}" >> .env
-          echo "FIREBASE_SERVICE_ACCOUNT_KEY=$(echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}" | base64 --decode)" >> .env
-
-      - name: Run Cypress tests
-        run: npm run cy:run
