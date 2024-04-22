@@ -5,7 +5,7 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: self-hosted
 
     strategy:
@@ -35,34 +35,6 @@ jobs:
       - name: build project
         run: npm run build
 
-  deploy:
-    runs-on: self-hosted
-    needs: build
-
-    strategy:
-      matrix:
-        node-version: [17.x]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Cache node modules
-        id: npm-cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
-
       - name: restart server
         run: |
           pm2 stop 0 || true
@@ -78,7 +50,7 @@ jobs:
 
   test:
     runs-on: self-hosted
-    needs: deploy
+    needs: build-and-deploy
 
     strategy:
       matrix:
