@@ -128,7 +128,7 @@ describe('searchPage e2e tests', () => {
       cy.findByText('Logout').click();
     });
 
-    it('Verify first user maintins default selection', () => {
+    it('Verify first user maintains default selection', () => {
       cy.login(testUser1Email, testUser1Password);
       cy.findByTestId('select-prompt').should('be.visible');
       cy.findByText('Apple').should('be.visible');
