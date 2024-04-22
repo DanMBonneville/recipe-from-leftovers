@@ -1,4 +1,5 @@
 MVP deployed on 4/4/24 https://www.recipe-from-leftovers.com
+An application for suggesting recipes based on leftover food in the fridge
 
 # Recipe from Leftovers
 
