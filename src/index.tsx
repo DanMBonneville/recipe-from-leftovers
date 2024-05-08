@@ -22,7 +22,7 @@ const theme = createTheme({
     },
   },
 });
-
+// some change
 root.render(
   <React.StrictMode>
     <Provider store={store}>
